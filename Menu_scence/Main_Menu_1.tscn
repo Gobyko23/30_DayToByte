@@ -1,0 +1,140 @@
+[gd_scene load_steps=20 format=3 uid="uid://l27jg2e7gup2"]
+
+[ext_resource type="Texture2D" uid="uid://dj86gvkqvc3x" path="res://Assets/Gui/Play_godot_Ui-export.png" id="1_h2svc"]
+[ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Scripts/main_menu_1.gd" id="1_jkqpj"]
+[ext_resource type="Texture2D" uid="uid://covfjyqqdroqm" path="res://Assets/Gui/option_godot_Ui-export.png" id="2_am5sa"]
+[ext_resource type="Texture2D" uid="uid://do3ae7qtaco85" path="res://Assets/Gui/Exit_godot_Ui-export.png" id="3_jkqpj"]
+[ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/30Dtablet-export.png" id="4_jkqpj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rxij3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1gtyd"]
+texture = ExtResource("1_h2svc")
+modulate_color = Color(0.801882, 0.479248, 0.195774, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ewu2u"]
+texture = ExtResource("1_h2svc")
+modulate_color = Color(0.882343, 0.650487, 0.0696312, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ewu2u"]
+load_path = "res://.godot/imported/Play_godot_Ui-export.png-9b38b7d64aad0f2e2b67b109b754f332.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2jpb8"]
+texture = SubResource("CompressedTexture2D_ewu2u")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_axv1v"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rxij3"]
+texture = ExtResource("2_am5sa")
+modulate_color = Color(0.133134, 0.444016, 0.99999, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vjh8m"]
+texture = ExtResource("2_am5sa")
+modulate_color = Color(0.582934, 0.384103, 0.273493, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_asirl"]
+texture = ExtResource("2_am5sa")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mouqt"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mouqt"]
+texture = ExtResource("3_jkqpj")
+modulate_color = Color(0.595235, 0.16565, 0.166491, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_axv1v"]
+texture = ExtResource("3_jkqpj")
+modulate_color = Color(0.942387, 0.260095, 0.642216, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_owvko"]
+texture = ExtResource("3_jkqpj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4vtcr"]
+texture = ExtResource("4_jkqpj")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jkqpj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = 10.5
+offset_right = 103.0
+offset_bottom = 265.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Start_Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rxij3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1gtyd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ewu2u")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2jpb8")
+
+[node name="Option_Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_axv1v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rxij3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vjh8m")
+theme_override_styles/normal = SubResource("StyleBoxTexture_asirl")
+
+[node name="Quit_Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mouqt")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mouqt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_axv1v")
+theme_override_styles/normal = SubResource("StyleBoxTexture_owvko")
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.5
+offset_top = -232.0
+offset_right = 210.5
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(157.635, 72.1331)
+theme_override_styles/panel = SubResource("StyleBoxTexture_4vtcr")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 107.0
+offset_top = -70.0
+offset_right = 277.0
+offset_bottom = 8.0
+rotation = -0.269853
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/normal_font_size = 46
+text = "Demo 1"
+
+[connection signal="pressed" from="VBoxContainer/Start_Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Option_Button" to="." method="_on_option_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
