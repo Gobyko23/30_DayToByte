@@ -3,11 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://y064pagfy8jv" path="res://Assets/Models/Teto.png" id="1_fuq8r"]
 
 [resource]
-transparency = 1
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(0.117188, 0.117188, 0.117188, 1)
-emission_energy_multiplier = 30.94
+disable_ambient_light = true
+disable_fog = true
+albedo_color = Color(0, 0, 0, 1)
+emission = Color(0.834683, 0.818655, 0.807982, 1)
+emission_energy_multiplier = 89.24
 emission_texture = ExtResource("1_fuq8r")
-refraction_scale = 0.69
+refraction_enabled = true
 billboard_keep_scale = true

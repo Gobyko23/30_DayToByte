@@ -6,6 +6,8 @@ const JUMP_VELOCITY = 4.5
 @onready var InteractArea = $InteractArea
 @onready var InteractText = $Text_Screen
 var nearby_objects: Array[Node3D] = []
+var highlighted = null
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -28,16 +30,19 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	
+	_update_closest_object()
 	
 	if Input.is_action_just_pressed("interact_bind"):
 		_interact_closest_object()
 
-
-func _interact_closest_object():
+func _update_closest_object():
 	if nearby_objects.is_empty():
+		if highlighted:
+			_set_highlight(highlighted, false)
+			highlighted = null
+		InteractText.visible = false
 		return
-		
+
 	var closest = null
 	var closest_dist = INF
 	var player_pos = global_transform.origin
@@ -48,14 +53,31 @@ func _interact_closest_object():
 			closest_dist = d
 			closest = obj
 
-	if closest:
-		print("Interacting with: ", closest.name)
-		closest.queue_free()
-		nearby_objects.erase(closest)
+	# ถ้าเจอ object ตัวใหม่ → ปิด highlight ของตัวเก่า
+	if highlighted and highlighted != closest:
+		_set_highlight(highlighted, false)
 
-		# ถ้าไม่มีอะไรในระยะแล้ว → ซ่อนข้อความ
-		if nearby_objects.is_empty():
-			InteractText.visible = false
+	highlighted = closest
+	_set_highlight(highlighted, true)
+	InteractText.visible = true
+
+
+func _interact_closest_object():
+	if not highlighted:
+		return
+
+	print("Interact with: ", highlighted.name)
+
+	highlighted.interactable() #method แยก
+	nearby_objects.erase(highlighted)
+
+	highlighted = null
+	InteractText.visible = false
+
+
+func _set_highlight(obj, enable: bool):
+	if obj.has_node("HighlightMesh"):
+		obj.get_node("HighlightMesh").visible = enable
 
 func _on_interact_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("interactable"):
@@ -70,6 +92,9 @@ func _on_interact_area_body_exited(body: Node3D) -> void:
 		nearby_objects.erase(body)
 		body.interact_event_out()
 		print("Player: Not Interacted: ", body.name)
+		if highlighted == body:
+			_set_highlight(body, false)
+			highlighted = null
 		if nearby_objects.is_empty():
 			InteractText.visible = false
 		
