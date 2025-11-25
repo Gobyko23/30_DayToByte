@@ -88,5 +88,78 @@ visible = false
 mesh = SubResource("ArrayMesh_qib8o")
 skeleton = NodePath("../MeshInstance3D2")
 
+[node name="TheBox2" type="RigidBody3D" parent="." groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2939, 5.18174, 0)
+collision_layer = 2
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_8wiu1")
+script = ExtResource("1_7h88j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBox2"]
+shape = SubResource("BoxShape3D_8wiu1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TheBox2"]
+mesh = SubResource("BoxMesh_qib8o")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="TheBox2"]
+visible = false
+mesh = SubResource("ArrayMesh_qib8o")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="TheBox3" type="RigidBody3D" parent="." groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.00382, 5.18174, 0)
+collision_layer = 2
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_8wiu1")
+script = ExtResource("1_7h88j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBox3"]
+shape = SubResource("BoxShape3D_8wiu1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TheBox3"]
+mesh = SubResource("BoxMesh_qib8o")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="TheBox3"]
+visible = false
+mesh = SubResource("ArrayMesh_qib8o")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="TheBox4" type="RigidBody3D" parent="." groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.00382, 7.1979, 0)
+collision_layer = 2
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_8wiu1")
+script = ExtResource("1_7h88j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBox4"]
+shape = SubResource("BoxShape3D_8wiu1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TheBox4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11733, 0, 0)
+mesh = SubResource("BoxMesh_qib8o")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="TheBox4"]
+visible = false
+mesh = SubResource("ArrayMesh_qib8o")
+skeleton = NodePath("../MeshInstance3D2")
+
+[node name="TheBox5" type="RigidBody3D" parent="." groups=["interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.57738, 8.70443, 0)
+collision_layer = 2
+mass = 0.001
+physics_material_override = SubResource("PhysicsMaterial_8wiu1")
+script = ExtResource("1_7h88j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheBox5"]
+shape = SubResource("BoxShape3D_8wiu1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="TheBox5"]
+mesh = SubResource("BoxMesh_qib8o")
+
+[node name="HighlightMesh" type="MeshInstance3D" parent="TheBox5"]
+visible = false
+mesh = SubResource("ArrayMesh_qib8o")
+skeleton = NodePath("../MeshInstance3D2")
+
 [node name="Player" parent="." instance=ExtResource("1_8wiu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40444, 4.27167, -3.96831)
