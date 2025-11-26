@@ -135,7 +135,6 @@ script = ExtResource("1_7h88j")
 shape = SubResource("BoxShape3D_8wiu1")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="TheBox4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11733, 0, 0)
 mesh = SubResource("BoxMesh_qib8o")
 
 [node name="HighlightMesh" type="MeshInstance3D" parent="TheBox4"]

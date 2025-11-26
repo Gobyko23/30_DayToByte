@@ -5,8 +5,15 @@ const SPEED = 6.0
 const JUMP_VELOCITY = 4.5
 @onready var InteractArea = $InteractArea
 @onready var InteractText = $Text_Screen
+@onready var HoldBar = $Text_Screen/HoldBar
 var nearby_objects: Array[Node3D] = []
 var highlighted = null
+
+
+# เวลาที่ต้องการให้ผู้เล่นกดค้าง (วินาที)
+const HOLD_TIME = 0.5
+var hold_timer := 0.0
+var is_holding := false
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -32,8 +39,28 @@ func _physics_process(delta: float) -> void:
 	
 	_update_closest_object()
 	
-	if Input.is_action_just_pressed("interact_bind"):
-		_interact_closest_object()
+# -------------------------
+	# ระบบกดค้างเพื่อ Interact
+	# -------------------------
+	if Input.is_action_pressed("interact_bind") and not nearby_objects.is_empty():
+		is_holding = true
+		hold_timer += delta
+		print(hold_timer)
+		HoldBar.value = (hold_timer / HOLD_TIME) * 100.0
+		
+		if hold_timer >= HOLD_TIME:
+			hold_timer = 0
+			HoldBar.value = 0
+			is_holding = false
+			_interact_closest_object()
+	
+	else:
+		# ปล่อยปุ่ม
+		if is_holding:
+			is_holding = false
+			HoldBar.value = 0
+			hold_timer = 0
+
 
 func _update_closest_object():
 	if nearby_objects.is_empty():
@@ -73,6 +100,7 @@ func _interact_closest_object():
 
 	highlighted = null
 	InteractText.visible = false
+	
 
 
 func _set_highlight(obj, enable: bool):

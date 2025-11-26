@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://o6ai16t3tw6e"]
+[gd_scene load_steps=8 format=3 uid="uid://o6ai16t3tw6e"]
 
 [ext_resource type="Texture2D" uid="uid://y064pagfy8jv" path="res://Assets/Models/Teto.png" id="1_3s4mx"]
 [ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scence/char_sprite.gd" id="1_crfo7"]
@@ -9,9 +9,14 @@ height = 1.80073
 [sub_resource type="BoxShape3D" id="BoxShape3D_16m5h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_16m5h"]
-font_size = 31
+font_size = 26
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16m5h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16m5h"]
+bg_color = Color(0, 1, 0.359375, 1)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_crfo7")
@@ -40,7 +45,6 @@ shape = SubResource("BoxShape3D_16m5h")
 debug_color = Color(0.7, 0.0984375, 0, 0.42)
 
 [node name="Text_Screen" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,10 +59,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = 78.0
-offset_right = 160.0
-offset_bottom = 227.0
+offset_left = -111.0
+offset_top = 101.0
+offset_right = 110.0
+offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 46
@@ -66,6 +70,22 @@ text = "E To Interact"
 label_settings = SubResource("LabelSettings_16m5h")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HoldBar" type="ProgressBar" parent="Text_Screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = 189.0
+offset_right = 177.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_16m5h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_16m5h")
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
