@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://l27jg2e7gup2"]
+[gd_scene load_steps=19 format=3 uid="uid://l27jg2e7gup2"]
 
 [ext_resource type="Texture2D" uid="uid://dj86gvkqvc3x" path="res://Assets/Gui/Play_godot_Ui-export.png" id="1_h2svc"]
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Scripts/main_menu_1.gd" id="1_jkqpj"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://do3ae7qtaco85" path="res://Assets/Gui/Exit_godot_Ui-export.png" id="3_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/30Dtablet-export.png" id="4_jkqpj"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rxij3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkqpj"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1gtyd"]
 texture = ExtResource("1_h2svc")
@@ -16,11 +16,8 @@ modulate_color = Color(0.801882, 0.479248, 0.195774, 1)
 texture = ExtResource("1_h2svc")
 modulate_color = Color(0.882343, 0.650487, 0.0696312, 1)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ewu2u"]
-load_path = "res://.godot/imported/Play_godot_Ui-export.png-9b38b7d64aad0f2e2b67b109b754f332.ctex"
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2jpb8"]
-texture = SubResource("CompressedTexture2D_ewu2u")
+texture = ExtResource("1_h2svc")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_axv1v"]
 
@@ -83,7 +80,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rxij3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jkqpj")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1gtyd")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ewu2u")
 theme_override_styles/normal = SubResource("StyleBoxTexture_2jpb8")
