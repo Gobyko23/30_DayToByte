@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 
-const SPEED = 6.0
-const JUMP_VELOCITY = 4.5
+const SPEED :float= 6.0
+const JUMP_VELOCITY :float= 4.5
 @onready var InteractArea = $InteractArea
 @onready var InteractText = $Text_Screen
 @onready var HoldBar = $Text_Screen/HoldBar
@@ -11,9 +11,9 @@ var highlighted = null
 
 
 # เวลาที่ต้องการให้ผู้เล่นกดค้าง (วินาที)
-const HOLD_TIME = 0.5
-var hold_timer := 0.0
-var is_holding := false
+const HOLD_TIME :float= 0.9
+var hold_timer :float= 0.0
+var is_holding :bool= false
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

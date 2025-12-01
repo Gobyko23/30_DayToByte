@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds23uuxkvbpfi"]
+[gd_scene load_steps=10 format=3 uid="uid://ds23uuxkvbpfi"]
 
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="1_saw18"]
 [ext_resource type="PackedScene" uid="uid://br461d2cjfani" path="res://Scence/bg.tscn" id="2_2ql1y"]
 [ext_resource type="MeshLibrary" uid="uid://bvlbel0ympipq" path="res://Assets/Tile_set/All/Out_Side_2.tres" id="3_yxyh7"]
+[ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_System.tscn" id="4_o4lyb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yxyh7"]
 sky_top_color = Color(0.191332, 0.208243, 0.231771, 1)
@@ -64,16 +65,16 @@ omni_range = 3.221
 omni_attenuation = -0.605
 
 [node name="BG" parent="." instance=ExtResource("2_2ql1y")]
-transform = Transform3D(13.2938, 0, 0, 0, 16.1316, 0, 0, 0, 5.55251, -17.3461, 4.01376, -51.7765)
+transform = Transform3D(15.3922, 0, 0, 0, 22.7962, 0, 0, 0, 5.55251, -21.5875, 10.6858, -84.2225)
 
 [node name="BG2" parent="." instance=ExtResource("2_2ql1y")]
-transform = Transform3D(13.2938, 0, 0, 0, 16.1316, 0, 0, 0, 5.55251, -67.9453, 4.01376, -51.7765)
+transform = Transform3D(15.3922, 0, 0, 0, 22.7962, 0, 0, 0, 5.55251, -80.1735, 10.6858, -84.2225)
 
 [node name="BG3" parent="." instance=ExtResource("2_2ql1y")]
-transform = Transform3D(13.2938, 0, 0, 0, 16.1316, 0, 0, 0, 5.55251, 33.2068, 4.01376, -51.7765)
+transform = Transform3D(15.3922, 0, 0, 0, 22.7962, 0, 0, 0, 5.55251, 36.945, 10.6858, -84.2225)
 
 [node name="BG4" parent="." instance=ExtResource("2_2ql1y")]
-transform = Transform3D(13.2938, 0, 0, 0, 16.1316, 0, 0, 0, 5.55251, 83.7936, 4.01376, -51.7765)
+transform = Transform3D(15.3922, 0, 0, 0, 22.7962, 0, 0, 0, 5.55251, 95.5167, 10.6858, -84.2225)
 
 [node name="Part" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.906, 0, 0)
@@ -130,3 +131,6 @@ light_energy = 2.103
 light_indirect_energy = 2.324
 light_volumetric_fog_energy = 1.441
 light_specular = 1.331
+
+[node name="Node3D" parent="." instance=ExtResource("4_o4lyb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.84386, 2.05415, -9.52329)
