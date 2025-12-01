@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds23uuxkvbpfi"]
+[gd_scene load_steps=11 format=3 uid="uid://ds23uuxkvbpfi"]
 
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="1_saw18"]
 [ext_resource type="PackedScene" uid="uid://br461d2cjfani" path="res://Scence/bg.tscn" id="2_2ql1y"]
 [ext_resource type="MeshLibrary" uid="uid://bvlbel0ympipq" path="res://Assets/Tile_set/All/Out_Side_2.tres" id="3_yxyh7"]
 [ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_System.tscn" id="4_o4lyb"]
+[ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/player_camera.gd" id="5_48dyd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yxyh7"]
 sky_top_color = Color(0.191332, 0.208243, 0.231771, 1)
@@ -134,3 +135,11 @@ light_specular = 1.331
 
 [node name="Node3D" parent="." instance=ExtResource("4_o4lyb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.84386, 2.05415, -9.52329)
+
+[node name="Player_Camera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.766473, 5.09207)
+fov = 48.8
+script = ExtResource("5_48dyd")
+target = NodePath("../Char_Sprite")
+smooth_speed = 2.0
+offset = Vector3(0, 1, 6)

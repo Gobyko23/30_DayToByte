@@ -94,7 +94,8 @@ mesh = SubResource("PlaneMesh_e0f6x")
 transform = Transform3D(0.682407, 0, -0.730973, 0, 1, 0, 0.730973, 0, 0.682407, 0, -1.24835, -3.14755)
 
 [node name="Camera3D" type="Camera3D" parent="Camera_center_Pos"]
-transform = Transform3D(1, 0, 0, 0, 0.979445, 0.20171, 0, -0.20171, 0.979445, 0, 3.07538, 8.65808)
+transform = Transform3D(1, 0, 0, 0, 0.979445, 0.20171, 0, -0.20171, 0.979445, 0, 2.58551, 8.69572)
+fov = 64.3364
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera_center_Pos"]
 root_node = NodePath("../Camera3D")

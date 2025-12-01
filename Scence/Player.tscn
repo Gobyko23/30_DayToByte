@@ -31,11 +31,6 @@ transform = Transform3D(1.18, 0, 0, 0, 1.18, 0, 0, 0, 1.18, 0, 0.601959, 0)
 shape = SubResource("CapsuleShape3D_wh8ti")
 debug_color = Color(0.0153334, 0.723173, 0.841146, 0.42)
 
-[node name="Player_Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.766473, 5.09207)
-doppler_tracking = 2
-fov = 48.8
-
 [node name="InteractArea" type="Area3D" parent="."]
 collision_mask = 2
 
