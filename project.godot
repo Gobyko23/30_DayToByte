@@ -17,11 +17,15 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 =======
 <<<<<<< Updated upstream
 run/main_scene="uid://df58lcvd3m1i2"
+<<<<<<< HEAD
 =======
 run/main_scene="uid://ds23uuxkvbpfi"
 >>>>>>> Stashed changes
 config/features=PackedStringArray("4.5", "GL Compatibility")
 >>>>>>> Pk_Test_Test_Test
+=======
+config/features=PackedStringArray("4.4", "GL Compatibility")
+>>>>>>> parent of 2ba83f4 (For Pk)
 config/icon="res://icon.svg"
 
 [dotnet]
