@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://jf7una4atcek"]
+[gd_scene load_steps=16 format=4 uid="uid://jf7una4atcek"]
 
 [ext_resource type="Script" uid="uid://b8eh1eklrlyby" path="res://Scripts/InteractObject.gd" id="1_7h88j"]
 [ext_resource type="Material" uid="uid://bfvuydppwvo7w" path="res://Matirial/Black.tres" id="2_qib8o"]
 [ext_resource type="Texture2D" uid="uid://cneih7bpxgnb4" path="res://Assets/Models/Prop_5.png" id="3_qib8o"]
 [ext_resource type="Texture2D" uid="uid://d1w6byi6m4m3w" path="res://Assets/Models/Prop_10.png" id="4_3ns4d"]
+[ext_resource type="AudioStream" uid="uid://evidtj2k2i3a" path="res://Assets/SFX/OpenBoxSFX.wav" id="5_ywkrd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wiu1"]
 rough = true
@@ -109,6 +110,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nftyj")
 
+[sub_resource type="QuadMesh" id="QuadMesh_ywkrd"]
+
 [node name="Node3D" type="Node3D"]
 
 [node name="TheBox" type="RigidBody3D" parent="." groups=["interactable"]]
@@ -137,3 +140,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297673, -0.0168847)
 visible = false
 mesh = SubResource("ArrayMesh_ywkrd")
 skeleton = NodePath("")
+
+[node name="DestoryTime" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+ignore_time_scale = true
+
+[node name="Open_SFX" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_ywkrd")
+volume_db = -2.5
+unit_size = 11.74
+pitch_scale = 0.93
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+layers = 2
+amount = 113
+lifetime = 1.55
+speed_scale = 3.67
+lifetime_randomness = 0.52
+fixed_fps = 30
+mesh = SubResource("QuadMesh_ywkrd")
+direction = Vector3(0, 1.15, 0)
+spread = 48.76
+gravity = Vector3(0, 4, 0)
+initial_velocity_max = 10.42
+scale_amount_min = 0.0

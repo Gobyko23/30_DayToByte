@@ -880,7 +880,7 @@ texture = ExtResource("3_8d0sx")
 environment = SubResource("Environment_gmowp")
 
 [node name="Trash" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.052823, 1.4905294, 7.1909647)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0528, 1.49053, 7.19096)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Trash"]
 
@@ -928,22 +928,24 @@ script = ExtResource("5_48dyd")
 target = NodePath("../Char_Sprite")
 offset = Vector3(0, 0.78, 6)
 
-[node name="SawfaiFahhh" type="StaticBody3D" parent="."]
+[node name="Node3D2" type="Node3D" parent="."]
+
+[node name="SawfaiFahhh" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.658, 6.0246, 7.54449)
 disable_mode = 1
 collision_layer = 3
 physics_material_override = SubResource("PhysicsMaterial_bqq5e")
 
-[node name="Sawfai" type="MeshInstance3D" parent="SawfaiFahhh"]
+[node name="Sawfai" type="MeshInstance3D" parent="Node3D2/SawfaiFahhh"]
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
 mesh = SubResource("ArrayMesh_qlbeq")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SawfaiFahhh"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/SawfaiFahhh"]
 transform = Transform3D(0.68, 0, 0, 0, 0.68, 0, 0, 0, 0.68, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_ts3cr")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="SawfaiFahhh"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Node3D2/SawfaiFahhh"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.92, -1.05901)
 light_color = Color(0.890625, 1, 0, 1)
 light_energy = 2.196
@@ -957,173 +959,173 @@ spot_attenuation = 0.63
 spot_angle = 24.38
 spot_angle_attenuation = 0.90125
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SawfaiFahhh"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D2/SawfaiFahhh"]
 transform = Transform3D(0.284863, 0, 0, 0, 0.0483582, -0.134055, 1.77636e-15, 0.0222484, 0.291375, -0.00201035, 2.03186, -0.957764)
 mesh = SubResource("BoxMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="SawfaiFahhh"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D2/SawfaiFahhh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.668969, -3.25434, 0.315649)
 
-[node name="bench" type="MeshInstance3D" parent="SawfaiFahhh/StaticBody3D"]
+[node name="bench" type="MeshInstance3D" parent="Node3D2/SawfaiFahhh/StaticBody3D"]
 mesh = SubResource("ArrayMesh_x30vq")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SawfaiFahhh/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/SawfaiFahhh/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_hahap")
 debug_fill = false
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="SawfaiFahhh"]
+[node name="StaticBody3D2" type="StaticBody3D" parent="Node3D2/SawfaiFahhh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.822673, -3.25434, 0.315649)
 
-[node name="bench" type="MeshInstance3D" parent="SawfaiFahhh/StaticBody3D2"]
+[node name="bench" type="MeshInstance3D" parent="Node3D2/SawfaiFahhh/StaticBody3D2"]
 mesh = SubResource("ArrayMesh_x30vq")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SawfaiFahhh/StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/SawfaiFahhh/StaticBody3D2"]
 shape = SubResource("ConcavePolygonShape3D_hahap")
 debug_fill = false
 
-[node name="Tower" type="StaticBody3D" parent="."]
+[node name="Tower" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(7.54974, 0, 0, 0, 7.54974, 0, 0, 0, 7.54974, 8.55869, 17.0575, -83.5397)
 
-[node name="tower" type="MeshInstance3D" parent="Tower"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower"]
 transform = Transform3D(7.545, 0, 0, 0, 7.545, 0, 0, 0, 7.545, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower"]
 transform = Transform3D(7.545, 0, 0, 0, 7.545, 0, 0, 0, 7.545, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower2" type="StaticBody3D" parent="."]
+[node name="Tower2" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(6.915, 0, 0, 0, 6.915, 0, 0, 0, 6.915, 39.5392, 17.0575, -73.6636)
 
-[node name="tower" type="MeshInstance3D" parent="Tower2"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower2"]
 transform = Transform3D(6.915, 0, 0, 0, 6.915, 0, 0, 0, 6.915, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower2"]
 transform = Transform3D(6.915, 0, 0, 0, 6.915, 0, 0, 0, 6.915, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower3" type="StaticBody3D" parent="."]
+[node name="Tower3" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(9.22, 0, 0, 0, 9.22, 0, 0, 0, 9.22, 66.4015, 16.7591, -119.806)
 
-[node name="tower" type="MeshInstance3D" parent="Tower3"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower3"]
 transform = Transform3D(9.22, 0, 0, 0, 9.22, 0, 0, 0, 9.22, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower3"]
 transform = Transform3D(9.22, 0, 0, 0, 9.22, 0, 0, 0, 9.22, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower4" type="StaticBody3D" parent="."]
+[node name="Tower4" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(7.87, 0, 0, 0, 7.87, 0, 0, 0, 7.87, 104.052, 17.0575, -85.3042)
 
-[node name="tower" type="MeshInstance3D" parent="Tower4"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower4"]
 transform = Transform3D(7.87, 0, 0, 0, 7.87, 0, 0, 0, 7.87, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower4"]
 transform = Transform3D(7.87, 0, 0, 0, 7.87, 0, 0, 0, 7.87, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower5" type="StaticBody3D" parent="."]
+[node name="Tower5" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(-7.44225, 0, 1.26945, 0, 7.54974, 0, -1.26945, 0, -7.44225, -40.2495, 17.0575, -89.7687)
 
-[node name="tower" type="MeshInstance3D" parent="Tower5"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower5"]
 transform = Transform3D(7.545, 0, 0, 0, 7.545, 0, 0, 0, 7.545, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower5"]
 transform = Transform3D(7.545, 0, 0, 0, 7.545, 0, 0, 0, 7.545, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower6" type="StaticBody3D" parent="."]
+[node name="Tower6" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(-6.81655, 0, 1.16272, 0, 6.915, 0, -1.16272, 0, -6.81655, -69.1283, 17.0575, -104.713)
 
-[node name="tower" type="MeshInstance3D" parent="Tower6"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower6"]
 transform = Transform3D(6.915, 0, 0, 0, 6.915, 0, 0, 0, 6.915, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower6"]
 transform = Transform3D(6.915, 0, 0, 0, 6.915, 0, 0, 0, 6.915, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower7" type="StaticBody3D" parent="."]
+[node name="Tower7" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(-9.08873, 0, 1.5503, 0, 9.22, 0, -1.5503, 0, -9.08873, -103.367, 16.7591, -63.7451)
 
-[node name="tower" type="MeshInstance3D" parent="Tower7"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower7"]
 transform = Transform3D(9.22, 0, 0, 0, 9.22, 0, 0, 0, 9.22, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower7"]
 transform = Transform3D(9.22, 0, 0, 0, 9.22, 0, 0, 0, 9.22, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower8" type="StaticBody3D" parent="."]
+[node name="Tower8" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(-7.75795, 0, 1.3233, 0, 7.87, 0, -1.3233, 0, -7.75795, -134.68, 17.0575, -104.086)
 
-[node name="tower" type="MeshInstance3D" parent="Tower8"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower8"]
 transform = Transform3D(7.87, 0, 0, 0, 7.87, 0, 0, 0, 7.87, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower8"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower8"]
 transform = Transform3D(7.87, 0, 0, 0, 7.87, 0, 0, 0, 7.87, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower9" type="StaticBody3D" parent="."]
+[node name="Tower9" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(3.31598, 0, -6.78254, 0, 7.54974, 0, 6.78254, 0, 3.31598, 171.314, 17.0575, -102.497)
 
-[node name="tower" type="MeshInstance3D" parent="Tower9"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower9"]
 transform = Transform3D(7.545, 0, 0, 0, 7.545, 0, 0, 0, 7.545, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower9"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower9"]
 transform = Transform3D(7.545, 0, 0, 0, 7.545, 0, 0, 0, 7.545, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower10" type="StaticBody3D" parent="."]
+[node name="Tower10" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(3.03719, 0, -6.2123, 0, 6.915, 0, 6.2123, 0, 3.03719, 208.531, 17.0575, -96.7133)
 
-[node name="tower" type="MeshInstance3D" parent="Tower10"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower10"]
 transform = Transform3D(6.915, 0, 0, 0, 6.915, 0, 0, 0, 6.915, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower10"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower10"]
 transform = Transform3D(6.915, 0, 0, 0, 6.915, 0, 0, 0, 6.915, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower11" type="StaticBody3D" parent="."]
+[node name="Tower11" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(4.04959, 0, -8.28307, 0, 9.22, 0, 8.28307, 0, 4.04959, 261.782, 16.7591, -92.8472)
 
-[node name="tower" type="MeshInstance3D" parent="Tower11"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower11"]
 transform = Transform3D(9.22, 0, 0, 0, 9.22, 0, 0, 0, 9.22, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower11"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower11"]
 transform = Transform3D(9.22, 0, 0, 0, 9.22, 0, 0, 0, 9.22, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")
 
-[node name="Tower12" type="StaticBody3D" parent="."]
+[node name="Tower12" type="StaticBody3D" parent="Node3D2"]
 transform = Transform3D(3.45665, 0, -7.07025, 0, 7.87, 0, 7.07025, 0, 3.45665, 247.323, 17.0575, -43.8694)
 
-[node name="tower" type="MeshInstance3D" parent="Tower12"]
+[node name="tower" type="MeshInstance3D" parent="Node3D2/Tower12"]
 transform = Transform3D(7.87, 0, 0, 0, 7.87, 0, 0, 0, 7.87, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ts3cr")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower12"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D2/Tower12"]
 transform = Transform3D(7.87, 0, 0, 0, 7.87, 0, 0, 0, 7.87, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_pk15v")

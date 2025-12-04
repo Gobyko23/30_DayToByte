@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jlm2ykp4yp5t"
-path.s3tc="res://.godot/imported/Prop_12.png-79dcd4a27d3c68c026765dceaee30924.s3tc.ctex"
+uid="uid://cfn8r02gql1cj"
+path.s3tc="res://.godot/imported/CEO.jpg-61921315c8f5db9fc803bad39021fa33.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "328c95e66cf3e4b9f3e753f9abacab20"
-}
 
 [deps]
 
-source_file="res://Assets/Models/Prop_12.png"
-dest_files=["res://.godot/imported/Prop_12.png-79dcd4a27d3c68c026765dceaee30924.s3tc.ctex"]
+source_file="res://Assets/Gui/CEO.jpg"
+dest_files=["res://.godot/imported/CEO.jpg-61921315c8f5db9fc803bad39021fa33.s3tc.ctex"]
 
 [params]
 
