@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Demo_101"
 run/main_scene="uid://ds23uuxkvbpfi"
+<<<<<<< HEAD
 config/features=PackedStringArray("4.4", "GL Compatibility")
 <<<<<<< HEAD
 =======
@@ -28,6 +29,9 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 >>>>>>> parent of 2ba83f4 (For Pk)
 =======
 >>>>>>> parent of f7c59da (n nj)
+=======
+config/features=PackedStringArray("4.5", "GL Compatibility")
+>>>>>>> parent of 4924511 (AAAAA)
 config/icon="res://icon.svg"
 
 [dotnet]
