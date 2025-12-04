@@ -1,9 +1,10 @@
 extends Node3D
 
-@onready var Delete_time := $"../DestoryTime"
-@onready var open_BOX := $open_BOX
-@onready var BOX := $BOX
-@onready var open_SFX := $"../Open_SFX"
+@onready var Delete_time :Timer= $"../DestoryTime"
+@onready var open_BOX :MeshInstance3D= $open_BOX
+@onready var BOX :MeshInstance3D= $BOX
+@onready var open_SFX :AudioStreamPlayer3D= $"../Open_SFX"
+@onready var VFX :GPUParticles3D= $InteractParticles
 func _ready():
 	# ต่อสัญญาณให้ Timer
 	Delete_time.timeout.connect(_on_destory_time_timeout)
@@ -17,6 +18,7 @@ func interact_event_out():
 func interactable():
 	BOX.visible = false 
 	open_BOX.visible = true
+	VFX.emitting = true
 	open_SFX.play()
 	Delete_time.start()
 	
