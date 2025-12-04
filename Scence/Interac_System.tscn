@@ -137,3 +137,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297673, -0.0168847)
 visible = false
 mesh = SubResource("ArrayMesh_ywkrd")
 skeleton = NodePath("")
+
+[node name="DestoryTime" type="Timer" parent="TheBox"]
