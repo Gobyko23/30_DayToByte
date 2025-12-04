@@ -918,7 +918,11 @@ light_specular = 1.331
 
 [node name="Node3D" parent="." instance=ExtResource("4_o4lyb")]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.797529, 1.8956399, 8.151943)
+=======
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3088, 1.98173, 9.06662)
+>>>>>>> Stashed changes
 =======
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3088, 1.98173, 9.06662)
 >>>>>>> Stashed changes
