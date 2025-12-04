@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="Demo_101"
+<<<<<<< Updated upstream
 run/main_scene="uid://df58lcvd3m1i2"
+=======
+run/main_scene="uid://ds23uuxkvbpfi"
+>>>>>>> Stashed changes
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
