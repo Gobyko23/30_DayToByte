@@ -892,7 +892,7 @@ skeleton = NodePath("")
 shape = SubResource("ConcavePolygonShape3D_7etsa")
 
 [node name="Char_Sprite" parent="." instance=ExtResource("1_saw18")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2518, 1.94482, 9.15387)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.721104, 2.8805256, 7.8270006)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Char_Sprite"]
 light_energy = 0.304
@@ -917,7 +917,7 @@ light_volumetric_fog_energy = 1.761
 light_specular = 1.331
 
 [node name="Node3D" parent="." instance=ExtResource("4_o4lyb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3088, 1.98173, 5.95758)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.797529, 1.8956399, 8.151943)
 
 [node name="Player_Camera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0986557, 0.541803, 5.26025)
