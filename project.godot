@@ -10,38 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Demo_101"
-<<<<<<< HEAD
-run/main_scene="uid://ds23uuxkvbpfi"
-<<<<<<< HEAD
-<<<<<<< HEAD
-config/features=PackedStringArray("4.4", "GL Compatibility")
-<<<<<<< HEAD
-=======
-<<<<<<< Updated upstream
-run/main_scene="uid://df58lcvd3m1i2"
-<<<<<<< HEAD
-=======
-run/main_scene="uid://ds23uuxkvbpfi"
->>>>>>> Stashed changes
-config/features=PackedStringArray("4.5", "GL Compatibility")
->>>>>>> Pk_Test_Test_Test
-=======
-config/features=PackedStringArray("4.4", "GL Compatibility")
->>>>>>> parent of 2ba83f4 (For Pk)
-=======
->>>>>>> parent of f7c59da (n nj)
-=======
-config/features=PackedStringArray("4.5", "GL Compatibility")
->>>>>>> parent of 4924511 (AAAAA)
-=======
-config/features=PackedStringArray("4.4", "GL Compatibility")
->>>>>>> parent of 6537924 (test_test)
-=======
-run/main_scene="uid://df58lcvd3m1i2"
-config/features=PackedStringArray("4.5", "GL Compatibility")
->>>>>>> parent of 916691f (Add SFX for interact)
-config/icon="res://icon.svg"
+config/features=PackedStringArray("4.4")
+
+[config]
+
+name="Demo_101"
+features=PackedStringArray("4.5", "GL Compatibility")
+icon="res://icon.svg"
 
 [dotnet]
 
@@ -90,3 +65,7 @@ interact_bind={
 [rendering]
 
 environment/screen_space_reflection/roughness_quality=0
+
+[run]
+
+main_scene="uid://dfS6ldv3dm1i2"
