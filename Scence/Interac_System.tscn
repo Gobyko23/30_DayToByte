@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://jf7una4atcek"]
+[gd_scene load_steps=26 format=4 uid="uid://jf7una4atcek"]
 
 [ext_resource type="Script" uid="uid://b8eh1eklrlyby" path="res://Scripts/InteractObject.gd" id="1_7h88j"]
 [ext_resource type="Material" uid="uid://bfvuydppwvo7w" path="res://Matirial/Black.tres" id="2_qib8o"]
 [ext_resource type="Texture2D" uid="uid://cneih7bpxgnb4" path="res://Assets/Models/Prop_5.png" id="3_qib8o"]
 [ext_resource type="Texture2D" uid="uid://d1w6byi6m4m3w" path="res://Assets/Models/Prop_10.png" id="4_3ns4d"]
+[ext_resource type="AudioStream" uid="uid://b3psnrnxybylf" path="res://Assets/SFX/pickupSFX_1.wav" id="5_ywkrd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wiu1"]
 rough = true
@@ -109,6 +110,72 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nftyj")
 
+[sub_resource type="Curve" id="Curve_ckggs"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tq3mv"]
+curve = SubResource("Curve_ckggs")
+
+[sub_resource type="Gradient" id="Gradient_ywkrd"]
+colors = PackedColorArray(1, 0.823917, 0.253205, 1, 0.986335, 0.75368, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ckggs"]
+gradient = SubResource("Gradient_ywkrd")
+
+[sub_resource type="Curve" id="Curve_bwtbm"]
+_limits = [0.99, 7.61, 0.0, 1.0]
+_data = [Vector2(0, 7.61), 0.0, 0.0, 0, 0, Vector2(1, 0.99), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d4el7"]
+curve = SubResource("Curve_bwtbm")
+
+[sub_resource type="Curve" id="Curve_ywkrd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ckggs"]
+curve = SubResource("Curve_ywkrd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ywkrd"]
+particle_flag_align_y = true
+emission_shape_offset = Vector3(0, 0.935, 0)
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -30.0
+angle_max = 30.0
+direction = Vector3(0, 1, 0)
+initial_velocity_max = 1.7
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 12.5
+tangential_accel_min = 22.42
+tangential_accel_max = 27.42
+scale_min = 0.0
+scale_max = 0.45
+scale_curve = SubResource("CurveTexture_ckggs")
+color_ramp = SubResource("GradientTexture1D_ckggs")
+alpha_curve = SubResource("CurveTexture_tq3mv")
+emission_curve = SubResource("CurveTexture_d4el7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ywkrd"]
+transparency = 1
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+emission = Color(0.650128, 0.650128, 0.650128, 1)
+emission_energy_multiplier = 3.06
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_ckggs"]
+material = SubResource("StandardMaterial3D_ywkrd")
+
 [node name="Node3D" type="Node3D"]
 
 [node name="TheBox" type="RigidBody3D" parent="." groups=["interactable"]]
@@ -139,3 +206,22 @@ mesh = SubResource("ArrayMesh_ywkrd")
 skeleton = NodePath("")
 
 [node name="DestoryTime" type="Timer" parent="TheBox"]
+one_shot = true
+
+[node name="OpenSFX" type="AudioStreamPlayer3D" parent="TheBox"]
+stream = ExtResource("5_ywkrd")
+pitch_scale = 1.78
+
+[node name="OpenPaticle" type="GPUParticles3D" parent="TheBox"]
+emitting = false
+amount = 28
+lifetime = 0.45
+one_shot = true
+speed_scale = 1.18
+fixed_fps = 60
+visibility_aabb = AABB(-1, -0.5, -1, 2, 2, 2)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ywkrd")
+draw_pass_1 = SubResource("QuadMesh_ckggs")
+
+[connection signal="timeout" from="TheBox/DestoryTime" to="TheBox" method="_on_destory_time_timeout"]

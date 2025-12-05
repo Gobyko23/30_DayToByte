@@ -10,6 +10,8 @@ config_version=5
 
 [application]
 
+config/name="Game_Project"
+run/main_scene="uid://blcwyvv6f1d8i"
 config/features=PackedStringArray("4.4")
 
 [config]
