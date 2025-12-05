@@ -6,12 +6,13 @@ const JUMP_VELOCITY :float= 4.5
 @onready var InteractArea = $InteractArea
 @onready var InteractText = $Text_Screen
 @onready var HoldBar = $Text_Screen/HoldBar
+@onready var Interact_Anim :AnimationPlayer= $TheBox/Interact_Anim
 var nearby_objects: Array[Node3D] = []
 var highlighted = null
 
 
 # เวลาที่ต้องการให้ผู้เล่นกดค้าง (วินาที)
-const HOLD_TIME :float= 0.9
+const HOLD_TIME :float= 1.9
 var hold_timer :float= 0.0
 var is_holding :bool= false
 
@@ -44,11 +45,18 @@ func _physics_process(delta: float) -> void:
 	# -------------------------
 	if Input.is_action_pressed("interact_bind") and not nearby_objects.is_empty():
 		is_holding = true
+		# 🟢 เรียก animation ของ object ตอนเริ่มกดค้าง
+		if highlighted and hold_timer == 0:
+			if highlighted.has_method("interacting"):
+				highlighted.interacting()
 		hold_timer += delta
 		print(hold_timer)
 		HoldBar.value = (hold_timer / HOLD_TIME) * 100.0
 		
 		if hold_timer >= HOLD_TIME:
+			# สำเร็จ → หยุดอนิเมชันค้าง
+			if highlighted and highlighted.has_method("interacting_cancle"):
+				highlighted.interacting_cancle()
 			hold_timer = 0
 			HoldBar.value = 0
 			is_holding = false
@@ -57,6 +65,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		# ปล่อยปุ่ม
 		if is_holding:
+			if highlighted and highlighted.has_method("interacting_cancle"):
+				highlighted.interacting_cancle()
 			is_holding = false
 			HoldBar.value = 0
 			hold_timer = 0

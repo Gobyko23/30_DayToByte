@@ -1,10 +1,11 @@
-[gd_scene load_steps=26 format=4 uid="uid://jf7una4atcek"]
+[gd_scene load_steps=30 format=4 uid="uid://jf7una4atcek"]
 
 [ext_resource type="Script" uid="uid://b8eh1eklrlyby" path="res://Scripts/InteractObject.gd" id="1_7h88j"]
 [ext_resource type="Material" uid="uid://bfvuydppwvo7w" path="res://Matirial/Black.tres" id="2_qib8o"]
 [ext_resource type="Texture2D" uid="uid://cneih7bpxgnb4" path="res://Assets/Models/Prop_5.png" id="3_qib8o"]
 [ext_resource type="Texture2D" uid="uid://d1w6byi6m4m3w" path="res://Assets/Models/Prop_10.png" id="4_3ns4d"]
 [ext_resource type="AudioStream" uid="uid://b3psnrnxybylf" path="res://Assets/SFX/pickupSFX_1.wav" id="5_ywkrd"]
+[ext_resource type="AudioStream" uid="uid://cmts7jfxrlc0p" path="res://Assets/SFX/OpenBox/OpeningBox1.wav" id="6_ckggs"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wiu1"]
 rough = true
@@ -176,17 +177,223 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_ckggs"]
 material = SubResource("StandardMaterial3D_ywkrd")
 
+[sub_resource type="Animation" id="Animation_ywkrd"]
+resource_name = "OpenBoxAnim"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TheBox/OpeningBox:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.866667, 1.3, 1.62194),
+"transitions": PackedFloat32Array(12.996, 1, 12.996, 1, 1),
+"update": 1,
+"values": [true, true, true, true, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TheBox/OpeningBox:pitch_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.933333, 1.4, 1.65019),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 1.58, 1.96, 1.16, 1.12]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TheBox/BOX:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.16667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.139626, 0, 0.109956), Vector3(0.0872665, 0, -0.109956), Vector3(-0.18326, 0, 0.109956), Vector3(-0.0872665, 0, -0.218166), Vector3(-0.165806, 0, 0.109956), Vector3(0.0872665, 0, -0.218166), Vector3(0.219911, 0, 0.109956), Vector3(-0.0872665, 0, -0.219911), Vector3(0, 5.11381, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TheBox/BOX:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.86667, 2.23667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0.795, 0), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TheBox/HighlightMesh:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.16667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.139626, 0, 0.109956), Vector3(0.0872665, 0, -0.109956), Vector3(-0.18326, 0, 0.109956), Vector3(-0.0872665, 0, -0.218166), Vector3(-0.165806, 0, 0.109956), Vector3(0.0872665, 0, -0.218166), Vector3(0.219911, 0, 0.109956), Vector3(-0.0872665, 0, -0.219911), Vector3(0, 5.11381, 0), Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TheBox/HighlightMesh:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.86667, 2.23667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.263781, 0), Vector3(0, 0.263781, 0), Vector3(0, 0.86, 0), Vector3(0, 0.263781, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TheBox/open_BOX:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.16667, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.139626, 0, 0.109956), Vector3(0.0872665, 0, -0.109956), Vector3(-0.18326, 0, 0.109956), Vector3(-0.0872665, 0, -0.218166), Vector3(-0.165806, 0, 0.109956), Vector3(0.0872665, 0, -0.218166), Vector3(0.219911, 0, 0.109956), Vector3(-0.0872665, 0, -0.219911), Vector3(0, 5.11381, 0), Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TheBox/open_BOX:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.86667, 2.23333, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.297673, -0.0168847), Vector3(0, 0.297673, -0.0168847), Vector3(0, 0.795, 0), Vector3(0, 0.297673, -0.0168847)]
+}
+
+[sub_resource type="Animation" id="Animation_ckggs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TheBox/OpeningBox:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TheBox/OpeningBox:pitch_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.11]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TheBox/BOX:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TheBox/BOX:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TheBox/HighlightMesh:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TheBox/HighlightMesh:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.255491, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TheBox/open_BOX:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.297673, -0.0168847)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TheBox/open_BOX:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ckggs"]
+_data = {
+&"OpenBoxAnim": SubResource("Animation_ywkrd"),
+&"RESET": SubResource("Animation_ckggs")
+}
+
 [node name="Node3D" type="Node3D"]
 
 [node name="TheBox" type="RigidBody3D" parent="." groups=["interactable"]]
+disable_mode = 1
 collision_layer = 2
-mass = 0.001
+mass = 1.294
 physics_material_override = SubResource("PhysicsMaterial_8wiu1")
+gravity_scale = 2.661
 script = ExtResource("1_7h88j")
 
 [node name="HighlightMesh" type="MeshInstance3D" parent="TheBox"]
 transform = Transform3D(0.995649, 0, 0, 0, 0.871935, 0, 0, 0, 0.987164, 0, 0.255491, 0)
-visible = false
 mesh = SubResource("ArrayMesh_qib8o")
 skeleton = NodePath("")
 
@@ -200,7 +407,7 @@ shape = SubResource("BoxShape3D_qib8o")
 debug_color = Color(1, 0.265625, 0, 0.42)
 
 [node name="open_BOX" type="MeshInstance3D" parent="TheBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297673, -0.0168847)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.297673, -0.0168847)
 visible = false
 mesh = SubResource("ArrayMesh_ywkrd")
 skeleton = NodePath("")
@@ -210,7 +417,8 @@ one_shot = true
 
 [node name="OpenSFX" type="AudioStreamPlayer3D" parent="TheBox"]
 stream = ExtResource("5_ywkrd")
-pitch_scale = 1.78
+volume_db = -17.486
+pitch_scale = 1.35
 
 [node name="OpenPaticle" type="GPUParticles3D" parent="TheBox"]
 emitting = false
@@ -223,5 +431,16 @@ visibility_aabb = AABB(-1, -0.5, -1, 2, 2, 2)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ywkrd")
 draw_pass_1 = SubResource("QuadMesh_ckggs")
+
+[node name="Interact_Anim" type="AnimationPlayer" parent="TheBox"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_ckggs")
+}
+
+[node name="OpeningBox" type="AudioStreamPlayer3D" parent="TheBox"]
+stream = ExtResource("6_ckggs")
+volume_db = 3.097
+pitch_scale = 1.11
 
 [connection signal="timeout" from="TheBox/DestoryTime" to="TheBox" method="_on_destory_time_timeout"]
