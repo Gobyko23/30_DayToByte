@@ -4,9 +4,12 @@ extends CharacterBody3D
 const SPEED :float= 6.0
 const JUMP_VELOCITY :float= 4.5
 @onready var InteractArea = $InteractArea
-@onready var InteractText = $Text_Screen
-@onready var HoldBar = $Text_Screen/HoldBar
+@onready var InteractText = $Interact_Screen/Interact_Text
+@onready var HoldBar = $Interact_Screen/HoldBar
 @onready var Interact_Anim :AnimationPlayer= $TheBox/Interact_Anim
+@onready var ViewSprite = $ViewSprite
+@onready var TextView3D = $ViewSprite/SubViewport/ViewPortControl/TextView3D
+@onready var ViewPort3DAnim = $ViewSprite/ViewSpriteAnim
 var nearby_objects: Array[Node3D] = []
 var highlighted = null
 
@@ -100,12 +103,14 @@ func _update_closest_object():
 
 
 func _interact_closest_object():
+	var Result_interact = null
 	if not highlighted:
 		return
 
 	print("Interact with: ", highlighted.name)
-
-	highlighted.interactable() #method แยก
+	Result_interact = highlighted.interactable() #method แยก
+	ViewPort3DAnim.play("3dViewPortAnim")
+	TextView3D.text = "You Got:  " + str(Result_interact)
 	nearby_objects.erase(highlighted)
 
 	highlighted = null
