@@ -16,11 +16,6 @@ background_mode = 2
 sky = SubResource("Sky_xlcw2")
 tonemap_mode = 2
 glow_enabled = true
-glow_normalized = true
-glow_intensity = 0.48
-glow_strength = 0.84
-glow_bloom = 0.12
-glow_blend_mode = 1
 
 [sub_resource type="BoxMesh" id="BoxMesh_0itcn"]
 
@@ -29,12 +24,12 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="MainGameOutSide" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rkrtr")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_rkrtr")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(6.86, 0, 0, 0, 6.86, 0, 0, 0, 6.86, 0, 0, 0)
@@ -51,22 +46,12 @@ shape = SubResource("ConcavePolygonShape3D_0itcn")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68552, 0)
 
 [node name="Node3D" parent="." instance=ExtResource("2_btx0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.74244, 2.22439, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)
 
 [node name="Node3D2" parent="." instance=ExtResource("2_btx0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2457, 2.22439, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85678, 0.658829, 0.0519217)
 
-[node name="Node3D3" parent="." instance=ExtResource("2_btx0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2457, 2.22439, 0)
-
-[node name="Node3D4" parent="." instance=ExtResource("2_btx0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.68234, 2.22439, 0)
-
-[node name="Node3D5" parent="." instance=ExtResource("2_btx0n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8803, 2.22439, 0)
-
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.36515, 10.6789)
+[node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_xlcw2")
 target = NodePath("../Player")
-offset = Vector3(0, 1.5, 6)
+offset = Vector3(0, 1, 6)
