@@ -1,7 +1,7 @@
 extends Node2D
 
 var Inventory: Dictionary = {}
-
+signal inventory_changed
 # ฟังก์ชันอัปเดต Inventory
 func update_item(item: String, amount: int):
 	if Inventory.has(item):
@@ -11,6 +11,7 @@ func update_item(item: String, amount: int):
 	
 	if Inventory[item] <= 0:
 		Inventory.erase(item)
+	emit_signal("inventory_changed")
 
 
 

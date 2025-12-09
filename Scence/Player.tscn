@@ -1,8 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://o6ai16t3tw6e"]
+[gd_scene load_steps=22 format=3 uid="uid://o6ai16t3tw6e"]
 
 [ext_resource type="Texture2D" uid="uid://y064pagfy8jv" path="res://Assets/Models/Teto.png" id="1_3s4mx"]
 [ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scence/char_sprite.gd" id="1_crfo7"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/item_list_Inventory.gd" id="3_7iold"]
+[ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="4_2dldw"]
+[ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="4_h5heb"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_16m5h"]
 viewport_path = NodePath("ViewSprite/SubViewport")
@@ -110,6 +112,18 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16m5h"]
 bg_color = Color(0, 1, 0.359375, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kw1ah"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2dldw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dldw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1k0cf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yy4a5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efdfb"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_crfo7")
@@ -231,19 +245,35 @@ offset_bottom = 419.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
-scroll_active = false
+text = "ssszzcfszfcz"
 context_menu_enabled = true
+horizontal_alignment = 1
 script = ExtResource("3_7iold")
 
 [node name="ItemList" type="ItemList" parent="Interact_Screen"]
 layout_mode = 0
-offset_left = 675.0
-offset_top = 92.0
-offset_right = 1060.0
-offset_bottom = 364.0
+offset_left = 751.0
+offset_top = 14.0
+offset_right = 1132.0
+offset_bottom = 251.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kw1ah")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2dldw")
+theme_override_styles/selected = SubResource("StyleBoxFlat_2dldw")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_1k0cf")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_yy4a5")
+theme_override_styles/cursor = SubResource("StyleBoxEmpty_efdfb")
+select_mode = 1
+allow_reselect = true
 auto_width = true
 auto_height = true
-item_count = 1
+item_count = 2
+max_columns = 4
+same_column_width = true
+icon_mode = 0
+icon_scale = 0.09
+item_0/icon = ExtResource("4_2dldw")
+item_1/icon = ExtResource("4_2dldw")
+script = ExtResource("4_h5heb")
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
