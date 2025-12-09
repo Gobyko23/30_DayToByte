@@ -11,7 +11,7 @@ func interact_event_in():
 	print("OBJ: Detect!")
 	
 func interact_event_out():
-	print("OBJ: Out of length 555555")
+	print("OBJ: Out of length ")
 
 func interacting():
 	Interact_Anim.play("OpenBoxAnim")
@@ -22,7 +22,9 @@ func interacting_cancle():
 
 
 func interactable() -> String:
-	var Objfound = _random_obj()
+	var Objfound = InventorySystem.random_obj()
+	print("Drop :", Objfound)
+	InventorySystem.update_item(Objfound, 1)
 	DesTime.start()
 	Box.visible = false
 	OpenBox.visible = true
@@ -32,30 +34,6 @@ func interactable() -> String:
 	
 	return Objfound
 	
-func _random_obj():
-	# สร้างพจนานุกรมที่เก็บชื่อ -> น้ำหนัก (weight)
-	var table = {
-		"White": 50,
-		"Red": 15,
-		"Yellow": 25,
-		"Green": 10,
-		'RainBow': 1
-	}
 
-	# หาผลรวมของน้ำหนักทั้งหมด
-	var total_weight = 0
-	for w in table.values():
-		total_weight += w
-
-	# สุ่มค่าแบบตัวเลข 0 .. total_weight-1
-	var rnd = randi() % total_weight
-
-	# ไล่สะสมค่าน้ำหนักทีละคีย์
-	var cumulative = 0
-	for key in table.keys():
-		cumulative += table[key]
-		# ถ้าค่า rnd น้อยกว่า cumulative แปลว่า key นี้ถูกเลือก
-		if rnd < cumulative:
-			return str(key)  # คืนชื่อที่สุ่มได้
 func _on_destory_time_timeout() -> void:
 	queue_free()

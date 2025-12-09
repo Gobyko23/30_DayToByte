@@ -53,7 +53,6 @@ func _physics_process(delta: float) -> void:
 			if highlighted.has_method("interacting"):
 				highlighted.interacting()
 		hold_timer += delta
-		print(hold_timer)
 		HoldBar.value = (hold_timer / HOLD_TIME) * 100.0
 		
 		if hold_timer >= HOLD_TIME:
@@ -111,6 +110,7 @@ func _interact_closest_object():
 	Result_interact = highlighted.interactable() #method แยก
 	ViewPort3DAnim.play("3dViewPortAnim")
 	TextView3D.text = "You Got:  " + str(Result_interact)
+	print(InventorySystem.Inventory)
 	nearby_objects.erase(highlighted)
 
 	highlighted = null

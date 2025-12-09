@@ -48,6 +48,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68552, 0)
 [node name="Node3D" parent="." instance=ExtResource("2_btx0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)
 
+[node name="Node3D3" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, 2.51871)
+
+[node name="Node3D4" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24671, 0.658829, 2.51871)
+
+[node name="Node3D5" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94469, 0.658829, 2.51871)
+
+[node name="Node3D7" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, 4.52903)
+
+[node name="Node3D8" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24671, 0.658829, 4.52903)
+
+[node name="Node3D9" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94469, 0.658829, 4.52903)
+
+[node name="Node3D6" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.08521, 0.658829, 0.393223)
+
 [node name="Node3D2" parent="." instance=ExtResource("2_btx0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85678, 0.658829, 0.0519217)
 

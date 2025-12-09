@@ -14,6 +14,10 @@ config/name="Game_Project"
 run/main_scene="uid://blcwyvv6f1d8i"
 config/features=PackedStringArray("4.4")
 
+[autoload]
+
+InventorySystem="*res://Scripts/Inventory_System.gd"
+
 [config]
 
 name="Demo_101"
