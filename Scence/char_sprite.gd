@@ -10,6 +10,7 @@ const JUMP_VELOCITY :float= 4.5
 @onready var ViewSprite = $ViewSprite
 @onready var TextView3D = $ViewSprite/SubViewport/ViewPortControl/TextView3D
 @onready var ViewPort3DAnim = $ViewSprite/ViewSpriteAnim
+@onready var MenuItem :ItemList = $Interact_Screen/ItemList
 var nearby_objects: Array[Node3D] = []
 var highlighted = null
 
@@ -42,6 +43,18 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	_update_closest_object()
+	
+# -------------------------
+	# ระบบเปิด-ปิด menu
+	# -------------------------
+	var menu_check = false
+	if Input.is_action_just_pressed("inventory_menu"):
+		menu_check = true
+		if menu_check:
+			MenuItem.visible = true
+
+			
+		
 	
 # -------------------------
 	# ระบบกดค้างเพื่อ Interact

@@ -1,5 +1,10 @@
 extends ItemList
-var icon :Array = [preload("res://Assets/Gui/Tote.jpg")]
+var icon :Array = [preload("res://Assets/Gui/Tote.jpg"),
+				   preload("res://Assets/Gui/CEO.jpg"),
+				   preload("res://Assets/Models/Teto.png"),
+				   preload("res://Assets/Gui/donoo.jpg"),
+				   preload("res://Assets/Gui/ish.webp")
+					]
 
 
 func _ready():
@@ -14,10 +19,10 @@ func update_inventory():
 		var amount = InventorySystem.Inventory[item]
 		var data = get_item_data(item)
 		var color :Color= data[0] 
-		var icon_change = data[1]
+		var icon_change = icon
 		
 		# เพิ่มแถวใหม่ใน ItemList
-		var index = add_item(item + " : " + str(amount),icon_change)
+		var index = add_item(item + " : " + str(amount),icon_change[data[1]])
 		
 
 		# กำหนดสีสำหรับแต่ละแถว
@@ -37,4 +42,4 @@ func get_item_data(item: String) -> Array:
 		"RainBow":
 			return [Color(1,0,1), 4]
 		_:
-			return [Color.WHITE, -1]
+			return [Color.WHITE, null]

@@ -251,6 +251,7 @@ horizontal_alignment = 1
 script = ExtResource("3_7iold")
 
 [node name="ItemList" type="ItemList" parent="Interact_Screen"]
+visible = false
 layout_mode = 0
 offset_left = 751.0
 offset_top = 14.0
