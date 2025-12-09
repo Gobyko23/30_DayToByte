@@ -223,17 +223,27 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_16m5h")
 show_percentage = false
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Interact_Screen"]
-layout_mode = 0
-offset_left = 76.0
-offset_top = 47.0
-offset_right = 371.0
-offset_bottom = 450.0
+layout_mode = 1
+offset_left = 73.0
+offset_top = 93.0
+offset_right = 306.0
+offset_bottom = 419.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 scroll_active = false
 context_menu_enabled = true
 script = ExtResource("3_7iold")
+
+[node name="ItemList" type="ItemList" parent="Interact_Screen"]
+layout_mode = 0
+offset_left = 675.0
+offset_top = 92.0
+offset_right = 1060.0
+offset_bottom = 364.0
+auto_width = true
+auto_height = true
+item_count = 1
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
