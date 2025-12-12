@@ -1,5 +1,4 @@
-extends Node3D
-
+extends Obj_Main
 @onready var DesTime :Timer = $DestoryTime
 @onready var Box :MeshInstance3D = $BOX
 @onready var OpenBox :MeshInstance3D = $open_BOX
