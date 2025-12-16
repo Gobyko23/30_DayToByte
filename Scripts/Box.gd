@@ -1,4 +1,5 @@
 extends Obj_Main
+class_name Obj_Box
 @onready var DesTime :Timer = $DestoryTime
 @onready var Box :MeshInstance3D = $BOX
 @onready var OpenBox :MeshInstance3D = $open_BOX

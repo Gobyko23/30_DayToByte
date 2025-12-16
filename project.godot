@@ -28,6 +28,11 @@ icon="res://icon.svg"
 
 project/assembly_name="Demo_101"
 
+[global_group]
+
+Npc=""
+interactable=""
+
 [input]
 
 ui_left={

@@ -2,18 +2,18 @@ extends Node3D
 class_name Obj_Main
 
 func interact_event_in():
-	pass
+	print("in")
 	
 func interact_event_out():
-	pass
+	print("out")
 
 func interacting():
-	pass
+	print("Interacting")
 	
 func interacting_cancle():
-	pass
+	print("cancle")
 
 
 func interactable() -> String:
-	return ""
+	return "Success"
 	

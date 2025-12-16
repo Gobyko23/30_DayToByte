@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://brcdwospn3ewr"]
+
+[ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/NPC_Scirpt.gd" id="1_h1kfr"]
+[ext_resource type="Texture2D" uid="uid://blicopklrjx8o" path="res://Assets/Gui/Nooo.png" id="1_o6q1c"]
+[ext_resource type="Texture2D" uid="uid://1tujcmpusdv6" path="res://Assets/Gui/CEO.jpg" id="3_ra161"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
+radius = 0.867945
+height = 3.04234
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_uk5pf"]
+viewport_path = NodePath("NPC_Dialog/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_54a7b"]
+font_size = 15
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="NPCStatic" type="Node3D"]
+
+[node name="Apple_NPC" type="RigidBody3D" parent="." groups=["Npc"]]
+collision_layer = 3
+script = ExtResource("1_h1kfr")
+
+[node name="NpcHitBox" type="CollisionShape3D" parent="Apple_NPC"]
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0.421628, 0)
+shape = SubResource("CapsuleShape3D_ra161")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="NPC_Sprite" type="Sprite3D" parent="Apple_NPC"]
+transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, 0, 0.264705, 0)
+billboard = 2
+transparent = false
+texture = ExtResource("1_o6q1c")
+
+[node name="NPC_Dialog" type="Sprite3D" parent="Apple_NPC"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25969, 1.4417, 0.226454)
+billboard = 1
+texture = SubResource("ViewportTexture_uk5pf")
+
+[node name="SubViewport" type="SubViewport" parent="Apple_NPC/NPC_Dialog"]
+transparent_bg = true
+canvas_cull_mask = 4294966273
+size = Vector2i(128, 128)
+
+[node name="ViewPortControlNPC" type="Control" parent="Apple_NPC/NPC_Dialog/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+metadata/_edit_use_anchors_ = true
+
+[node name="TextView3D_NPC" type="Label" parent="Apple_NPC/NPC_Dialog/SubViewport/ViewPortControlNPC"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "asdsfadadasda"
+label_settings = SubResource("LabelSettings_54a7b")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NPC_UnknowTation" type="Sprite3D" parent="Apple_NPC"]
+transform = Transform3D(0.315, 0, 0, 0, 0.315, 0, 0, 0, 0.315, -1.92664, 1.54474, 0)
+visible = false
+texture = ExtResource("3_ra161")

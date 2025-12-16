@@ -6,6 +6,7 @@ const JUMP_VELOCITY :float= 4.5
 @onready var InteractArea = $InteractArea
 @onready var InteractText = $Interact_Screen/Interact_Text
 @onready var HoldBar = $Interact_Screen/HoldBar
+@onready var Inter_Screen = $Interact_Screen
 @onready var Interact_Anim :AnimationPlayer= $TheBox/Interact_Anim
 @onready var ViewSprite = $ViewSprite
 @onready var TextView3D = $ViewSprite/SubViewport/ViewPortControl/TextView3D
@@ -14,6 +15,8 @@ const JUMP_VELOCITY :float= 4.5
 var nearby_objects: Array[Node3D] = []
 var highlighted = null
 
+var is_talking := false
+
 
 # เวลาที่ต้องการให้ผู้เล่นกดค้าง (วินาที)
 const HOLD_TIME :float= 1.9
@@ -21,6 +24,15 @@ var hold_timer :float= 0.0
 var is_holding :bool= false
 
 func _physics_process(delta: float) -> void:
+	if is_talking:
+		if Input.is_action_pressed("interact_bind"):
+			var NPC = get_tree().get_first_node_in_group("NPC")
+			
+			NPC.Dia += 1
+		return 
+	
+	
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -85,7 +97,14 @@ func _physics_process(delta: float) -> void:
 			is_holding = false
 			HoldBar.value = 0
 			hold_timer = 0
+func cancel_interact():
+	is_holding = false
+	hold_timer = 0
+	HoldBar.value = 0
+	Inter_Screen.visible = false
 
+	if highlighted and highlighted.has_method("interacting_cancle"):
+		highlighted.interacting_cancle()
 
 func _update_closest_object():
 	if nearby_objects.is_empty():
@@ -118,13 +137,18 @@ func _interact_closest_object():
 	var Result_interact = null
 	if not highlighted:
 		return
-
-	print("Interact with: ", highlighted.name)
-	Result_interact = highlighted.interactable() #method แยก
-	ViewPort3DAnim.play("3dViewPortAnim")
-	TextView3D.text = "You Got:  " + str(Result_interact)
-	print(InventorySystem.Inventory)
-	nearby_objects.erase(highlighted)
+	if highlighted.is_in_group("interactable"):
+		print("Interact with: ", highlighted.name)
+		Result_interact = highlighted.interactable() #method แยก
+		ViewPort3DAnim.play("3dViewPortAnim")
+		TextView3D.text = "You Got:  " + str(Result_interact)
+		print(InventorySystem.Inventory)
+		nearby_objects.erase(highlighted)
+	
+	if highlighted.is_in_group("NPC"):
+		print("Talk with: ", highlighted.name)
+		highlighted.interactable() #method แยก
+		nearby_objects.erase(highlighted)
 
 	highlighted = null
 	InteractText.visible = false
@@ -136,15 +160,15 @@ func _set_highlight(obj, enable: bool):
 		obj.get_node("HighlightMesh").visible = enable
 
 func _on_interact_area_body_entered(body: Node3D) -> void:
-	if body.is_in_group("interactable"):
+	if body.is_in_group("interactable") or body.is_in_group("Npc"):
 		body.interact_event_in()
-		InteractText.visible = true
+		Inter_Screen.visible = true
 		print("Player: Interacted: ", body.name)
 		nearby_objects.append(body)
 
 
 func _on_interact_area_body_exited(body: Node3D) -> void:
-	if body.is_in_group("interactable"):
+	if body.is_in_group("interactable") or body.is_in_group("Npc"):
 		nearby_objects.erase(body)
 		body.interact_event_out()
 		print("Player: Not Interacted: ", body.name)
@@ -152,5 +176,5 @@ func _on_interact_area_body_exited(body: Node3D) -> void:
 			_set_highlight(body, false)
 			highlighted = null
 		if nearby_objects.is_empty():
-			InteractText.visible = false
+			Inter_Screen.visible = false
 		

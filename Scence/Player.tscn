@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://o6ai16t3tw6e"]
 
 [ext_resource type="Texture2D" uid="uid://y064pagfy8jv" path="res://Assets/Models/Teto.png" id="1_3s4mx"]
-[ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scence/char_sprite.gd" id="1_crfo7"]
+[ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/char_sprite.gd" id="1_crfo7"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/item_list_Inventory.gd" id="3_7iold"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="4_2dldw"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="4_h5heb"]
@@ -125,7 +125,7 @@ bg_color = Color(0, 1, 0.359375, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efdfb"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_crfo7")
 
 [node name="ViewSprite" type="Sprite3D" parent="."]
