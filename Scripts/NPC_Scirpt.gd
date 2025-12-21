@@ -4,7 +4,7 @@ class_name NPC
 @onready var Dialogue :Sprite3D = $NPC_Dialog
 @onready var Anotation :Sprite3D = $NPC_UnknowTation
 @onready var TalkingTime :Timer = $TalkingTimer
-var Dia = 0
+
 func interact_event_in():
 	print("OBJ: Detect!")
 	Anotation.visible = true
@@ -30,10 +30,10 @@ func end_dialogue():
 	var player = get_tree().get_first_node_in_group("Player")
 	if player:
 		player.is_talking = false
-
-
+		
+'''
 func interactable(Count = null) -> String:
 	var Dialogue :Array= ["AAA","EEE","OOO","121313"]
 
 	return Dialogue[Dia]
-	
+'''	

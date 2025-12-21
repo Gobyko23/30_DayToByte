@@ -25,10 +25,6 @@ var is_holding :bool= false
 
 func _physics_process(delta: float) -> void:
 	if is_talking:
-		if Input.is_action_pressed("interact_bind"):
-			var NPC = get_tree().get_first_node_in_group("NPC")
-			
-			NPC.Dia += 1
 		return 
 	
 	
