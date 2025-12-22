@@ -1,7 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://o6ai16t3tw6e"]
+[gd_scene load_steps=26 format=3 uid="uid://o6ai16t3tw6e"]
 
-[ext_resource type="Texture2D" uid="uid://y064pagfy8jv" path="res://Assets/Models/Teto.png" id="1_3s4mx"]
 [ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/char_sprite.gd" id="1_crfo7"]
+[ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Player.png" id="2_2dldw"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/item_list_Inventory.gd" id="3_7iold"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="4_2dldw"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="4_h5heb"]
@@ -98,8 +98,63 @@ _data = {
 &"RESET": SubResource("Animation_7iold")
 }
 
+[sub_resource type="Animation" id="Animation_2dldw"]
+resource_name = "Player_Walk_Beta"
+length = 2.0035
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player_Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.106465), Vector3(0, 0, -0.10472), Vector3(0, 0, 0.106465), Vector3(0, 0, -0.10472), Vector3(0, 0, 0.106465), Vector3(0, 0, -0.10472), Vector3(0, 0, 0.106465), Vector3(0, 0, -0.10472)]
+}
+
+[sub_resource type="Animation" id="Animation_1k0cf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player_Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eegtv"]
+resource_name = "Player_Idle_Beta"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player_Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1k0cf"]
+_data = {
+&"Player_Idle_Beta": SubResource("Animation_eegtv"),
+&"Player_Walk_Beta": SubResource("Animation_2dldw"),
+&"RESET": SubResource("Animation_1k0cf")
+}
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wh8ti"]
-height = 1.80073
+radius = 0.423709
+height = 1.58027
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_16m5h"]
 
@@ -175,9 +230,16 @@ libraries = {
 }
 
 [node name="Player_Sprite" type="Sprite3D" parent="."]
-transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0.264705, 0)
-transparent = false
-texture = ExtResource("1_3s4mx")
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, -0.0209215, 0.239576, 0)
+pixel_size = 0.03
+texture_filter = 0
+texture = ExtResource("2_2dldw")
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="Player_Sprite"]
+root_node = NodePath("../../ViewSprite")
+libraries = {
+&"": SubResource("AnimationLibrary_1k0cf")
+}
 
 [node name="Player_Hitbox" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.18, 0, 0, 0, 1.18, 0, 0, 0, 1.18, 0, 0.601959, 0)

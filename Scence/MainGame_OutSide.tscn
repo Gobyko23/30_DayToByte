@@ -44,7 +44,7 @@ transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_0itcn")
 
 [node name="Player" parent="." instance=ExtResource("1_wwabv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68552, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30427, 0)
 
 [node name="Node3D" parent="." instance=ExtResource("2_btx0n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)

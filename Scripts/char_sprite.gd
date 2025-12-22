@@ -1,8 +1,10 @@
 extends CharacterBody3D
 
 
-const SPEED :float= 6.0
+const SPEED :float= 3.5
 const JUMP_VELOCITY :float= 4.5
+@onready var SpritePlayer = $Player_Sprite
+@onready var PlayerAnimation = $Player_Sprite/PlayerAnimation
 @onready var InteractArea = $InteractArea
 @onready var InteractText = $Interact_Screen/Interact_Text
 @onready var HoldBar = $Interact_Screen/HoldBar
@@ -32,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		PlayerAnimation.play("Player_Idle_Beta")
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
@@ -41,12 +44,25 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
+	
+	if direction != Vector3.ZERO:
+		direction = direction.normalized()
+
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+
+	# ---- หันหน้า ----
+		if abs(direction.x) > abs(direction.z):
+			SpritePlayer.flip_h = direction.x < 0
+
+	# ---- Animation ----
+		PlayerAnimation.play("Player_Walk_Beta")
+
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+		PlayerAnimation.play("Player_Idle_Beta")
 
 	move_and_slide()
 	

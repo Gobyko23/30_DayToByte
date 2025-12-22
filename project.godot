@@ -80,6 +80,7 @@ inventory_menu={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 environment/screen_space_reflection/roughness_quality=0
 
 [run]
