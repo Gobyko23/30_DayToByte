@@ -14,10 +14,11 @@ const JUMP_VELOCITY :float= 4.5
 @onready var TextView3D = $ViewSprite/SubViewport/ViewPortControl/TextView3D
 @onready var ViewPort3DAnim = $ViewSprite/ViewSpriteAnim
 @onready var MenuItem :ItemList = $Interact_Screen/ItemList
+var talking_npc :NPC = null
 var nearby_objects: Array[Node3D] = []
 var highlighted = null
 
-var is_talking := false
+var is_talking :bool= false
 
 
 # เวลาที่ต้องการให้ผู้เล่นกดค้าง (วินาที)
@@ -26,7 +27,10 @@ var hold_timer :float= 0.0
 var is_holding :bool= false
 
 func _physics_process(delta: float) -> void:
-	if is_talking:
+	if is_talking and talking_npc:
+		if Input.is_action_just_pressed("interact_bind"):
+			talking_npc.next_dialogue()
+			print("Current NPC:", talking_npc.name)
 		return 
 	
 	
@@ -109,11 +113,17 @@ func _physics_process(delta: float) -> void:
 			is_holding = false
 			HoldBar.value = 0
 			hold_timer = 0
+			
 func cancel_interact():
 	is_holding = false
 	hold_timer = 0
 	HoldBar.value = 0
 	Inter_Screen.visible = false
+
+func showbar():
+	HoldBar.value = 0
+	HoldBar.visible = !HoldBar.visible
+	
 
 	if highlighted and highlighted.has_method("interacting_cancle"):
 		highlighted.interacting_cancle()
