@@ -5,6 +5,8 @@ class_name NPC
 @onready var Dialogue_text :RichTextLabel = $NPC_Dialog/SubViewport/Control/RichTextLabel
 @onready var Anotation :Sprite3D = $NPC_UnknowTation
 @onready var TalkingTime :Timer = $TalkingTimer
+@onready var world_camera = get_tree().get_first_node_in_group("WorldCamera")
+@onready var focus_marker: Marker3D = $NPC_Sprite/NpcPivot
 @export var Dialogue :Array[String] = [
 	"AAA",
 	"EEE",
@@ -46,6 +48,7 @@ func interacting_cancle():
 	pass
 
 func end_dialogue():
+	world_camera.release_focus()
 	Anotation.visible = true
 	var player = get_tree().get_first_node_in_group("Player")
 	if player:
@@ -56,6 +59,7 @@ func end_dialogue():
 	
 	
 func show_dialogue():
+	world_camera.focus_on(focus_marker)
 	if Dia < Dialogue.size():
 		Dialogue_text.text = Dialogue[Dia]
 		print("NPC:", Dialogue[Dia])

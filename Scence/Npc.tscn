@@ -34,8 +34,11 @@ billboard = 2
 transparent = false
 texture = ExtResource("1_o6q1c")
 
+[node name="NpcPivot" type="Marker3D" parent="Apple_NPC/NPC_Sprite"]
+transform = Transform3D(6.06061, 0, 0, 0, 6.06061, 0, 0, 0, 6.06061, 5.79708, 1.69289, 11.0967)
+
 [node name="NPC_Dialog" type="Sprite3D" parent="Apple_NPC"]
-transform = Transform3D(1.075, 0, 0, 0, 1.075, 0, 0, 0, 1.075, 3.21958, 1.57146, 0.303909)
+transform = Transform3D(1.075, 0, 0, 0, 1.075, 0, 0, 0, 1.075, 0.827841, 1.57146, 0.303909)
 billboard = 1
 double_sided = false
 texture_filter = 0
@@ -80,6 +83,3 @@ vertical_alignment = 1
 transform = Transform3D(0.315, 0, 0, 0, 0.315, 0, 0, 0, 0.315, -1.92664, 1.54474, 0)
 visible = false
 texture = ExtResource("3_ra161")
-
-[node name="NpcPivot" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.10414, 0.693571, 1.16093)
