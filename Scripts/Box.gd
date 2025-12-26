@@ -31,7 +31,7 @@ func interactable() -> String:
 	get_node("HighlightMesh").queue_free()
 	OpenSfx.play()
 	OpenVFX.emitting = true
-	
+	CashSystem.add(50)
 	return Objfound
 	
 

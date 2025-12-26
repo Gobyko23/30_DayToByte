@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4")
 [autoload]
 
 InventorySystem="*res://Scripts/Inventory_System.gd"
+CashSystem="*res://Scripts/ItemSystem/CashSystem.gd"
 
 [config]
 

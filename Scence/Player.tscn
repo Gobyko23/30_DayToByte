@@ -1,10 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://o6ai16t3tw6e"]
+[gd_scene load_steps=29 format=3 uid="uid://o6ai16t3tw6e"]
 
 [ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/char_sprite.gd" id="1_crfo7"]
-[ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Player.png" id="2_2dldw"]
+[ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="2_2dldw"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/item_list_Inventory.gd" id="3_7iold"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="4_2dldw"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="4_h5heb"]
+[ext_resource type="Script" uid="uid://cftkai85p604w" path="res://Scripts/ItemSystem/CashSystem.gd" id="6_1k0cf"]
+[ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/MoneyLabel.gd" id="7_eegtv"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_16m5h"]
 viewport_path = NodePath("ViewSprite/SubViewport")
@@ -180,6 +182,12 @@ bg_color = Color(0, 1, 0.359375, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efdfb"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_2dldw"]
+font_size = 51
+font_color = Color(7.21961e-06, 0.864387, 0.368493, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_crfo7")
 
@@ -261,6 +269,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_1k0cf")
 
 [node name="Interact_Text" type="Label" parent="Interact_Screen"]
 layout_mode = 1
@@ -336,6 +345,20 @@ icon_scale = 0.09
 item_0/icon = ExtResource("4_2dldw")
 item_1/icon = ExtResource("4_2dldw")
 script = ExtResource("4_h5heb")
+
+[node name="Cash_Label" type="Label" parent="Interact_Screen"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -253.0
+offset_top = -81.0
+grow_horizontal = 0
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_2dldw")
+script = ExtResource("7_eegtv")
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

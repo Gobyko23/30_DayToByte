@@ -184,7 +184,7 @@ func _set_highlight(obj, enable: bool):
 func _on_interact_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("interactable") or body.is_in_group("Npc"):
 		body.interact_event_in()
-		Inter_Screen.visible = true
+		Interact_Screen()
 		print("Player: Interacted: ", body.name)
 		nearby_objects.append(body)
 
@@ -198,5 +198,8 @@ func _on_interact_area_body_exited(body: Node3D) -> void:
 			_set_highlight(body, false)
 			highlighted = null
 		if nearby_objects.is_empty():
-			Inter_Screen.visible = false
+			Interact_Screen()
 		
+func Interact_Screen() -> void:
+		HoldBar.visible = !HoldBar.visible
+		InteractText.visible = !InteractText.visible

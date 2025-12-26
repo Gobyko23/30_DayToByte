@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kjxa0juqo7dp"
-path.s3tc="res://.godot/imported/Player.png-a88b52d8ab3ce5b3a3bba3b42631e858.s3tc.ctex"
+uid="uid://cyl88eognoo8w"
+path.s3tc="res://.godot/imported/Annotation.png-f7d20151484eb86f0fcfff16cfe7554a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Gui/Player.png"
-dest_files=["res://.godot/imported/Player.png-a88b52d8ab3ce5b3a3bba3b42631e858.s3tc.ctex"]
+source_file="res://Assets/Gui/Word_Gui/Annotation.png"
+dest_files=["res://.godot/imported/Annotation.png-f7d20151484eb86f0fcfff16cfe7554a.s3tc.ctex"]
 
 [params]
 

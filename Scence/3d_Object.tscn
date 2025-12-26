@@ -1,7 +1,8 @@
-[gd_scene load_steps=73 format=4 uid="uid://d1m0iqr8rp1wl"]
+[gd_scene load_steps=75 format=4 uid="uid://d1m0iqr8rp1wl"]
 
 [ext_resource type="Texture2D" uid="uid://didno5fs2d2p" path="res://Assets/Models/Prop_0.png" id="1_u87n1"]
 [ext_resource type="Texture2D" uid="uid://ucno4wihkfub" path="res://Assets/Models/Prop_1.png" id="2_whx4f"]
+[ext_resource type="Texture2D" uid="uid://bojegr2ylimw0" path="res://Assets/Models/Prop_2_Glow.png" id="3_whx4f"]
 [ext_resource type="Texture2D" uid="uid://0bu2x2dli7us" path="res://Assets/Models/Prop_3.png" id="4_ibdqj"]
 [ext_resource type="Texture2D" uid="uid://d23yjhtjpnosc" path="res://Assets/Models/Prop_4.png" id="5_ophn8"]
 [ext_resource type="Texture2D" uid="uid://cneih7bpxgnb4" path="res://Assets/Models/Prop_5.png" id="6_kyijg"]
@@ -61,8 +62,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_tqrua")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u87n1"]
+transparency = 1
+albedo_texture = ExtResource("3_whx4f")
+emission_enabled = true
+emission_energy_multiplier = 4.62
+emission_texture = ExtResource("3_whx4f")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gutx3"]
 resource_name = "material_1"
+next_pass = SubResource("StandardMaterial3D_u87n1")
 transparency = 2
 alpha_scissor_threshold = 0.05
 alpha_antialiasing_mode = 0
