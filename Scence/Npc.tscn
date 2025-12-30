@@ -82,6 +82,7 @@ vertical_alignment = 1
 
 [node name="NPC_UnknowTation" type="Sprite3D" parent="Apple_NPC"]
 transform = Transform3D(0.315, 0, 0, 0, 0.315, 0, 0, 0, 0.315, -1.18758, 1.05404, -0.0233977)
+visible = false
 pixel_size = 0.0571
 billboard = 2
 texture_filter = 0

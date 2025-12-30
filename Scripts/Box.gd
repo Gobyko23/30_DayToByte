@@ -12,15 +12,17 @@ func interact_event_in():
 	
 func interact_event_out():
 	print("OBJ: Out of length ")
-
+#------------------------------------------------------------------------
+#กำลัง interact 
 func interacting():
 	Interact_Anim.play("OpenBoxAnim")
 	Interact_Anim.speed_scale = 1.2
-	
+#------------------------------------------------------------------------
 func interacting_cancle():
 	Interact_Anim.stop()
 
-
+#------------------------------------------------------------------------
+#interact เสร็จแล้ว
 func interactable() -> String:
 	var Objfound = InventorySystem.random_obj()
 	print("Drop :", Objfound)
@@ -33,7 +35,8 @@ func interactable() -> String:
 	OpenVFX.emitting = true
 	CashSystem.add(50)
 	return Objfound
-	
+#------------------------------------------------------------------------
 
 func _on_destory_time_timeout() -> void:
 	queue_free()
+#------------------------------------------------------------------------

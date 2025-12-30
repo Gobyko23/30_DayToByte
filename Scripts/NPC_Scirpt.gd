@@ -7,6 +7,7 @@ class_name NPC
 @onready var TalkingTime :Timer = $TalkingTimer
 @onready var world_camera = get_tree().get_first_node_in_group("WorldCamera")
 @onready var focus_marker: Marker3D = $NPC_Sprite/NpcPivot
+
 @export var Dialogue :Array[String] = [
 	"AAA",
 	"EEE",
@@ -47,6 +48,8 @@ func interacting():
 func interacting_cancle():
 	pass
 
+#------------------------------------------------------------------------
+#method Dialgue For NPC
 func end_dialogue():
 	world_camera.release_focus()
 	Anotation.visible = true

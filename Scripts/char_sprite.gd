@@ -79,8 +79,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("inventory_menu"):
 		menu_check = true
 		if menu_check:
-			MenuItem.visible = true
-
+			MenuItem.visible = !MenuItem.visible
+		else:
+			menu_check = false
+#------------------------------------------------------------------------
 			
 		
 	
@@ -128,6 +130,8 @@ func showbar():
 	if highlighted and highlighted.has_method("interacting_cancle"):
 		highlighted.interacting_cancle()
 
+#------------------------------------------------------------------------
+#หา Obj ที่ใกล้ตัวผู้เล่นมากที่สุด
 func _update_closest_object():
 	if nearby_objects.is_empty():
 		if highlighted:
@@ -153,8 +157,9 @@ func _update_closest_object():
 	highlighted = closest
 	_set_highlight(highlighted, true)
 	InteractText.visible = true
+#------------------------------------------------------------------------
 
-
+#เรียกใช้ method ของ OBJ ที่ใกล้ที่สุด
 func _interact_closest_object():
 	var Result_interact = null
 	if not highlighted:
@@ -174,20 +179,24 @@ func _interact_closest_object():
 
 	highlighted = null
 	InteractText.visible = false
-	
+#------------------------------------------------------------------------
 
-
+#Highlight OBJ ToggleCheck
 func _set_highlight(obj, enable: bool):
 	if obj.has_node("HighlightMesh"):
 		obj.get_node("HighlightMesh").visible = enable
+#------------------------------------------------------------------------
 
+#check ว่าอยู่ใน Area3d หรือไม่
 func _on_interact_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("interactable") or body.is_in_group("Npc"):
 		body.interact_event_in()
 		Interact_Screen()
 		print("Player: Interacted: ", body.name)
 		nearby_objects.append(body)
+#------------------------------------------------------------------------
 
+#เช็คว่าออกนอก Area3D หรือไม่
 
 func _on_interact_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("interactable") or body.is_in_group("Npc"):
@@ -199,7 +208,8 @@ func _on_interact_area_body_exited(body: Node3D) -> void:
 			highlighted = null
 		if nearby_objects.is_empty():
 			Interact_Screen()
-		
+#------------------------------------------------------------------------
+#holdbar visible
 func Interact_Screen() -> void:
 		HoldBar.visible = !HoldBar.visible
 		InteractText.visible = !InteractText.visible
