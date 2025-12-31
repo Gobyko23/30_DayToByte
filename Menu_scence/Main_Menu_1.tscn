@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://l27jg2e7gup2"]
 
 [ext_resource type="Texture2D" uid="uid://dj86gvkqvc3x" path="res://Assets/Gui/Play_godot_Ui-export.png" id="1_h2svc"]
-[ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Scripts/main_menu_1.gd" id="1_jkqpj"]
+[ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Scripts/UiControl.gd" id="1_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://covfjyqqdroqm" path="res://Assets/Gui/option_godot_Ui-export.png" id="2_am5sa"]
 [ext_resource type="Texture2D" uid="uid://do3ae7qtaco85" path="res://Assets/Gui/Exit_godot_Ui-export.png" id="3_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/30Dtablet-export.png" id="4_jkqpj"]
