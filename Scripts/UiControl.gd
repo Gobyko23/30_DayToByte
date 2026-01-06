@@ -13,12 +13,12 @@ func _on_start_button_pressed() -> void:
 
 
 func _on_save_button_pressed() -> void:
-	SaveAndLoad.Save_Content.money = CashSystem.money
+	SaveAndLoad.Save_Content["money"] = CashSystem.money
 	SaveAndLoad.save_game()
 	print("Save!")
 
 
 func _on_load_button_pressed() -> void:
 	SaveAndLoad.load_game()
-	CashSystem.money = SaveAndLoad.Save_Content.money
-	$Cash_Label.text = "%d $" % (SaveAndLoad.Save_Content.money) 
+	CashSystem.money = SaveAndLoad.Save_Content["money"]
+	$Cash_Label.text = "%d $" % (SaveAndLoad.Save_Content["money"]) 
