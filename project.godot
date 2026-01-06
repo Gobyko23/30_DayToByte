@@ -19,6 +19,8 @@ config/features=PackedStringArray("4.4")
 InventorySystem="*res://Scripts/ItemSystem/Inventory_System.gd"
 CashSystem="*res://Scripts/ItemSystem/CashSystem.gd"
 SaveAndLoad="*res://Scripts/SaveSystem/SaveAndLoadscript.gd"
+PlayerData="*res://Scripts/Data/PlayerData.gd"
+TimeManager="*res://Scripts/Data/TimeManager.gd"
 
 [config]
 
