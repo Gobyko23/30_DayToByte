@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://o6ai16t3tw6e"]
+[gd_scene load_steps=30 format=3 uid="uid://o6ai16t3tw6e"]
 
 [ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/char_sprite.gd" id="1_crfo7"]
 [ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="2_2dldw"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/item_list_Inventory.gd" id="3_7iold"]
-[ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Scripts/UiControl.gd" id="3_eegtv"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="4_2dldw"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="4_h5heb"]
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/MoneyLabel.gd" id="7_eegtv"]
@@ -275,7 +274,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_eegtv")
 
 [node name="Interact_Text" type="Label" parent="Interact_Screen"]
 layout_mode = 1
@@ -388,5 +386,3 @@ text = "Load
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
-[connection signal="pressed" from="Interact_Screen/SaveButton" to="Interact_Screen" method="_on_save_button_pressed"]
-[connection signal="pressed" from="Interact_Screen/LoadButton" to="Interact_Screen" method="_on_load_button_pressed"]
