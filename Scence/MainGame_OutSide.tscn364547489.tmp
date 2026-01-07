@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://blcwyvv6f1d8i"]
+
+[ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="1_wwabv"]
+[ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_System.tscn" id="2_btx0n"]
+[ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/player_camera.gd" id="3_xlcw2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_xlcw2"]
+sky_material = SubResource("ProceduralSkyMaterial_btx0n")
+
+[sub_resource type="Environment" id="Environment_rkrtr"]
+background_mode = 2
+sky = SubResource("Sky_xlcw2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_0itcn"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0itcn"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="MainGameOutSide" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rkrtr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(6.86, 0, 0, 0, 6.86, 0, 0, 0, 6.86, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_0itcn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_0itcn")
+
+[node name="Player" parent="." instance=ExtResource("1_wwabv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68552, 0)
+
+[node name="Node3D" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)
+
+[node name="Node3D3" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, 2.51871)
+
+[node name="Node3D4" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24671, 0.658829, 2.51871)
+
+[node name="Node3D5" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94469, 0.658829, 2.51871)
+
+[node name="Node3D7" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, 4.52903)
+
+[node name="Node3D8" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.24671, 0.658829, 4.52903)
+
+[node name="Node3D9" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.94469, 0.658829, 4.52903)
+
+[node name="Node3D6" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.08521, 0.658829, 0.393223)
+
+[node name="Node3D2" parent="." instance=ExtResource("2_btx0n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85678, 0.658829, 0.0519217)
+
+[node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_xlcw2")
+target = NodePath("../Player")
+offset = Vector3(0, 1, 6)

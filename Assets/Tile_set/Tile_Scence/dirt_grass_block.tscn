@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c114mvw1us660"]
+
+[ext_resource type="PackedScene" uid="uid://bliceegt0w1xt" path="res://Assets/Tile_set/The_alpha_mesh/Dirt_and_grass.gltf" id="1_57bj0"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_qjjhv"]
+data = PackedVector3Array(0.5, 0.5625, -0.5, 0.5, -0.0625, 0.5, 0.5, 0.5625, 0.5, 0.5, 0.5625, -0.5, 0.5, -0.0625, -0.5, 0.5, -0.0625, 0.5, -0.5, -0.0625, 0.5, -0.5, 0.5625, -0.5, -0.5, 0.5625, 0.5, -0.5, -0.0625, 0.5, -0.5, -0.0625, -0.5, -0.5, 0.5625, -0.5, -0.5, 0.5625, 0.5, 0.5, 0.5625, -0.5, 0.5, 0.5625, 0.5, -0.5, 0.5625, 0.5, -0.5, 0.5625, -0.5, 0.5, 0.5625, -0.5, 0.5, -0.0625, -0.5, -0.5, -0.0625, 0.5, 0.5, -0.0625, 0.5, 0.5, -0.0625, -0.5, -0.5, -0.0625, -0.5, -0.5, -0.0625, 0.5, 0.5, -0.0625, 0.5, -0.5, 0.5625, 0.5, 0.5, 0.5625, 0.5, 0.5, -0.0625, 0.5, -0.5, -0.0625, 0.5, -0.5, 0.5625, 0.5, -0.5, 0.5625, -0.5, 0.5, -0.0625, -0.5, 0.5, 0.5625, -0.5, -0.5, 0.5625, -0.5, -0.5, -0.0625, -0.5, 0.5, -0.0625, -0.5)
+
+[node name="Dirt_Grass_Block" instance=ExtResource("1_57bj0")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Dirt_Grass" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Dirt_Grass/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_qjjhv")

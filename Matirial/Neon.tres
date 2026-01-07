@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bg5oa0rex44yh"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+emission_enabled = true
+emission = Color(1, 0.921875, 0, 1)
+emission_energy_multiplier = 3.1
+refraction_scale = 0.69
+billboard_keep_scale = true

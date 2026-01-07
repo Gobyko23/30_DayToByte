@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dk2h4fx230ulx"]
+
+[ext_resource type="PackedScene" uid="uid://cfrjp8gy5805s" path="res://Assets/Tile_set/The_alpha_mesh/Stone.gltf" id="1_y3trf"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xfw1a"]
+data = PackedVector3Array(0.5, 0.5625, -0.5, 0.5, -0.0625, 0.5, 0.5, 0.5625, 0.5, 0.5, 0.5625, -0.5, 0.5, -0.0625, -0.5, 0.5, -0.0625, 0.5, -0.5, -0.0625, 0.5, -0.5, 0.5625, -0.5, -0.5, 0.5625, 0.5, -0.5, -0.0625, 0.5, -0.5, -0.0625, -0.5, -0.5, 0.5625, -0.5, -0.5, 0.5625, 0.5, 0.5, 0.5625, -0.5, 0.5, 0.5625, 0.5, -0.5, 0.5625, 0.5, -0.5, 0.5625, -0.5, 0.5, 0.5625, -0.5, 0.5, -0.0625, -0.5, -0.5, -0.0625, 0.5, 0.5, -0.0625, 0.5, 0.5, -0.0625, -0.5, -0.5, -0.0625, -0.5, -0.5, -0.0625, 0.5, 0.5, -0.0625, 0.5, -0.5, 0.5625, 0.5, 0.5, 0.5625, 0.5, 0.5, -0.0625, 0.5, -0.5, -0.0625, 0.5, -0.5, 0.5625, 0.5, -0.5, 0.5625, -0.5, 0.5, -0.0625, -0.5, 0.5, 0.5625, -0.5, -0.5, 0.5625, -0.5, -0.5, -0.0625, -0.5, 0.5, -0.0625, -0.5)
+
+[node name="Stone_Block" instance=ExtResource("1_y3trf")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground_Stone" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground_Stone/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_xfw1a")
