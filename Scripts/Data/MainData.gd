@@ -1,4 +1,5 @@
 extends Node3D
+@onready var player :Node3D= $Player
 func _ready():
 	var save := SaveAndLoad.load_game(1)
 	if save.is_empty():
@@ -18,3 +19,8 @@ func _ready():
 		save["player"]["position"]["y"],
 		save["player"]["position"]["z"]
 	)
+
+func save_game_To_Main():
+	PlayerData.money = CashSystem.money
+	SaveAndLoad.save_game(SaveAndLoad.GlobalCurrentSlot, player)
+	print("Save!")

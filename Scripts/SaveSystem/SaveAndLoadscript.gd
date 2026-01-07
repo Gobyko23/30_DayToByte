@@ -3,7 +3,7 @@ class_name SaveManager
 
 const SAVE_DIR := "user://saves/"
 const SAVE_VERSION := 1
-
+var GlobalCurrentSlot :int= 0
 # -------------------------
 func save_game(slot: int, player: Node3D) -> void:
 	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
