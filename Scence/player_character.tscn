@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ch8ayhnrafr4d"]
-
-[ext_resource type="PackedScene" uid="uid://minc43ptvfyy" path="res://Assets/Models/Mike_GLTF.gltf" id="1_dmjud"]
-
-[node name="Player_Character" type="Node3D"]
-
-[node name="blockbench_export" parent="." instance=ExtResource("1_dmjud")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.299228, 0, 0.614682)
