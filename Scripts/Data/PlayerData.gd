@@ -2,4 +2,5 @@ extends Node
 
 
 var money := 0
-var position := Vector3.ZERO 
+var position := Vector3.ZERO
+var GlobalSaveSlot = 0

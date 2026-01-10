@@ -1,11 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=26 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="1_wwabv"]
 [ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_Scence.tscn" id="2_btx0n"]
 [ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/player_camera.gd" id="3_xlcw2"]
 [ext_resource type="PackedScene" uid="uid://brcdwospn3ewr" path="res://Scence/Npc.tscn" id="4_rkrtr"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/item_list_Inventory.gd" id="5_idsgl"]
-[ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Save/SaveUi.gd" id="5_sxhto"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="6_sxhto"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="7_eied3"]
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/MoneyLabel.gd" id="8_e53fg"]
@@ -119,7 +118,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("5_sxhto")
 
 [node name="Interact_Text" type="Label" parent="Interact_Screen"]
 unique_name_in_owner = true
@@ -236,6 +234,3 @@ offset_bottom = 521.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_hu35k")
 text = "Load
 "
-
-[connection signal="pressed" from="Interact_Screen/SaveButton" to="Interact_Screen" method="_on_save_button_pressed"]
-[connection signal="pressed" from="Interact_Screen/LoadButton" to="Interact_Screen" method="_on_load_button_pressed"]

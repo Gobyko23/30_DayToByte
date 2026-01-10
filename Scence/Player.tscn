@@ -1,11 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://o6ai16t3tw6e"]
+[gd_scene load_steps=14 format=3 uid="uid://o6ai16t3tw6e"]
 
 [ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/char_sprite.gd" id="1_crfo7"]
 [ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="2_2dldw"]
-[ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/item_list_Inventory.gd" id="3_7iold"]
-[ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="4_2dldw"]
-[ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="4_h5heb"]
-[ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/MoneyLabel.gd" id="7_eegtv"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_16m5h"]
 viewport_path = NodePath("ViewSprite/SubViewport")
@@ -159,40 +155,6 @@ height = 1.58027
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_16m5h"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_16m5h"]
-font_size = 26
-outline_size = 15
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16m5h"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16m5h"]
-bg_color = Color(0, 1, 0.359375, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kw1ah"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2dldw"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dldw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1k0cf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yy4a5"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efdfb"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_2dldw"]
-font_size = 51
-font_color = Color(7.21961e-06, 0.864387, 0.368493, 1)
-outline_size = 15
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eegtv"]
-bg_color = Color(0.0961794, 0.708587, 0.464487, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kw1ah"]
-bg_color = Color(0.753087, 0.566363, 0.147155, 1)
-
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_crfo7")
 
@@ -266,123 +228,6 @@ collision_mask = 2
 transform = Transform3D(2.72, 0, 0, 0, 2.72, 0, 0, 0, 2.72, 0, 0.881047, 0)
 shape = SubResource("BoxShape3D_16m5h")
 debug_color = Color(0.7, 0.0984375, 0, 0.42)
-
-[node name="Interact_Screen" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Interact_Text" type="Label" parent="Interact_Screen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -111.0
-offset_top = 101.0
-offset_right = 110.0
-offset_bottom = 204.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 46
-text = "E To Interact"
-label_settings = SubResource("LabelSettings_16m5h")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HoldBar" type="ProgressBar" parent="Interact_Screen"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -177.0
-offset_top = 189.0
-offset_right = 177.0
-offset_bottom = 202.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxEmpty_16m5h")
-theme_override_styles/fill = SubResource("StyleBoxFlat_16m5h")
-show_percentage = false
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Interact_Screen"]
-layout_mode = 1
-offset_left = 73.0
-offset_top = 93.0
-offset_right = 306.0
-offset_bottom = 419.0
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/normal_font_size = 16
-bbcode_enabled = true
-text = "ssszzcfszfcz"
-context_menu_enabled = true
-horizontal_alignment = 1
-script = ExtResource("3_7iold")
-
-[node name="ItemList" type="ItemList" parent="Interact_Screen"]
-layout_mode = 0
-offset_left = 751.0
-offset_top = 14.0
-offset_right = 1132.0
-offset_bottom = 251.0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_kw1ah")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_2dldw")
-theme_override_styles/selected = SubResource("StyleBoxFlat_2dldw")
-theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_1k0cf")
-theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_yy4a5")
-theme_override_styles/cursor = SubResource("StyleBoxEmpty_efdfb")
-select_mode = 1
-allow_reselect = true
-auto_width = true
-auto_height = true
-item_count = 2
-max_columns = 4
-same_column_width = true
-icon_mode = 0
-icon_scale = 0.09
-item_0/icon = ExtResource("4_2dldw")
-item_1/icon = ExtResource("4_2dldw")
-script = ExtResource("4_h5heb")
-
-[node name="Cash_Label" type="Label" parent="Interact_Screen"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -253.0
-offset_top = -81.0
-grow_horizontal = 0
-grow_vertical = 0
-label_settings = SubResource("LabelSettings_2dldw")
-script = ExtResource("7_eegtv")
-
-[node name="SaveButton" type="Button" parent="Interact_Screen"]
-layout_mode = 0
-offset_left = 117.0
-offset_top = 400.0
-offset_right = 240.0
-offset_bottom = 454.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_eegtv")
-text = "Save"
-
-[node name="LoadButton" type="Button" parent="Interact_Screen"]
-layout_mode = 0
-offset_left = 117.0
-offset_top = 467.0
-offset_right = 240.0
-offset_bottom = 521.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_kw1ah")
-text = "Load
-"
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
