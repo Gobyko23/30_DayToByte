@@ -1,5 +1,5 @@
 extends Node
-class_name Currency_System
+
 
 var money:int = 0
 
@@ -31,5 +31,6 @@ func has(amount:int) -> bool:
 
 	#Set Money
 func set_money(amount:int):
+	print("DEBUG: set_money called with value: ", amount)
 	money = max(0, amount)
 	money_changed.emit(money)

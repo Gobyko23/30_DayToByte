@@ -1,5 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=31 format=3 uid="uid://blcwyvv6f1d8i"]
 
+[ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_2plp7"]
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="1_wwabv"]
 [ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_Scence.tscn" id="2_btx0n"]
 [ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/player_camera.gd" id="3_xlcw2"]
@@ -9,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="6_sxhto"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/item_list.gd" id="7_eied3"]
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/MoneyLabel.gd" id="8_e53fg"]
+[ext_resource type="Script" uid="uid://bgnk7hncuf6lx" path="res://Scripts/Blueprint/Gui_Script/SaveListUi.gd" id="10_e53fg"]
+[ext_resource type="PackedScene" uid="uid://c8x2ngcxf2atn" path="res://Scripts/Blueprint/Gui_Script/ListBtd.tscn" id="11_2plp7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -62,7 +65,11 @@ bg_color = Color(0.0961794, 0.708587, 0.464487, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hu35k"]
 bg_color = Color(0.753087, 0.566363, 0.147155, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
+bg_color = Color(0.517184, 0.517184, 0.517184, 1)
+
 [node name="MainGameOutSide" type="Node3D"]
+script = ExtResource("1_2plp7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rkrtr")
@@ -236,6 +243,32 @@ offset_bottom = 521.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_hu35k")
 text = "Load
 "
+
+[node name="Label" type="Label" parent="Interact_Screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 724.0
+offset_top = 219.0
+offset_right = -55.0
+offset_bottom = -219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_sxhto")
+script = ExtResource("10_e53fg")
+slot_button_scene = ExtResource("11_2plp7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interact_Screen/Label"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ListBtd" parent="Interact_Screen/Label/VBoxContainer" instance=ExtResource("11_2plp7")]
+layout_mode = 2
 
 [connection signal="pressed" from="Interact_Screen/SaveButton" to="Interact_Screen" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Interact_Screen/LoadButton" to="Interact_Screen" method="_on_load_button_pressed"]
