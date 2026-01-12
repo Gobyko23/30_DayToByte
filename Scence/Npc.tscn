@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://brcdwospn3ewr"]
+[gd_scene load_steps=9 format=3 uid="uid://brcdwospn3ewr"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/NPC_Scirpt.gd" id="1_h1kfr"]
 [ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="2_ra161"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_ra161"]
+[ext_resource type="Texture2D" uid="uid://7hjugrewqt22" path="res://Assets/Gui/Entity/Catking-export.png" id="4_uk5pf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
 radius = 0.867945
@@ -16,6 +17,23 @@ content_margin_left = 25.0
 content_margin_top = 25.0
 content_margin_right = 25.0
 content_margin_bottom = 25.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ra161"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_uk5pf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uk5pf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uk5pf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="NPCStatic" type="Node3D"]
 
@@ -87,3 +105,6 @@ pixel_size = 0.0571
 billboard = 2
 texture_filter = 0
 texture = ExtResource("3_ra161")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Apple_NPC"]
+sprite_frames = SubResource("SpriteFrames_ra161")
