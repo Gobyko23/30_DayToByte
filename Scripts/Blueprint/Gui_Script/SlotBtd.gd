@@ -1,17 +1,24 @@
-# SlotButton.gd
+# ListBtd.gd
 extends Button
 
-# ลาก Label ที่อยู่ในปุ่มมาวางที่นี่
+# ลาก Label จากในช่อง Scene มาใส่ในตัวแปรนี้ (หรือพิมพ์ชื่อให้ตรง)
 @onready var info_label: Label = $Label 
 
+# ใน ListBtd.gd
 func setup(id: int, data: Dictionary) -> void:
-	if data.is_empty():
-		info_label.text = "Slot %d: Empty" % id
+	# ใช้ find_child เพื่อหา Label ไม่ว่าจะวางไว้ตรงไหนในปุ่ม
+	var label_node = find_child("Label", true, false) as Label
+	
+	if label_node == null:
+		print("❌ หา Node ชื่อ Label ไม่เจอในปุ่ม Slot ", id)
 		return
-	
-	# ดึงค่าเงินและข้อมูลอื่นๆ จาก Dictionary (ตามโครงสร้างใน SaveManager)
-	var money = data.get("player", {}).get("money", 0)
-	var day = data.get("time", {}).get("day", 1)
-	
-	# แสดงผลบนปุ่ม
-	info_label.text = "Slot %d | Day: %d | Money: %d $" % [id, day, money]
+
+	if data.is_empty():
+		label_node.text = "Slot %d | Empty" % id
+	else:
+		# ดึงข้อมูลมาแสดง (ต้องมั่นใจว่าใน SaveManager บันทึกชื่อ 'player' และ 'money' ไว้)
+		var p_money = data.get("player", {}).get("money", 0)
+		var p_name = data.get("player", {}).get("name", "Player")
+		
+		label_node.text = "Slot %d | %s | %d $" % [id, p_name, p_money]
+		print("✅ อัปเดตปุ่ม Slot ", id, " เรียบร้อย: ", label_node.text)

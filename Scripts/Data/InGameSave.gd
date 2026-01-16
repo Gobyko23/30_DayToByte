@@ -40,8 +40,14 @@ func apply_save(save: Dictionary) -> void:
 	)
 
 func _on_request_save(slot: int):
+	# 1. อัปเดตค่าเงินล่าสุดจากระบบ Cash เข้าสู่ PlayerData หรือข้อมูลที่จะเซฟ
+	# (ตรวจสอบว่าใช้ CashSystem.money หรือ CashSystem["money"])
+	var current_money = CashSystem.money 
+	
+	# 2. สั่งเซฟ (ตรวจสอบว่าใน save_game ของคุณดึงค่าจาก CashSystem มาใช้แล้วหรือยัง)
 	SaveAndLoad.save_game(slot, $Player)
 	
+	print("💾 Game Saved to Slot: ", slot, " with Money: ", current_money)
 func _on_request_load(slot: int) -> void:
 	var data := SaveAndLoad.load_game(slot)
 	if data.is_empty():

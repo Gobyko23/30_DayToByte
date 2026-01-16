@@ -1,43 +1,35 @@
 extends Control
 
 @export var slot_button_scene: PackedScene
-@onready var slot_list: VBoxContainer = $VBoxContainer
+@onready var slot_list: VBoxContainer = %VBox
 
 
-func _ready() -> void:
-	# ตรวจว่าตั้งค่า scene หรือยัง
-	if slot_button_scene == null:
-		push_error("❌ slot_button_scene is NULL (assign SlotButton.tscn in Inspector)")
-		return
-
-	if slot_list == null:
-		push_error("❌ VBoxContainer not found")
-		return
-
+# ใน SaveListUi.gd
+func _ready():
+	# ทันทีที่หน้าจอนี้ปรากฏขึ้น ให้วาดปุ่มใหม่พร้อมข้อมูลล่าสุดจากไฟล์
+	SaveAndLoad.save_finished.connect(refresh_slot_list)
 	refresh_slot_list()
 
 func refresh_slot_list() -> void:
+	print("🔄 กำลังรีเฟรชรายการ Slot...") 
 	if slot_list == null: return
-
-	# ลบปุ่มเก่าออกให้หมดก่อน
+	
+	# ลบปุ่มเก่าออกแบบเด็ดขาด
 	for c in slot_list.get_children():
+		slot_list.remove_child(c)
 		c.queue_free()
 
-	# ดึงรายการ ID ทั้งหมดที่มีไฟล์เซฟจริง
-	var slots: Array[int] = SaveAndLoad.get_all_slots()
-
-	# แสดงผลเซฟที่มีอยู่
-	for id in slots:
-		var preview: Dictionary = SaveAndLoad.load_game(id)
+	# วนลูปสร้างปุ่มใหม่ 1-3
+	for id in range(1, 4):
+		var preview = SaveAndLoad.load_game(id) # โหลดจากไฟล์ .json ล่าสุด
 		var btn = slot_button_scene.instantiate()
+		slot_list.add_child(btn)
 		
-		slot_list.add_child(btn) # Add child ก่อนเรียก setup เพื่อให้ @onready ทำงาน
-		
+		# ส่งข้อมูลเข้าปุ่ม (เช็คว่า preview มีข้อมูลไหม)
 		if btn.has_method("setup"):
 			btn.setup(id, preview)
-
-		# เมื่อกดปุ่มนี้
+		
 		btn.pressed.connect(func():
-			PlayerData.GlobalSaveSlot = id # บันทึกไว้ว่ากำลังใช้ Slot ไหน
+			PlayerData.GlobalSaveSlot = id
 			get_tree().change_scene_to_file("res://Scence/Main_Game.tscn")
 		)

@@ -5,6 +5,7 @@ const SAVE_DIR := "user://saves/"
 const SAVE_VERSION := 1
 signal request_save(slot: int)
 signal request_load(slot: int)
+signal save_finished
 # -------------------------
 func _ready() -> void:
 	# เชื่อมต่อ Signal เข้ากับฟังก์ชันในตัวเอง
@@ -22,7 +23,8 @@ func save_game(slot: int, player: Node3D) -> void:
 		"save_time": Time.get_datetime_string_from_system(), # เพิ่มเวลาที่เซฟจริงเข้าไปด้วย
 		"scene": get_tree().current_scene.scene_file_path,
 		"player": {
-			"money": CashSystem["money"],
+			"name": PlayerData.Name,
+			"money": CashSystem.money,
 			"position": {
 				"x": player.global_position.x,
 				"y": player.global_position.y,
@@ -41,6 +43,7 @@ func save_game(slot: int, player: Node3D) -> void:
 	if file:
 		file.store_string(JSON.stringify(data, "\t"))
 		file.close()
+		save_finished.emit()
 		print("✅ Saved slot ", slot)
 	else:
 		push_error("❌ Cannot write file to: " + path)

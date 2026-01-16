@@ -3,4 +3,5 @@ extends Node
 
 var money := 0
 var position := Vector3.ZERO
-var GlobalSaveSlot = 0
+var Name :String= "Gobyko"
+var GlobalSaveSlot = 1
