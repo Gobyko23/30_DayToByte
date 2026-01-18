@@ -1,6 +1,6 @@
 extends RichTextLabel
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var statement := ""
 
 	for item in InventorySystem.Inventory.keys():

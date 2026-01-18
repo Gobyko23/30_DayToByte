@@ -1,45 +1,66 @@
 extends Node
 
-# โหลด Scene หน้าจอ Loading ที่เราเตรียมไว้
 var loading_screen_scene = preload("res://Scence/LoadingScreen.tscn")
-var loading_screen_instance: CanvasLayer
+var loading_screen_instance: CanvasLayer = null
 var target_path: String
 var progress: Array = []
+var is_loading: bool = false # เพิ่มตัวแปรเช็คสถานะ
 
 func load_scene(path: String):
 	target_path = path
+	is_loading = true # เริ่มสถานะโหลด
 	
-	# 1. สร้างหน้าจอ Loading ขึ้นมาแสดงผล
+	if is_instance_valid(loading_screen_instance):
+		loading_screen_instance.queue_free()
+	
 	loading_screen_instance = loading_screen_scene.instantiate()
 	get_tree().root.add_child(loading_screen_instance)
 	
-	# 2. เริ่มต้นการโหลดใน Background
-	ResourceLoader.load_threaded_request(target_path)
+	# รีเซ็ตหลอดเป็น 0
+	var pb = loading_screen_instance.find_child("ProgressBar")
+	if pb: pb.value = 0
 	
-	# 3. เปิดการทำงานของ _process เพื่อเช็คความคืบหน้า
+	ResourceLoader.load_threaded_request(target_path)
 	set_process(true)
 
-func _ready():
-	# ปิด process ไว้ก่อนจนกว่าจะมีการเรียกใช้
-	set_process(false)
-
 func _process(_delta):
-	var status = ResourceLoader.load_threaded_get_status(target_path, progress)
-	
-	# อัปเดต ProgressBar ใน Scene (สมมติว่าชื่อ ProgressBar)
-	var pb = loading_screen_instance.find_child("ProgressBar")
-	if pb:
-		pb.value = progress[0] * 100
-	
-	if status == ResourceLoader.THREAD_LOAD_LOADED:
-		set_process(false)
-		_complete_loading()
+	if not is_loading or not is_instance_valid(loading_screen_instance):
+		return
 
-func _complete_loading():
+	var status = ResourceLoader.load_threaded_get_status(target_path, progress)
+	var pb = loading_screen_instance.find_child("ProgressBar")
+	
+	if pb:
+		var target_progress = progress[0] * 100
+		# สร้าง Tween แบบชั่วคราวเพื่อเลื่อนค่าให้สมูท
+		var tween = create_tween()
+		tween.tween_property(pb, "value", target_progress, 0.5)
+	
+	# เมื่อโหลดเสร็จในหน่วยความจำ
+	if status == ResourceLoader.THREAD_LOAD_LOADED:
+		is_loading = false # หยุดการอัปเดตใน _process
+		_finish_loading_sequence()
+
+func _finish_loading_sequence():
+	var pb = loading_screen_instance.find_child("ProgressBar")
+	
+	# --- จุดสำคัญ: สั่งให้หลอดวิ่งไปที่ 100% และ "รอ" จนกว่าจะเต็มจริง ---
+	if pb:
+		var final_tween = create_tween()
+		# วิ่งไป 100 ในเวลา 0.3 วินาที (ปรับความเร็วได้ที่นี่)
+		final_tween.tween_property(pb, "value", 100.0, 0.5)
+		# ใช้ await รอจนกว่า Tween นี้จะทำงานเสร็จ
+		await final_tween.finished
+	
+	# เปลี่ยนฉากจริง
+	_complete_transition()
+
+func _complete_transition():
+	set_process(false)
 	var new_scene = ResourceLoader.load_threaded_get(target_path)
+	if new_scene:
+		get_tree().change_scene_to_packed(new_scene)
 	
-	# เปลี่ยน Scene
-	get_tree().change_scene_to_packed(new_scene)
-	
-	# ลบหน้าจอ Loading ออก
-	loading_screen_instance.queue_free()
+	if is_instance_valid(loading_screen_instance):
+		loading_screen_instance.queue_free()
+		loading_screen_instance = null
