@@ -9,7 +9,7 @@ const JUMP_VELOCITY :float= 4.5
 @onready var InteractText = %Interact_Text
 @onready var HoldBar = %HoldBar
 @onready var Inter_Screen = $"../Interact_Screen"
-@onready var Interact_Anim :AnimationPlayer= $TheBox/Interact_Anim
+
 @onready var ViewSprite = $ViewSprite
 @onready var TextView3D = $ViewSprite/SubViewport/ViewPortControl/TextView3D
 @onready var ViewPort3DAnim = $ViewSprite/ViewSpriteAnim

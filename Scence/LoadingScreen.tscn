@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1vd4dyx4qj48"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_emcow"]
+font_size = 66
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_go2wt"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="LoadingScreen" type="CanvasLayer"]
+layer = 15
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.992188, 0.294556, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Loading..."
+label_settings = SubResource("LabelSettings_emcow")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 30)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_go2wt")
+value = 23.34
+allow_greater = true
+show_percentage = false

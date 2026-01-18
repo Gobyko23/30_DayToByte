@@ -21,6 +21,7 @@ CashSystem="*res://Scripts/ItemSystem/CashSystem.gd"
 SaveAndLoad="*res://Scripts/SaveSystem/SaveAndLoadscript.gd"
 PlayerData="*res://Scripts/Data/PlayerData.gd"
 TimeManager="*res://Scripts/Data/TimeManager.gd"
+SceneLoader="*res://Scripts/Blueprint/SceneLoader.gd"
 
 [config]
 

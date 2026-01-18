@@ -4,7 +4,7 @@ class_name NPC
 @onready var Dialogue_sprite :Sprite3D = $NPC_Dialog
 @onready var Dialogue_text :RichTextLabel = $NPC_Dialog/SubViewport/Control/RichTextLabel
 @onready var Anotation :Sprite3D = $NPC_UnknowTation
-@onready var TalkingTime :Timer = $TalkingTimer
+
 @onready var world_camera = get_tree().get_first_node_in_group("WorldCamera")
 @onready var focus_marker: Marker3D = $NPC_Sprite/NpcPivot
 
