@@ -114,5 +114,5 @@ light_specular = 1.936
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_emetj")
-volume_db = -0.11
 autoplay = true
+bus = &"MusicBus"

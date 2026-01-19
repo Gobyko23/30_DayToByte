@@ -1,0 +1,139 @@
+[gd_scene load_steps=9 format=3 uid="uid://crkcp6kp3011g"]
+
+[ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="1_0rt53"]
+[ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="2_mjgnn"]
+[ext_resource type="AudioStream" uid="uid://d3jyrco16dd4h" path="res://Assets/Music/Ogg_Menu_Music.ogg" id="3_mjgnn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hmn5v"]
+font_size = 66
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_hmn5v"]
+color = Color(1, 1, 1, 0.231373)
+grow_begin = -3.0
+grow_end = -5.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_84sqk"]
+color = Color(1, 0, 0, 1)
+grow_begin = -3.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bpw7h"]
+color = Color(0.921875, 1, 0, 1)
+grow_begin = -3.0
+thickness = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_biy3d"]
+
+[node name="Option" type="CanvasLayer"]
+layer = 5
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 95.0
+offset_top = 105.0
+offset_right = -557.0
+offset_bottom = -146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxMain" type="VBoxContainer" parent="Control/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 175
+
+[node name="MusicContainer" type="VBoxContainer" parent="Control/CenterContainer/VBoxMain"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="Control/CenterContainer/VBoxMain/MusicContainer"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_hmn5v")
+horizontal_alignment = 1
+
+[node name="MusicBar" type="HSlider" parent="Control/CenterContainer/VBoxMain/MusicContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/center_grabber = 135
+theme_override_styles/slider = SubResource("StyleBoxLine_hmn5v")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_84sqk")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_bpw7h")
+value = 34.0
+script = ExtResource("1_0rt53")
+bus_name = "MusicBus"
+
+[node name="VolumeContainer" type="VBoxContainer" parent="Control/CenterContainer/VBoxMain"]
+layout_mode = 2
+alignment = 2
+
+[node name="VolumeLabel" type="Label" parent="Control/CenterContainer/VBoxMain/VolumeContainer"]
+layout_mode = 2
+text = "Volume"
+label_settings = SubResource("LabelSettings_hmn5v")
+horizontal_alignment = 1
+
+[node name="VolumeBar" type="HSlider" parent="Control/CenterContainer/VBoxMain/VolumeContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/center_grabber = 150
+theme_override_styles/slider = SubResource("StyleBoxLine_hmn5v")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_84sqk")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_bpw7h")
+value = 30.0
+script = ExtResource("1_0rt53")
+bus_name = "SFXBus"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 641.0
+offset_top = 105.0
+offset_right = -11.0
+offset_bottom = -146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer2"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Control/CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.606771, 0.606771, 0.606771, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0.106771, 0.106771, 1)
+theme_override_colors/icon_focus_color = Color(0.565104, 0.565104, 0.565104, 1)
+theme_override_constants/h_separation = 15
+theme_override_font_sizes/font_size = 31
+theme_override_styles/focus = SubResource("StyleBoxEmpty_biy3d")
+text = "Windows"
+alignment = 1
+
+[node name="DragSFX" type="AudioStreamPlayer" parent="Control"]
+unique_name_in_owner = true
+stream = ExtResource("2_mjgnn")
+bus = &"SFXBus"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mjgnn")
+autoplay = true
+bus = &"MusicBus"
