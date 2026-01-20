@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://l27jg2e7gup2"]
+[gd_scene load_steps=20 format=3 uid="uid://l27jg2e7gup2"]
 
 [ext_resource type="Texture2D" uid="uid://dj86gvkqvc3x" path="res://Assets/Gui/Play_godot_Ui-export.png" id="1_h2svc"]
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="1_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://covfjyqqdroqm" path="res://Assets/Gui/option_godot_Ui-export.png" id="2_am5sa"]
 [ext_resource type="Texture2D" uid="uid://do3ae7qtaco85" path="res://Assets/Gui/Exit_godot_Ui-export.png" id="3_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/30Dtablet-export.png" id="4_jkqpj"]
+[ext_resource type="PackedScene" uid="uid://crkcp6kp3011g" path="res://Menu_scence/Option.tscn" id="6_3t4wu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkqpj"]
 
@@ -131,6 +132,13 @@ rotation = -0.269853
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/normal_font_size = 46
 text = "Demo 1"
+
+[node name="Option" parent="." instance=ExtResource("6_3t4wu")]
+layer = 85
+visible = false
+offset = Vector2(200, 125)
+scale = Vector2(0.655, 0.655)
+transform = Transform2D(0.655, 0, 0, 0.655, 200, 125)
 
 [connection signal="pressed" from="VBoxContainer/Start_Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Option_Button" to="." method="_on_option_button_pressed"]

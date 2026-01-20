@@ -1,8 +1,22 @@
-[gd_scene load_steps=9 format=3 uid="uid://crkcp6kp3011g"]
+[gd_scene load_steps=11 format=3 uid="uid://crkcp6kp3011g"]
 
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="1_0rt53"]
+[ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="1_36vx8"]
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="2_mjgnn"]
 [ext_resource type="AudioStream" uid="uid://d3jyrco16dd4h" path="res://Assets/Music/Ogg_Menu_Music.ogg" id="3_mjgnn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjgnn"]
+bg_color = Color(0.173462, 0.528646, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_hmn5v"]
 font_size = 66
@@ -27,23 +41,26 @@ thickness = 10
 
 [node name="Option" type="CanvasLayer"]
 layer = 5
+follow_viewport_enabled = true
 
 [node name="Control" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_36vx8")
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="ColorRect" type="Panel" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_mjgnn")
 
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 layout_mode = 1
@@ -107,17 +124,18 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 641.0
-offset_top = 105.0
-offset_right = -11.0
-offset_bottom = -146.0
+offset_left = 726.0
+offset_top = 107.0
+offset_right = -51.0
+offset_bottom = -61.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer2"]
 layout_mode = 2
+theme_override_constants/separation = 350
 
-[node name="CheckBox" type="CheckBox" parent="Control/CenterContainer2/VBoxContainer"]
+[node name="WindowCheck" type="CheckBox" parent="Control/CenterContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/icon_hover_color = Color(0.606771, 0.606771, 0.606771, 1)
 theme_override_colors/icon_pressed_color = Color(1, 0.106771, 0.106771, 1)
@@ -128,6 +146,11 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_biy3d")
 text = "Windows"
 alignment = 1
 
+[node name="BackButton" type="Button" parent="Control/CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "Back"
+
 [node name="DragSFX" type="AudioStreamPlayer" parent="Control"]
 unique_name_in_owner = true
 stream = ExtResource("2_mjgnn")
@@ -137,3 +160,5 @@ bus = &"SFXBus"
 stream = ExtResource("3_mjgnn")
 autoplay = true
 bus = &"MusicBus"
+
+[connection signal="pressed" from="Control/CenterContainer2/VBoxContainer/BackButton" to="Control" method="_on_back_button_pressed"]

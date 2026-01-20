@@ -4,7 +4,9 @@ extends HSlider
 var bus_index: int
 @onready var Hslide_SFX :AudioStreamPlayer= %DragSFX
 
+
 func _ready() -> void:
+
 	bus_index = AudioServer.get_bus_index(bus_name)
 	
 	# 1. ดึงค่าเสียงปัจจุบันจาก AudioServer (เป็นค่า dB)
