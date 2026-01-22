@@ -1,7 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://o6ai16t3tw6e"]
 
-[ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/char_sprite.gd" id="1_crfo7"]
+[ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/Entity/char_sprite.gd" id="1_crfo7"]
 [ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="2_2dldw"]
+
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_16m5h"]
 viewport_path = NodePath("ViewSprite/SubViewport")

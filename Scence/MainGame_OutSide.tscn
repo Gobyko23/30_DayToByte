@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_2plp7"]
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="1_wwabv"]
 [ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_Scence.tscn" id="2_btx0n"]
-[ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/player_camera.gd" id="3_xlcw2"]
+[ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/Entity/player_camera.gd" id="3_xlcw2"]
 [ext_resource type="PackedScene" uid="uid://brcdwospn3ewr" path="res://Scence/Npc.tscn" id="4_rkrtr"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/ItemSystem/item_list_Inventory.gd" id="5_idsgl"]
-[ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Save/SaveUi.gd" id="5_sxhto"]
+[ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Scripts/Blueprint/Gui_Script/SaveUi.gd" id="5_sxhto"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="6_sxhto"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/ItemSystem/item_list.gd" id="7_eied3"]
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="8_e53fg"]
@@ -68,7 +68,7 @@ bg_color = Color(0.753087, 0.566363, 0.147155, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
 bg_color = Color(0.517184, 0.517184, 0.517184, 1)
 
-[node name="MainGameOutSide" type="Node3D"]
+[node name="MainGameOutSide" type="Node3D" groups=["interactable"]]
 script = ExtResource("1_2plp7")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

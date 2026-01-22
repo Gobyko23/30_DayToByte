@@ -31,5 +31,4 @@ func refresh_slot_list() -> void:
 		
 		btn.pressed.connect(func():
 			PlayerData.GlobalSaveSlot = id
-			get_tree().change_scene_to_file("res://Scence/Main_Game.tscn")
 		)

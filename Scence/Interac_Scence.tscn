@@ -1,11 +1,12 @@
 [gd_scene load_steps=30 format=4 uid="uid://jf7una4atcek"]
 
-[ext_resource type="Script" uid="uid://b8eh1eklrlyby" path="res://Scripts/Box.gd" id="1_7h88j"]
+[ext_resource type="Script" uid="uid://b8eh1eklrlyby" path="res://Scripts/Entity/Box.gd" id="1_7h88j"]
 [ext_resource type="Material" uid="uid://bfvuydppwvo7w" path="res://Matirial/Black.tres" id="2_qib8o"]
 [ext_resource type="Texture2D" uid="uid://cneih7bpxgnb4" path="res://Assets/Models/Prop_5.png" id="3_qib8o"]
 [ext_resource type="Texture2D" uid="uid://d1w6byi6m4m3w" path="res://Assets/Models/Prop_10.png" id="4_3ns4d"]
 [ext_resource type="AudioStream" uid="uid://b3psnrnxybylf" path="res://Assets/SFX/pickupSFX_1.wav" id="5_ywkrd"]
 [ext_resource type="AudioStream" uid="uid://cmts7jfxrlc0p" path="res://Assets/SFX/OpenBox/OpeningBox1.wav" id="6_ckggs"]
+
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wiu1"]
 rough = true

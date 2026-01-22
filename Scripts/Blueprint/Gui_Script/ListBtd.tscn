@@ -1,6 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8x2ngcxf2atn"]
+[gd_scene load_steps=5 format=3 uid="uid://c8x2ngcxf2atn"]
 
 [ext_resource type="Script" uid="uid://cpnxkrisxh6u5" path="res://Scripts/Blueprint/Gui_Script/SlotBtd.gd" id="1_ntnnx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntnnx"]
+bg_color = Color(0.6, 0.6, 0.6, 0.588235)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dksjh"]
+bg_color = Color(0.388021, 0.376906, 0.376906, 0.576471)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ntnnx"]
 
@@ -10,6 +16,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_ntnnx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dksjh")
 text = "    "
 script = ExtResource("1_ntnnx")
 

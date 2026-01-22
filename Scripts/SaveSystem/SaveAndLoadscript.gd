@@ -113,3 +113,4 @@ func _on_request_load(slot: int) -> void:
 		if player and data["player"].has("position"):
 			var pos = data["player"]["position"]
 			player.global_position = Vector3(pos.x, pos.y, pos.z)
+	

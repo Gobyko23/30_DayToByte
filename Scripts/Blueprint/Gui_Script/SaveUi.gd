@@ -10,3 +10,4 @@ func _on_save_button_pressed() -> void: #Save
 	
 func _on_load_button_pressed() -> void: #Load
 	SaveAndLoad.request_load.emit(PlayerData.GlobalSaveSlot)
+	SceneLoader.load_scene("res://Scence/MainGame_OutSide.tscn")
