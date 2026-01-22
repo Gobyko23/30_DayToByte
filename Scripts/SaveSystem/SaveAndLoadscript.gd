@@ -31,6 +31,13 @@ func save_game(slot: int, player: Node3D) -> void:
 				"z": player.global_position.z
 			}
 		},
+		"item_data":{
+			"name": #string //check Item name
+			"remove": #bool //check remove state
+			"scene_path": # item.scene_file_path
+			"pos_x": # item.global_position.x,
+			"pos_y": # item.global_position.y,
+		},
 		"time": {
 			"day": TimeManager.day,
 			"hour": TimeManager.hour,
