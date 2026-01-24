@@ -23,6 +23,8 @@ PlayerData="*res://Scripts/Data/PlayerData.gd"
 TimeManager="*res://Scripts/Data/TimeManager.gd"
 SceneLoader="*res://Scripts/Blueprint/SceneLoader.gd"
 MainMenuEvent="*res://Menu_scence/MainMenuUi.gd"
+ItemDataManager="*res://Scripts/ItemSystem/ItemDataManager.gd"
+QuestManager="*res://Scripts/Data/QuestManager.gd"
 
 [config]
 

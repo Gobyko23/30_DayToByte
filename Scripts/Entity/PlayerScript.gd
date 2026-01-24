@@ -29,8 +29,15 @@ var is_holding :bool= false
 func _physics_process(delta: float) -> void:
 	if is_talking and talking_npc:
 		if Input.is_action_just_pressed("interact_bind"):
-			talking_npc.next_dialogue()
-			print("Current NPC:", talking_npc.name)
+			if talking_npc.has_method("next_dialogue"):
+				talking_npc.next_dialogue()
+				print("💬 Current NPC:", talking_npc.name)
+				if talking_npc.has_method("quest_system"):
+					var quest = talking_npc.quest_system.current_quest
+					if quest:
+						quest.debug_print_dialogues()
+			else:
+				print("❌ NPC doesn't have next_dialogue() method")
 		return 
 	
 	
@@ -190,10 +197,13 @@ func _set_highlight(obj, enable: bool):
 #check ว่าอยู่ใน Area3d หรือไม่
 func _on_interact_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("interactable") or body.is_in_group("Npc"):
-		body.interact_event_in()
+		if body.has_method("interact_event_in"):
+			body.interact_event_in()
 		Interact_Screen()
-		print("Player: Interacted: ", body.name)
+		print("✅ Player: Interacted: ", body.name)
 		nearby_objects.append(body)
+	else:
+		print("❌ Warning: ", body.name, " doesn't have interact_event_in() method")
 #------------------------------------------------------------------------
 
 #เช็คว่าออกนอก Area3D หรือไม่
@@ -201,13 +211,16 @@ func _on_interact_area_body_entered(body: Node3D) -> void:
 func _on_interact_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("interactable") or body.is_in_group("Npc"):
 		nearby_objects.erase(body)
-		body.interact_event_out()
-		print("Player: Not Interacted: ", body.name)
+		if body.has_method("interact_event_out"):
+			body.interact_event_out()
+		print("🚫 Player: Not Interacted: ", body.name)
 		if highlighted == body:
 			_set_highlight(body, false)
 			highlighted = null
 		if nearby_objects.is_empty():
 			Interact_Screen()
+		else:
+			print("❌ Warning: ", body.name, " doesn't have interact_event_out() method")
 #------------------------------------------------------------------------
 #holdbar visible
 func Interact_Screen() -> void:

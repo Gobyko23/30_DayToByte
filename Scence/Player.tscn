@@ -1,8 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://o6ai16t3tw6e"]
 
-[ext_resource type="Script" uid="uid://cnxbfjwdclk1f" path="res://Scripts/Entity/char_sprite.gd" id="1_crfo7"]
+[ext_resource type="Script" uid="uid://b8dp8ua7vuhbj" path="res://Scripts/Entity/PlayerScript.gd" id="1_16m5h"]
 [ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="2_2dldw"]
-
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_16m5h"]
 viewport_path = NodePath("ViewSprite/SubViewport")
@@ -157,7 +156,7 @@ height = 1.58027
 [sub_resource type="BoxShape3D" id="BoxShape3D_16m5h"]
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
-script = ExtResource("1_crfo7")
+script = ExtResource("1_16m5h")
 
 [node name="ViewSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51491, 1.11762, 0)
