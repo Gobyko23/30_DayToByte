@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3 uid="uid://b2ckyilll71m4"]
+
+[ext_resource type="Script" uid="uid://fxxnnv8q8trf" path="res://Scripts/Data/DialogueData.gd" id="1_df3m4"]
+
+[resource]
+script = ExtResource("1_df3m4")
+dialogue_id = "dialogue_001"
+dialogue_name = "Greeding"
+dialogues = Array[String](["Hi", "Apple Pease"])
+auto_play = false
+close_on_end = true
+metadata/_custom_type_script = "uid://fxxnnv8q8trf"

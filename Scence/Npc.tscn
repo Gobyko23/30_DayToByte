@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://brcdwospn3ewr"]
+[gd_scene load_steps=8 format=3 uid="uid://brcdwospn3ewr"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_h1kfr"]
 [ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="2_ra161"]
+[ext_resource type="Resource" uid="uid://b2ckyilll71m4" path="res://Dialogue_Info/Apple_NPC_Dialogue.tres" id="2_uk5pf"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_ra161"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
@@ -22,7 +23,7 @@ content_margin_bottom = 25.0
 [node name="Apple_NPC" type="RigidBody3D" parent="." groups=["Npc"]]
 collision_layer = 3
 script = ExtResource("1_h1kfr")
-Dialogue = Array[String](["ถามจริง?", "จริง...."])
+dialogue_data = ExtResource("2_uk5pf")
 
 [node name="NpcHitBox" type="CollisionShape3D" parent="Apple_NPC"]
 transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0.421628, 0)

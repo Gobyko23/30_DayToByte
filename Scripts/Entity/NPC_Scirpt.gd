@@ -8,22 +8,27 @@ class_name NPC
 @onready var world_camera = get_tree().get_first_node_in_group("WorldCamera")
 @onready var focus_marker: Marker3D = $NPC_Sprite/NpcPivot
 
-# ตั้งค่า Dialogue
-@export var Dialogue :Array[String] = []
+# ระบบ Dialogue
+@export var dialogue_data: DialogueData = null  # Dialogue Resource
+@export var default_dialogue: Array[String] = []  # Dialogue สำรอง
 
 # ระบบ Quest
 @onready var quest_system: NPCQuestSystem = NPCQuestSystem.new()
 @export var current_quest: QuestData = null  # เก็บ Quest Data ปัจจุบัน
 
-var Dia :int = 0
 var current_dialogue_source: Array[String] = []  # เก็บ Dialogue จาก Quest
 var quest_state: String = ""  # เก็บสถานะ Quest: "give", "complete", "reward"
+var is_showing_dialogue: bool = false  # ตรวจสอบว่าแสดง dialogue อยู่หรือไม่
 
 func _ready() -> void:
 	if Dialogue_text:
 		Dialogue_text.text = ""
 	if Dialogue_sprite:
 		Dialogue_sprite.visible = false
+	
+	# ถ้ามี dialogue_data ให้รีเซ็ต
+	if dialogue_data:
+		dialogue_data.reset()
 	
 	# ถ้ามี current_quest ให้ใช้ dialogue จาก quest นั้น
 	if current_quest:
@@ -45,8 +50,6 @@ func interact_event_out():
 		Anotation.visible = false
 
 func interacting():
-	Dia = 0
-
 	var player = get_tree().get_first_node_in_group("Player")
 	if player:
 		player.showbar()
@@ -57,12 +60,11 @@ func interacting():
 		if Dialogue_sprite:
 			Dialogue_sprite.visible = true
 	
-	# ถ้า NPC นี้มี current_quest ให้แสดง dialogue จากนั้นและสตาร์ท quest
-	if current_quest and current_quest.give_quest_dialogue.size() > 0:
-		current_dialogue_source = current_quest.give_quest_dialogue.duplicate()
-		Dia = 0
+	# รีเซ็ต dialogue และเริ่มใหม่
+	if dialogue_data:
+		dialogue_data.reset()
 	
-	# เรียก show_dialogue หลังตั้งค่าทั้งหมด
+	is_showing_dialogue = true
 	show_dialogue()
 
 	
@@ -70,7 +72,26 @@ func interacting_cancle():
 	pass
 
 #------------------------------------------------------------------------
-#method Dialgue For NPC
+# ============= ฟังก์ชัน Dialogue System =============
+
+# ฟังก์ชัน: ตั้งค่า Dialogue Resource
+func set_dialogue(new_dialogue: DialogueData) -> void:
+	dialogue_data = new_dialogue
+	if dialogue_data:
+		dialogue_data.reset()
+		print("📝 Dialogue set: ", dialogue_data.dialogue_name)
+
+# ฟังก์ชัน: ได้ Dialogue ปัจจุบัน
+func get_current_dialogue() -> String:
+	if dialogue_data:
+		return dialogue_data.get_current_dialogue()
+	return ""
+
+# ฟังก์ชัน: ตรวจสอบว่า Dialogue จบหรือไม่
+func is_dialogue_complete() -> bool:
+	if dialogue_data:
+		return dialogue_data.is_dialogue_complete()
+	return true
 
 # ฟังก์ชัน: ตั้งค่า Quest และ Dialogue จาก Quest Data
 func set_quest_dialogue(quest: QuestData, state: String = "give") -> void:
@@ -89,11 +110,10 @@ func set_quest_dialogue(quest: QuestData, state: String = "give") -> void:
 			print("🎁 Quest reward dialogue set: ", quest.quest_name)
 		_:
 			current_dialogue_source = quest.give_quest_dialogue.duplicate()
-	
-	Dia = 0  # รีเซ็ต dialogue index
 
 
 func end_dialogue():
+	is_showing_dialogue = false
 	world_camera.release_focus()
 	if Anotation:
 		Anotation.visible = true
@@ -104,6 +124,10 @@ func end_dialogue():
 			Dialogue_text.text = ""
 		player.showbar()
 	print("Dialogue ended")
+	
+	# ปิด Dialogue Sprite
+	if Dialogue_sprite:
+		Dialogue_sprite.visible = false
 	
 	
 func show_dialogue():
@@ -116,15 +140,37 @@ func show_dialogue():
 	if world_camera and focus_marker:
 		world_camera.focus_on(focus_marker)
 	
-	# ใช้ Dialogue จาก current_dialogue_source ก่อน (มาจาก Quest)
-	var dialogue_array = current_dialogue_source if current_dialogue_source.size() > 0 else Dialogue
-	
-	if Dia < dialogue_array.size():
-		if Dialogue_text:
-			Dialogue_text.text = dialogue_array[Dia]
-		print("NPC:", dialogue_array[Dia])
+	# ใช้ Dialogue Resource ที่กำหนด
+	if dialogue_data:
+		var current_text = dialogue_data.get_current_dialogue()
+		if current_text:
+			if Dialogue_text:
+				Dialogue_text.text = current_text
+			print("NPC: ", current_text)
+		else:
+			# Dialogue จบแล้ว
+			if dialogue_data.close_on_end:
+				end_dialogue()
+	# ใช้ Dialogue จาก Quest ถ้ามี
+	elif current_quest and current_dialogue_source.size() > 0:
+		show_quest_dialogue()
+	# ใช้ Default Dialogue
+	elif default_dialogue.size() > 0:
+		show_default_dialogue()
 	else:
 		end_dialogue()
+
+
+func show_quest_dialogue() -> void:
+	var dialogue_array = current_dialogue_source
+	# ใช้ quest_state เพื่อเก็บสถานะ dialogue
+	# สามารถเพิ่มตัวแปร quest_dialogue_index เพื่อติดตามได้
+	pass
+
+
+func show_default_dialogue() -> void:
+	# สามารถใช้สำหรับการแสดง dialogue ทั่วไป
+	pass
 
 
 # ============= ฟังก์ชัน Quest System =============
@@ -187,5 +233,9 @@ func get_npc_info() -> Dictionary:
 	}
 		
 func next_dialogue():
-	Dia += 1
-	show_dialogue()
+	if dialogue_data and is_showing_dialogue:
+		dialogue_data.next_dialogue()
+		show_dialogue()
+	elif current_dialogue_source.size() > 0:
+		# ยังมีการจัดการ quest dialogue
+		pass
