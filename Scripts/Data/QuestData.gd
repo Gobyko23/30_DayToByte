@@ -64,7 +64,7 @@ func get_quest_info() -> Dictionary:
 		"reward_items": reward_items,
 		"is_completed": is_completed,
 		"is_active": is_active,
-    }		
+	}		
 
 # ฟังก์ชัน: Debug - แสดงข้อมูล Quest ทั้งหมด
 func debug_print_quest_info() -> void:

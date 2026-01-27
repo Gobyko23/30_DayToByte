@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://bbgyxb8reuqn8"]
+
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="1_1e4tk"]
+
+[resource]
+script = ExtResource("1_1e4tk")
+quest_id = "quest_001"
+quest_name = "Apple quest"
+description = "คำบรรยายของ Quest"
+reward_money = 100
+reward_items = Array[String]([])
+npc_type = 1
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?", "ผมอยากได้ apple ขอหน่อย"])
+complete_quest_dialogue = Array[String](["ขอบคุณ"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"

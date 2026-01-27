@@ -1,10 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=32 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_2plp7"]
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="1_wwabv"]
 [ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_Scence.tscn" id="2_btx0n"]
 [ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/Entity/player_camera.gd" id="3_xlcw2"]
-[ext_resource type="PackedScene" uid="uid://brcdwospn3ewr" path="res://Scence/Npc.tscn" id="4_rkrtr"]
+[ext_resource type="PackedScene" uid="uid://brcdwospn3ewr" path="res://Scence/NPC/Npc.tscn" id="4_rkrtr"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/ItemSystem/item_list_Inventory.gd" id="5_idsgl"]
 [ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Scripts/Blueprint/Gui_Script/SaveUi.gd" id="5_sxhto"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="6_sxhto"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="8_e53fg"]
 [ext_resource type="Script" uid="uid://bgnk7hncuf6lx" path="res://Scripts/Blueprint/Gui_Script/SaveListUi.gd" id="10_e53fg"]
 [ext_resource type="PackedScene" uid="uid://c8x2ngcxf2atn" path="res://Scripts/Blueprint/Gui_Script/ListBtd.tscn" id="11_2plp7"]
+[ext_resource type="PackedScene" uid="uid://co7nieemwi3ku" path="res://Scence/NPC/Cat.tscn" id="13_mw4eo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -112,12 +113,6 @@ Dialogoffset = Vector3(0.45, 0.445, 2.92)
 
 [node name="NPC" parent="." groups=["Npc"] instance=ExtResource("4_rkrtr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13157, 0.924625, 2.14227)
-
-[node name="NPC2" parent="." groups=["Npc"] instance=ExtResource("4_rkrtr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7267, 0.924625, -0.0332494)
-
-[node name="NPC3" parent="." groups=["Npc"] instance=ExtResource("4_rkrtr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.69117, 0.924625, 4.88117)
 
 [node name="Interact_Screen" type="Control" parent="."]
 layout_mode = 3
@@ -267,6 +262,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Cat" parent="." instance=ExtResource("13_mw4eo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.10295, 1.62521, 0.283262)
 
 [connection signal="pressed" from="Interact_Screen/SaveButton" to="Interact_Screen" method="_on_save_button_pressed"]
 [connection signal="pressed" from="Interact_Screen/LoadButton" to="Interact_Screen" method="_on_load_button_pressed"]

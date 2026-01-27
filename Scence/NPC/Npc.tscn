@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://brcdwospn3ewr"]
+[gd_scene load_steps=10 format=3 uid="uid://brcdwospn3ewr"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_h1kfr"]
+[ext_resource type="Script" uid="uid://cm5e18lq2aj0d" path="res://Scripts/Entity/NPC_Quest_System.gd" id="1_uk5pf"]
 [ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="2_ra161"]
-[ext_resource type="Resource" uid="uid://b2ckyilll71m4" path="res://Dialogue_Info/Apple_NPC_Dialogue.tres" id="2_uk5pf"]
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="3_54a7b"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_ra161"]
+[ext_resource type="Resource" uid="uid://bbgyxb8reuqn8" path="res://Dialogue_Info/AppleKung_Quest.tres" id="6_llxbe"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
 radius = 0.867945
@@ -20,10 +22,10 @@ content_margin_bottom = 25.0
 
 [node name="NPCStatic" type="Node3D"]
 
-[node name="Apple_NPC" type="RigidBody3D" parent="." groups=["Npc"]]
+[node name="Apple_NPC" type="RigidBody3D" parent="." node_paths=PackedStringArray("quest_system") groups=["Npc"]]
 collision_layer = 3
 script = ExtResource("1_h1kfr")
-dialogue_data = ExtResource("2_uk5pf")
+quest_system = NodePath("NPCQuestSystem")
 
 [node name="NpcHitBox" type="CollisionShape3D" parent="Apple_NPC"]
 transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0.421628, 0)
@@ -88,3 +90,10 @@ pixel_size = 0.0571
 billboard = 2
 texture_filter = 0
 texture = ExtResource("3_ra161")
+
+[node name="NPCQuestSystem" type="Node" parent="Apple_NPC"]
+script = ExtResource("1_uk5pf")
+npc_name = "Apple"
+quest_list = Array[ExtResource("3_54a7b")]([ExtResource("6_llxbe")])
+NonQuest_Dialogue = Array[String](["Moew", "Cookie"])
+metadata/_custom_type_script = "uid://cm5e18lq2aj0d"
