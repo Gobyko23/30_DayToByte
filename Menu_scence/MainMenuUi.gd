@@ -7,7 +7,7 @@ func _on_quit_button_pressed() -> void:
 
 
 func _on_start_button_pressed() -> void:
-	SceneLoader.load_scene("res://Scence/MainGame_OutSide.tscn")
+	SceneLoader.load_scene("res://Scence/Stage/MainGame_OutSide.tscn")
 
 
 func _on_option_button_pressed() -> void:

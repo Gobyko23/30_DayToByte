@@ -28,6 +28,7 @@ func _process(_delta):
 		return
 
 	var status = ResourceLoader.load_threaded_get_status(target_path, progress)
+	print("Loading status: ", status, " for path: ", target_path)
 	var pb = loading_screen_instance.find_child("ProgressBar")
 	
 	if pb:
@@ -40,6 +41,12 @@ func _process(_delta):
 	if status == ResourceLoader.THREAD_LOAD_LOADED:
 		is_loading = false # หยุดการอัปเดตใน _process
 		_finish_loading_sequence()
+	elif status == ResourceLoader.THREAD_LOAD_FAILED:
+		print("ERROR: Failed to load scene: ", target_path)
+		is_loading = false
+		if is_instance_valid(loading_screen_instance):
+			loading_screen_instance.queue_free()
+			loading_screen_instance = null
 
 func _finish_loading_sequence():
 	var pb = loading_screen_instance.find_child("ProgressBar")
