@@ -6,52 +6,29 @@ func _ready():
 	SaveAndLoad.request_load.connect(_on_request_load)
 	SaveAndLoad.request_save.connect(_on_request_save)
 	
+	# โหลดเกมตอนเริ่มต้น ถ้า GlobalSaveSlot ถูกตั้งค่า
 	var slot_id = PlayerData.GlobalSaveSlot
 	if slot_id != -1:
-		var data = SaveAndLoad.load_game(slot_id)
-		
-		if not data.is_empty():
-			# 1. โหลดตำแหน่ง (ที่คุณทำได้แล้ว)
-			var pos = data["player"]["position"]
-			player.global_position = Vector3(pos.x, pos.y, pos.z)
-			
-			# 2. โหลดเงิน (จุดที่หายไป!)
-			if data["player"].has("money"):
-				var saved_money = data["player"]["money"]
-				# ใช้ฟังก์ชัน set_money ที่คุณเขียนไว้ เพื่อให้ Signal ทำงาน
-				CashSystem.set_money(int(saved_money)) 
-				print("💰 Loaded Money: ", saved_money)
-	var save: Dictionary = SaveAndLoad.load_game(PlayerData.GlobalSaveSlot)
-	if save.is_empty():
-		return
-
-	apply_save(save)
+		print("📂 Loading save slot: ", slot_id)
+		SaveAndLoad.request_load.emit(slot_id)
+	else:
+		print("⚠️ No save slot specified")
 
 
+func _on_request_save(slot: int) -> void:
+	print("💾 Saving to slot: ", slot)
+	# SaveAndLoadscript.save_game() จะจัดการทุกอย่าง:
+	# - Player position & money
+	# - Items
+	# - Quests
+	# - NPCs state
 
 
-func apply_save(save: Dictionary) -> void:
-	PlayerData.money = save["player"]["money"]
-
-	player.global_position = Vector3(
-		save["player"]["position"]["x"],
-		save["player"]["position"]["y"],
-		save["player"]["position"]["z"]
-	)
-
-func _on_request_save(slot: int):
-	# 1. อัปเดตค่าเงินล่าสุดจากระบบ Cash เข้าสู่ PlayerData หรือข้อมูลที่จะเซฟ
-	# (ตรวจสอบว่าใช้ CashSystem.money หรือ CashSystem["money"])
-	var current_money = CashSystem.money 
-	
-	# 2. สั่งเซฟ (ตรวจสอบว่าใน save_game ของคุณดึงค่าจาก CashSystem มาใช้แล้วหรือยัง)
-	SaveAndLoad.save_game(slot, $Player)
-	
-	print("💾 Game Saved to Slot: ", slot, " with Money: ", current_money)
 func _on_request_load(slot: int) -> void:
-	var data := SaveAndLoad.load_game(slot)
-	if data.is_empty():
-		print("❌ No save in slot", slot)
-		return
+	print("📥 Loading from slot: ", slot)
+	# SaveAndLoadscript._on_request_load() จะจัดการทุกอย่าง:
+	# - Player position & money
+	# - Items restoration
+	# - Quest data
+	# - NPC state restoration (รวม pending_action)
 
-	apply_save(data)

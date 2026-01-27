@@ -25,6 +25,7 @@ SceneLoader="*res://Scripts/Blueprint/SceneLoader.gd"
 MainMenuEvent="*res://Menu_scence/MainMenuUi.gd"
 ItemDataManager="*res://Scripts/ItemSystem/ItemDataManager.gd"
 QuestManager="*res://Scripts/Data/QuestManager.gd"
+NPCManager="*res://Scripts/Data/NPCManager.gd"
 
 [config]
 

@@ -16,6 +16,11 @@ func save_game(slot: int, player: Node3D) -> void:
 
 	# ดึงข้อมูลไอเทมจาก ItemDataManager
 	var saved_items = ItemDataManager.export_items_data()
+	
+	# ดึงข้อมูล NPC (ถ้า NPCManager ได้ load แล้ว)
+	var saved_npcs = {}
+	if get_node_or_null("/root/NPCManager"):
+		saved_npcs = get_node("/root/NPCManager").export_npc_data()
 
 	var data := {
 		"version": SAVE_VERSION,
@@ -32,6 +37,7 @@ func save_game(slot: int, player: Node3D) -> void:
 		},
 		"items": saved_items, 
 		"quests": QuestManager.export_quest_data(),
+		"npcs": saved_npcs,
 		"time": {
 			"day": TimeManager.day, 
 			"hour": TimeManager.hour, 
@@ -103,6 +109,31 @@ func _on_request_load(slot: int) -> void:
 	# 4. โหลดข้อมูล Quest
 	if data.has("quests") and data["quests"] is Dictionary:
 		QuestManager.load_quest_data(data["quests"])
+	
+	# 5. โหลดข้อมูล NPC
+	if data.has("npcs") and data["npcs"] is Dictionary and get_node_or_null("/root/NPCManager"):
+		print("📥 Loading NPC data...")
+		get_node("/root/NPCManager").load_npc_data(data["npcs"])
+		# เรียก _restore_state_from_npc_manager ให้ NPC instances restore state
+		print("🔄 Restoring NPC states...")
+		_restore_all_npc_states()
+		print("✅ NPC states restored!")
+
+
+func _restore_all_npc_states() -> void:
+	# ค้นหา NPC ทั้งหมดในฉากที่มี NPCQuestSystem
+	_find_and_restore_npc_states(get_tree().current_scene)
+
+
+func _find_and_restore_npc_states(node: Node) -> void:
+	# ตรวจสอบ node ปัจจุบัน
+	if node is NPCQuestSystem:
+		print("🔍 Found NPC node: ", node.name, " - restoring state")
+		node._restore_state_from_npc_manager()
+	
+	# วนลูปค้นหาใน children
+	for child in node.get_children():
+		_find_and_restore_npc_states(child)
 
 func _on_request_save(slot: int) -> void:
 	var player = get_tree().current_scene.find_child("Player", true, false) 
