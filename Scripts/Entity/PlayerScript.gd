@@ -9,7 +9,6 @@ const JUMP_VELOCITY :float= 4.5
 @onready var InteractText = %Interact_Text
 @onready var HoldBar = %HoldBar
 @onready var Inter_Screen = $"../Interact_Screen"
-
 @onready var ViewSprite = $ViewSprite
 @onready var TextView3D = $ViewSprite/SubViewport/ViewPortControl/TextView3D
 @onready var ViewPort3DAnim = $ViewSprite/ViewSpriteAnim
@@ -82,13 +81,7 @@ func _physics_process(delta: float) -> void:
 # -------------------------
 	# ระบบเปิด-ปิด menu
 	# -------------------------
-	var menu_check = false
-	if Input.is_action_just_pressed("inventory_menu"):
-		menu_check = true
-		if menu_check:
-			MenuItem.visible = !MenuItem.visible
-		else:
-			menu_check = false
+
 #------------------------------------------------------------------------
 			
 		

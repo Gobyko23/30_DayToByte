@@ -8,6 +8,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_h2svc"]
 font_names = PackedStringArray("Fantasy")
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkqpj"]
 

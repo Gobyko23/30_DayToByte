@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://dsptr0m03nfvg"]
+
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="1_8gb8o"]
+
+[resource]
+script = ExtResource("1_8gb8o")
+quest_id = "Easy_quest_003"
+quest_name = "---"
+description = "---"
+reward_money = 100
+reward_items = Array[String]([])
+npc_type = 1
+give_quest_dialogue = Array[String](["Meow Meow", "Meow Meow Meow", "Meow Meow Meow Meow", "Meow Meow?"])
+complete_quest_dialogue = Array[String](["Meow Meow Meow!"])
+reward_dialogue = Array[String](["Mewooooow!"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"

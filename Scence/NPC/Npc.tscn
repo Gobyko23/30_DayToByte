@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="2_ra161"]
 [ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="3_54a7b"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_ra161"]
-[ext_resource type="Resource" uid="uid://bbgyxb8reuqn8" path="res://Dialogue_Info/AppleKung_Quest.tres" id="6_llxbe"]
+[ext_resource type="Resource" uid="uid://bbgyxb8reuqn8" path="res://Dialogue_Info/NormalQuest/AppleKung_Quest.tres" id="6_llxbe"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
 radius = 0.867945
