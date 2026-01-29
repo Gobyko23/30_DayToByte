@@ -60,14 +60,14 @@ font_color = Color(7.21961e-06, 0.864387, 0.368493, 1)
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
+bg_color = Color(0.163909, 0.396979, 0.801575, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_274oc"]
 bg_color = Color(0.0961794, 0.708587, 0.464487, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hu35k"]
 bg_color = Color(0.753087, 0.566363, 0.147155, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
-bg_color = Color(0.517184, 0.517184, 0.517184, 1)
 
 [node name="MainGameOutSide" type="Node3D" groups=["interactable"]]
 script = ExtResource("1_jysb6")
@@ -114,7 +114,12 @@ Dialogoffset = Vector3(0.45, 0.445, 2.92)
 [node name="NPC" parent="." groups=["Npc"] instance=ExtResource("5_u0fgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13157, 0.924625, 2.14227)
 
-[node name="Interact_Screen" type="Control" parent="."]
+[node name="Cat" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.10295, 1.62521, 0.283262)
+
+[node name="Pause" type="CanvasLayer" parent="."]
+
+[node name="Interact_Screen" type="Control" parent="Pause"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -123,7 +128,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_2hect")
 
-[node name="Interact_Text" type="Label" parent="Interact_Screen"]
+[node name="Interact_Text" type="Label" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -143,7 +148,7 @@ label_settings = SubResource("LabelSettings_2plp7")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HoldBar" type="ProgressBar" parent="Interact_Screen"]
+[node name="HoldBar" type="ProgressBar" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -162,7 +167,7 @@ theme_override_styles/background = SubResource("StyleBoxEmpty_mw4eo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_gks54")
 show_percentage = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Interact_Screen"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 layout_mode = 1
 offset_left = 73.0
@@ -177,7 +182,7 @@ context_menu_enabled = true
 horizontal_alignment = 1
 script = ExtResource("7_pi7ar")
 
-[node name="ItemList" type="ItemList" parent="Interact_Screen"]
+[node name="ItemList" type="ItemList" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 751.0
@@ -203,7 +208,7 @@ item_0/icon = ExtResource("8_2t52r")
 item_1/icon = ExtResource("8_2t52r")
 script = ExtResource("9_au0eo")
 
-[node name="Cash_Label" type="Label" parent="Interact_Screen"]
+[node name="Cash_Label" type="Label" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
@@ -218,43 +223,76 @@ grow_vertical = 0
 label_settings = SubResource("LabelSettings_tc4ov")
 script = ExtResource("10_ijsrt")
 
-[node name="SaveButton" type="Button" parent="Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 117.0
-offset_top = 400.0
-offset_right = 240.0
-offset_bottom = 454.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_274oc")
-text = "Save"
+[node name="RootGui" type="Control" parent="Pause"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="LoadButton" type="Button" parent="Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 117.0
-offset_top = 467.0
-offset_right = 240.0
-offset_bottom = 521.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_hu35k")
-text = "Load
-"
-
-[node name="Label" type="Label" parent="Interact_Screen"]
+[node name="ColorRect" type="ColorRect" parent="Pause/RootGui"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 724.0
-offset_top = 219.0
-offset_right = -55.0
-offset_bottom = -219.0
+offset_left = 251.0
+offset_top = 141.0
+offset_right = -250.0
+offset_bottom = -141.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.641934, 0.641934, 0.641934, 1)
+
+[node name="CenterContainer" type="VBoxContainer" parent="Pause/RootGui/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 84.0
+offset_top = 47.0
+offset_right = -83.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ResumeButton" type="Button" parent="Pause/RootGui/ColorRect/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Resume"
+
+[node name="SaveGameButton" type="Button" parent="Pause/RootGui/ColorRect/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Save Game"
+
+[node name="OptionButton" type="Button" parent="Pause/RootGui/ColorRect/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Option"
+
+[node name="BTMButton" type="Button" parent="Pause/RootGui/ColorRect/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Back To menu"
+
+[node name="SaveListLabel" type="Label" parent="Pause/RootGui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 274.0
+offset_top = 156.0
+offset_right = -276.0
+offset_bottom = -153.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_sxhto")
 script = ExtResource("11_i5cv0")
 slot_button_scene = ExtResource("12_oypcv")
 
-[node name="VBox" type="VBoxContainer" parent="Interact_Screen/Label"]
+[node name="VBox" type="VBoxContainer" parent="Pause/RootGui/SaveListLabel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -263,8 +301,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Cat" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.10295, 1.62521, 0.283262)
+[node name="SaveButton" type="Button" parent="Pause/RootGui/SaveListLabel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -152.0
+offset_top = -3.0
+offset_right = -29.0
+offset_bottom = 51.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_274oc")
+text = "Save"
 
-[connection signal="pressed" from="Interact_Screen/SaveButton" to="Interact_Screen" method="_on_save_button_pressed"]
-[connection signal="pressed" from="Interact_Screen/LoadButton" to="Interact_Screen" method="_on_load_button_pressed"]
+[node name="LoadButton" type="Button" parent="Pause/RootGui/SaveListLabel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -152.0
+offset_top = 73.0
+offset_right = -29.0
+offset_bottom = 127.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_hu35k")
+text = "Load
+"
+
+[connection signal="pressed" from="Pause/RootGui/SaveListLabel/SaveButton" to="Pause/Interact_Screen" method="_on_save_button_pressed"]
+[connection signal="pressed" from="Pause/RootGui/SaveListLabel/LoadButton" to="Pause/Interact_Screen" method="_on_load_button_pressed"]
