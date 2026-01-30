@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/ItemSystem/item_list_Inventory.gd" id="7_pi7ar"]
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="8_2t52r"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/ItemSystem/item_list.gd" id="9_au0eo"]
-[ext_resource type="Script" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="10_ijsrt"]
+[ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="10_ijsrt"]
 [ext_resource type="Script" uid="uid://bgnk7hncuf6lx" path="res://Scripts/Blueprint/Gui_Script/SaveListUi.gd" id="11_i5cv0"]
 [ext_resource type="PackedScene" uid="uid://c8x2ngcxf2atn" path="res://Scripts/Blueprint/Gui_Script/ListBtd.tscn" id="12_oypcv"]
 [ext_resource type="PackedScene" uid="uid://co7nieemwi3ku" path="res://Scence/NPC/Cat.tscn" id="13_rtsas"]

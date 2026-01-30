@@ -3,6 +3,11 @@ extends Control
 
 # อ้างอิง OptionLabel ตามเดิม
 @onready var OptionLabel := $Option
+@onready var tutorial_label: ColorRect = %TutorialLabel
+@onready var TextureLabel: TextureRect = %TextureRect
+@onready var Text_Label: RichTextLabel = %Decription
+@export var img :Array[Texture2D] = []
+@export var TextDscription :Array[String] = []
 # ตัวแปรสำหรับเก็บปุ่ม (ไม่ใช้ @onready)
 var start_button: Button
 var tutorial_button: Button
@@ -15,11 +20,16 @@ var normal_font_size: int = 40
 var hover_font_size: int = 60
 var tween_duration: float = 0.2
 
+var page = 0
+
 # Dictionary เก็บ Tween ของแต่ละปุ่ม
 var button_tweens: Dictionary = {}
 
 func _ready() -> void:
 	# กำหนดค่าปุ่มจาก node path
+	if not img.is_empty() and not TextDscription.is_empty():
+		TextureLabel.texture = img[0]
+		Text_Label.text = TextDscription[0]
 	start_button = $VBoxContainer/Start_Button
 	tutorial_button = $VBoxContainer/Tutorial_Button
 	option_button = $VBoxContainer/Option_Button
@@ -101,7 +111,7 @@ func _on_tutorial_button_hover_exit() -> void:
 	_animate_font_size(tutorial_button, normal_font_size, "tutorial")
 
 func _on_tutorial_button_pressed() -> void:
-	SceneLoader.load_scene("res://Scence/Stage/TutorialScene.tscn")
+	tutorial_label.visible = !tutorial_label.visible
 
 
 
@@ -137,3 +147,46 @@ func _on_back_button_pressed() -> void:
 		OptionLabel.visible = !OptionLabel.visible
 	else:
 		push_error("OptionLabel not found!")
+
+
+
+
+func _on_next_react_button_pressed() -> void:
+	if img.is_empty() and TextDscription.is_empty(): return
+	
+	# 1. Increment first
+	page += 1
+	
+	# 2. Check boundaries - use max to go through all content
+	var max_pages = max(img.size(), TextDscription.size())
+	if page >= max_pages:
+		page = max_pages - 1
+		return 
+	
+	# 3. Update Visuals - only update if index is valid
+	if page < img.size():
+		TextureLabel.texture = img[page]
+	else:
+		TextureLabel.texture = null
+		
+	if page < TextDscription.size():
+		Text_Label.text = TextDscription[page]
+	print("Current Page: ", page)
+
+func _on_back_react_button_pressed() -> void:
+	if img.is_empty() and TextDscription.is_empty(): return
+	
+	# 1. Decrement first
+	page -= 1
+	
+	# 2. Check boundaries
+	if page < 0:
+		page = 0 # Clamp to min
+		return
+		
+	# 3. Update Visuals - only update if index is valid
+	if page < img.size():
+		TextureLabel.texture = img[page]
+	if page < TextDscription.size():
+		Text_Label.text = TextDscription[page]
+	print("Current Page: ", page)
