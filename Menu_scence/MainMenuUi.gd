@@ -5,6 +5,7 @@ extends Control
 @onready var OptionLabel := $Option
 # ตัวแปรสำหรับเก็บปุ่ม (ไม่ใช้ @onready)
 var start_button: Button
+var tutorial_button: Button
 var option_button: Button
 var quit_button: Button
 var back_button: Button
@@ -20,6 +21,7 @@ var button_tweens: Dictionary = {}
 func _ready() -> void:
 	# กำหนดค่าปุ่มจาก node path
 	start_button = $VBoxContainer/Start_Button
+	tutorial_button = $VBoxContainer/Tutorial_Button
 	option_button = $VBoxContainer/Option_Button
 	quit_button = $VBoxContainer/Quit_Button
 	
@@ -32,6 +34,9 @@ func _ready() -> void:
 	# ตรวจสอบว่าปุ่มถูกโหลดอย่างถูกต้อง
 	if start_button == null:
 		push_error("Start_Button not found!")
+		return
+	if tutorial_button == null:
+		push_error("Tutorial_Button not found!")
 		return
 	if option_button == null:
 		push_error("Option_Button not found!")
@@ -48,6 +53,10 @@ func _ready() -> void:
 	option_button.mouse_entered.connect(_on_option_button_hover_enter)
 	option_button.mouse_exited.connect(_on_option_button_hover_exit)
 	option_button.pressed.connect(_on_option_button_pressed)
+
+	tutorial_button.mouse_entered.connect(_on_tutorial_button_hover_enter)
+	tutorial_button.mouse_exited.connect(_on_tutorial_button_hover_exit)
+	tutorial_button.pressed.connect(_on_tutorial_button_pressed)
 
 	quit_button.mouse_entered.connect(_on_quit_button_hover_enter)
 	quit_button.mouse_exited.connect(_on_quit_button_hover_exit)
@@ -83,6 +92,18 @@ func _on_start_button_hover_enter() -> void:
 
 func _on_start_button_hover_exit() -> void:
 	_animate_font_size(start_button, normal_font_size, "start")
+
+
+func _on_tutorial_button_hover_enter() -> void:
+	_animate_font_size(tutorial_button, hover_font_size, "tutorial")
+
+func _on_tutorial_button_hover_exit() -> void:
+	_animate_font_size(tutorial_button, normal_font_size, "tutorial")
+
+func _on_tutorial_button_pressed() -> void:
+	SceneLoader.load_scene("res://Scence/Stage/TutorialScene.tscn")
+
+
 
 func _on_option_button_hover_enter() -> void:
 	_animate_font_size(option_button, hover_font_size, "option")

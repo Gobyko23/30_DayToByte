@@ -2,7 +2,7 @@ extends Node
 
 
 # ระบบจัดการสถานะ NPC ทั้งหมด
-var npc_states: Dictionary = {}  # npc_name -> { "visited": bool, "greeted": bool, "interaction_count": int, "last_quest_given": String, "pending_action": int, "current_quest_id": String }
+var npc_states: Dictionary = {}  # npc_name -> { "visited": bool, "greeted": bool, "interaction_count": int, "last_quest_given": String, "pending_action": int, "current_quest_id": String, "current_processing_quest_id": String }
 
 signal npc_interacted(npc_name: String)
 signal npc_state_changed(npc_name: String)
@@ -27,7 +27,8 @@ func on_npc_interacted(npc_name: String) -> void:
 			"interaction_count": 0,
 			"last_quest_given": "",
 			"pending_action": NEXT_ACTION.NONE,
-			"current_quest_id": ""
+			"current_quest_id": "",
+			"current_processing_quest_id": ""
 		}
 	
 	var state = npc_states[npc_name]
@@ -48,7 +49,8 @@ func record_quest_given(npc_name: String, quest_id: String) -> void:
 			"interaction_count": 0,
 			"last_quest_given": "",
 			"pending_action": NEXT_ACTION.NONE,
-			"current_quest_id": ""
+			"current_quest_id": "",
+			"current_processing_quest_id": ""
 		}
 	
 	npc_states[npc_name]["last_quest_given"] = quest_id
@@ -57,7 +59,7 @@ func record_quest_given(npc_name: String, quest_id: String) -> void:
 
 
 # ฟังก์ชัน: บันทึก pending action state ของ NPC
-func set_npc_action_state(npc_name: String, action: int, quest_id: String = "") -> void:
+func set_npc_action_state(npc_name: String, action: int, quest_id: String = "", current_processing_quest_id: String = "") -> void:
 	if not npc_states.has(npc_name):
 		npc_states[npc_name] = {
 			"visited": false,
@@ -65,29 +67,37 @@ func set_npc_action_state(npc_name: String, action: int, quest_id: String = "") 
 			"interaction_count": 0,
 			"last_quest_given": "",
 			"pending_action": NEXT_ACTION.NONE,
-			"current_quest_id": ""
+			"current_quest_id": "",
+			"current_processing_quest_id": ""
 		}
 	
 	npc_states[npc_name]["pending_action"] = action
 	npc_states[npc_name]["current_quest_id"] = quest_id
+	npc_states[npc_name]["current_processing_quest_id"] = current_processing_quest_id
 	npc_state_changed.emit(npc_name)
-	print("🔄 NPC action state updated: ", npc_name, " -> action: ", action, ", quest: ", quest_id)
+	print("🔄 NPC action state updated: ", npc_name, " -> action: ", action, ", quest: ", quest_id, ", processing_quest: ", current_processing_quest_id)
 
 
 # ฟังก์ชัน: ดึง pending action state ของ NPC
 func get_npc_action_state(npc_name: String) -> Dictionary:
 	if npc_states.has(npc_name):
+		var state = npc_states[npc_name]
 		return {
-			"action": npc_states[npc_name]["pending_action"],
-			"quest_id": npc_states[npc_name]["current_quest_id"]
+			"action": state.get("pending_action", NEXT_ACTION.NONE),
+			"quest_id": state.get("current_quest_id", ""),
+			"current_processing_quest_id": state.get("current_processing_quest_id", "")
 		}
-	return {"action": NEXT_ACTION.NONE, "quest_id": ""}
+	return {"action": NEXT_ACTION.NONE, "quest_id": "", "current_processing_quest_id": ""}
 
 
 # ฟังก์ชัน: ดึงสถานะ NPC
 func get_npc_state(npc_name: String) -> Dictionary:
 	if npc_states.has(npc_name):
-		return npc_states[npc_name].duplicate()
+		var state = npc_states[npc_name].duplicate()
+		# เพิ่ม default value ถ้า key หายไป (backward compatibility)
+		if not state.has("current_processing_quest_id"):
+			state["current_processing_quest_id"] = ""
+		return state
 	return {}
 
 

@@ -20,10 +20,6 @@ func _process(delta: float) -> void:
 		pause.visible = !pause.visible
 		option_gui.visible = false
 		save_list_label.visible = false
-		if pause.visible:
-			set_process(false)
-		else:
-			set_process(true)
 	
 
 

@@ -1,3 +1,488 @@
-[gd_scene format=3 uid="uid://dob3ry7nfcp7u"]
+[gd_scene load_steps=41 format=3 uid="uid://dob3ry7nfcp7u"]
+
+[ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_bp4k2"]
+[ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="2_4fsu7"]
+[ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_Scence.tscn" id="3_cugun"]
+[ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/Entity/player_camera.gd" id="4_v57xs"]
+[ext_resource type="PackedScene" uid="uid://co7nieemwi3ku" path="res://Scence/NPC/Cat.tscn" id="6_0bntx"]
+[ext_resource type="Script" uid="uid://cdwt3v60femep" path="res://Scripts/Blueprint/Gui_Script/pause.gd" id="7_orqk2"]
+[ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Scripts/Blueprint/Gui_Script/SaveUi.gd" id="8_q7dp2"]
+[ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/ItemSystem/item_list_Inventory.gd" id="9_p74vd"]
+[ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="10_76wep"]
+[ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/ItemSystem/item_list.gd" id="11_ogcb1"]
+[ext_resource type="Script" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="12_inlfd"]
+[ext_resource type="Script" uid="uid://bgnk7hncuf6lx" path="res://Scripts/Blueprint/Gui_Script/SaveListUi.gd" id="13_66xlv"]
+[ext_resource type="PackedScene" uid="uid://c8x2ngcxf2atn" path="res://Scripts/Blueprint/Gui_Script/ListBtd.tscn" id="14_w8adf"]
+[ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="15_lqjhw"]
+[ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="16_atuhh"]
+[ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="17_lnw24"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_xlcw2"]
+sky_material = SubResource("ProceduralSkyMaterial_btx0n")
+
+[sub_resource type="Environment" id="Environment_rkrtr"]
+background_mode = 2
+sky = SubResource("Sky_xlcw2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_0itcn"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4yu84"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2plp7"]
+font_size = 26
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mw4eo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gks54"]
+bg_color = Color(0, 1, 0.359375, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v8ycv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_05q3b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v125s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tutjn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eblcu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw36y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tc4ov"]
+font_size = 51
+font_color = Color(7.21961e-06, 0.864387, 0.368493, 1)
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
+bg_color = Color(0.163909, 0.396979, 0.801575, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_274oc"]
+bg_color = Color(0.0961794, 0.708587, 0.464487, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hu35k"]
+bg_color = Color(0.753087, 0.566363, 0.147155, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t52r"]
+bg_color = Color(0.173462, 0.528646, 0, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_au0eo"]
+font_size = 66
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ijsrt"]
+color = Color(1, 1, 1, 0.231373)
+grow_begin = -3.0
+grow_end = -5.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_i5cv0"]
+color = Color(1, 0, 0, 1)
+grow_begin = -3.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_oypcv"]
+color = Color(0.921875, 1, 0, 1)
+grow_begin = -3.0
+thickness = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtsas"]
 
 [node name="TutorialScene" type="Node3D"]
+script = ExtResource("1_bp4k2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rkrtr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(6.86, 0, 0, 0, 6.86, 0, 0, 0, 6.86, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_0itcn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_4yu84")
+
+[node name="Player" parent="." instance=ExtResource("2_4fsu7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05727, 1.20804, 3.12083)
+
+[node name="Node3D" parent="." instance=ExtResource("3_cugun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)
+
+[node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target") groups=["WorldCamera"]]
+script = ExtResource("4_v57xs")
+target = NodePath("../Player")
+offset = Vector3(0, 0.605, 5.12)
+mouse_return_speed = 0.82
+dialog_fov = 45.0
+fov_speed = 1.085
+Dialogoffset = Vector3(0.45, 0.445, 2.92)
+
+[node name="Cat" parent="." instance=ExtResource("6_0bntx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
+
+[node name="Pause" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_orqk2")
+
+[node name="Interact_Screen" type="Control" parent="Pause"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_q7dp2")
+
+[node name="Interact_Text" type="Label" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = 101.0
+offset_right = 110.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 46
+text = "E To Interact"
+label_settings = SubResource("LabelSettings_2plp7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoldBar" type="ProgressBar" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = 189.0
+offset_right = 177.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_mw4eo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gks54")
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 73.0
+offset_top = 93.0
+offset_right = 306.0
+offset_bottom = 419.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "ssszzcfszfcz"
+context_menu_enabled = true
+horizontal_alignment = 1
+script = ExtResource("9_p74vd")
+
+[node name="ItemList" type="ItemList" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 751.0
+offset_top = 14.0
+offset_right = 1132.0
+offset_bottom = 251.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_v8ycv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_05q3b")
+theme_override_styles/selected = SubResource("StyleBoxFlat_v125s")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_tutjn")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_eblcu")
+theme_override_styles/cursor = SubResource("StyleBoxEmpty_qw36y")
+select_mode = 1
+allow_reselect = true
+auto_width = true
+auto_height = true
+item_count = 2
+max_columns = 4
+same_column_width = true
+icon_mode = 0
+icon_scale = 0.09
+item_0/icon = ExtResource("10_76wep")
+item_1/icon = ExtResource("10_76wep")
+script = ExtResource("11_ogcb1")
+
+[node name="Cash_Label" type="Label" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -253.0
+offset_top = -81.0
+grow_horizontal = 0
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_tc4ov")
+script = ExtResource("12_inlfd")
+
+[node name="PauseGui" type="Control" parent="Pause"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Pause/PauseGui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 251.0
+offset_top = 141.0
+offset_right = -250.0
+offset_bottom = -141.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.641934, 0.641934, 0.641934, 1)
+
+[node name="CenterContainer" type="VBoxContainer" parent="Pause/PauseGui/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 84.0
+offset_top = 47.0
+offset_right = -83.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="ResumeButton" type="Button" parent="Pause/PauseGui/ColorRect/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Resume"
+
+[node name="SaveGameButton" type="Button" parent="Pause/PauseGui/ColorRect/CenterContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Save Game"
+
+[node name="OptionButton" type="Button" parent="Pause/PauseGui/ColorRect/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Option"
+
+[node name="BTMButton" type="Button" parent="Pause/PauseGui/ColorRect/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Back To menu"
+
+[node name="SaveListLabel" type="Label" parent="Pause/PauseGui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 274.0
+offset_top = 156.0
+offset_right = -276.0
+offset_bottom = -153.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_sxhto")
+script = ExtResource("13_66xlv")
+slot_button_scene = ExtResource("14_w8adf")
+
+[node name="VBox" type="VBoxContainer" parent="Pause/PauseGui/SaveListLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveLoadVbox" type="VBoxContainer" parent="Pause/PauseGui/SaveListLabel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -160.0
+offset_top = -5.0
+offset_right = -28.0
+offset_bottom = 222.0
+theme_override_constants/separation = 30
+
+[node name="SaveButton" type="Button" parent="Pause/PauseGui/SaveListLabel/SaveLoadVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_274oc")
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="Pause/PauseGui/SaveListLabel/SaveLoadVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxFlat_hu35k")
+text = "Load
+"
+
+[node name="OptionGui" type="Control" parent="Pause"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_lqjhw")
+
+[node name="ColorRect" type="Panel" parent="Pause/OptionGui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 156.0
+offset_top = 88.0
+offset_right = -157.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2t52r")
+
+[node name="CenterContainer" type="CenterContainer" parent="Pause/OptionGui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 186.0
+offset_top = 103.0
+offset_right = -366.0
+offset_bottom = -148.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxMain" type="VBoxContainer" parent="Pause/OptionGui/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="MusicContainer" type="VBoxContainer" parent="Pause/OptionGui/CenterContainer/VBoxMain"]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="Pause/OptionGui/CenterContainer/VBoxMain/MusicContainer"]
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_au0eo")
+horizontal_alignment = 1
+
+[node name="MusicBar" type="HSlider" parent="Pause/OptionGui/CenterContainer/VBoxMain/MusicContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/center_grabber = 135
+theme_override_styles/slider = SubResource("StyleBoxLine_ijsrt")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_i5cv0")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_oypcv")
+value = 34.0
+script = ExtResource("16_atuhh")
+bus_name = "MusicBus"
+
+[node name="VolumeContainer" type="VBoxContainer" parent="Pause/OptionGui/CenterContainer/VBoxMain"]
+layout_mode = 2
+alignment = 2
+
+[node name="VolumeLabel" type="Label" parent="Pause/OptionGui/CenterContainer/VBoxMain/VolumeContainer"]
+layout_mode = 2
+text = "Volume"
+label_settings = SubResource("LabelSettings_au0eo")
+horizontal_alignment = 1
+
+[node name="VolumeBar" type="HSlider" parent="Pause/OptionGui/CenterContainer/VBoxMain/VolumeContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/center_grabber = 150
+theme_override_styles/slider = SubResource("StyleBoxLine_ijsrt")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_i5cv0")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_oypcv")
+value = 30.0
+script = ExtResource("16_atuhh")
+bus_name = "SFXBus"
+
+[node name="CenterContainer2" type="CenterContainer" parent="Pause/OptionGui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 693.0
+offset_top = 102.0
+offset_right = -84.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/OptionGui/CenterContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 215
+
+[node name="WindowCheck" type="CheckBox" parent="Pause/OptionGui/CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.606771, 0.606771, 0.606771, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0.106771, 0.106771, 1)
+theme_override_colors/icon_focus_color = Color(0.565104, 0.565104, 0.565104, 1)
+theme_override_constants/h_separation = 15
+theme_override_font_sizes/font_size = 31
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rtsas")
+text = "Windows"
+alignment = 1
+
+[node name="BackButton" type="Button" parent="Pause/OptionGui/CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "Back"
+
+[node name="DragSFX" type="AudioStreamPlayer" parent="Pause/OptionGui"]
+unique_name_in_owner = true
+stream = ExtResource("17_lnw24")
+bus = &"SFXBus"
+
+[connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/ResumeButton" to="Pause" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/SaveGameButton" to="Pause" method="_on_save_game_button_pressed"]
+[connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/OptionButton" to="Pause" method="_on_option_button_pressed"]
+[connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/BTMButton" to="Pause" method="_on_btm_button_pressed"]
+[connection signal="pressed" from="Pause/PauseGui/SaveListLabel/SaveLoadVbox/SaveButton" to="Pause/Interact_Screen" method="_on_save_button_pressed"]
+[connection signal="pressed" from="Pause/PauseGui/SaveListLabel/SaveLoadVbox/LoadButton" to="Pause/Interact_Screen" method="_on_load_button_pressed"]
+[connection signal="pressed" from="Pause/OptionGui/CenterContainer2/VBoxContainer/BackButton" to="Pause" method="_on_back_button_pressed"]
+[connection signal="pressed" from="Pause/OptionGui/CenterContainer2/VBoxContainer/BackButton" to="Pause/OptionGui" method="_on_back_button_pressed"]

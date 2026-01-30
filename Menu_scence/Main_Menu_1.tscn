@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://l27jg2e7gup2"]
+[gd_scene load_steps=20 format=3 uid="uid://l27jg2e7gup2"]
 
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="1_jkqpj"]
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="3_jkqpj"]
@@ -15,6 +15,11 @@ subpixel_positioning = 0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2svc"]
 bg_color = Color(1, 1, 1, 1)
 border_blend = true
+
+[sub_resource type="SystemFont" id="SystemFont_jkqpj"]
+font_names = PackedStringArray("Fantasy")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3t4wu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4vtcr"]
 
@@ -90,6 +95,19 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jkqpj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h2svc")
 text = "Start"
+flat = true
+alignment = 0
+
+[node name="Tutorial_Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 3
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = SubResource("SystemFont_jkqpj")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3t4wu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h2svc")
+text = "Tutorial"
 flat = true
 alignment = 0
 
@@ -258,6 +276,7 @@ autoplay = true
 bus = &"MusicBus"
 
 [connection signal="pressed" from="VBoxContainer/Start_Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Tutorial_Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Option_Button" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit_Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Option/Control/CenterContainer2/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

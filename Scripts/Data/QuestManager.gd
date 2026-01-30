@@ -30,10 +30,10 @@ func complete_quest(quest_id: String) -> void:
 		var quest = active_quests[quest_id]
 		quest.complete_quest()
 		
-		# ให้รางวัลเงิน
+		# ให้รางวัลคะแนน
 		if quest.reward_money > 0:
-			CashSystem.add(quest.reward_money)
-			print("💰 Received: ", quest.reward_money, " gold")
+			PointSystem.add(quest.reward_money)
+			print("💰 Received: ", quest.reward_money, " points")
 		
 		# ย้าย quest ไป completed
 		completed_quests.append(quest_id)

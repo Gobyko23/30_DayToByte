@@ -12,8 +12,9 @@ func _ready():
 	TimeManager.hour = save["time"]["hour"]
 	TimeManager.minute = save["time"]["minute"]
 
-	# เงิน
-	PlayerData.money = save["player"]["money"]
+	# คะแนน
+	if save.has("player") and save["player"].has("points"):
+		PointSystem.set_points(int(save["player"]["points"]))
 
 	# ตำแหน่งผู้เล่น
 	$Player.global_position = Vector3(

@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://co7nieemwi3ku"]
+[gd_scene load_steps=13 format=3 uid="uid://co7nieemwi3ku"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_4hnuf"]
 [ext_resource type="Texture2D" uid="uid://by5ril4yxk37f" path="res://Pic/Png-exe/Catking-export.png" id="2_fydxc"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_32ix6"]
 [ext_resource type="Script" uid="uid://cm5e18lq2aj0d" path="res://Scripts/Entity/NPC_Quest_System.gd" id="4_j7mn5"]
 [ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="5_dnxf6"]
-[ext_resource type="Resource" uid="uid://c1ijxnepp5xxv" path="res://Dialogue_Info/NormalQuest/KingofTheCat_quest.tres" id="6_4hnuf"]
-
+[ext_resource type="Resource" uid="uid://conarsxmvxg3h" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_1.tres" id="7_dnxf6"]
+[ext_resource type="Resource" uid="uid://d531u4hnptq2" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_2.tres" id="8_4cgy1"]
+[ext_resource type="Resource" uid="uid://dsptr0m03nfvg" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_3.tres" id="9_515dc"]
+[ext_resource type="Resource" uid="uid://b8fp85go5rqjm" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_4.tres" id="10_ol2wc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
 radius = 0.867945
@@ -96,6 +98,8 @@ texture = ExtResource("3_32ix6")
 [node name="NPCQuestSystem" type="Node" parent="NPCStatic/Cat_NPC"]
 script = ExtResource("4_j7mn5")
 npc_name = "KingOfTheCat"
-quest_list = Array[ExtResource("5_dnxf6")]([ExtResource("6_4hnuf")])
 NonQuest_Dialogue = Array[String](["Moew~~"])
+enable_random_quests = true
+quest_pool = Array[ExtResource("5_dnxf6")]([ExtResource("7_dnxf6"), ExtResource("8_4cgy1"), ExtResource("9_515dc"), ExtResource("10_ol2wc")])
+random_quest_amount = 4
 metadata/_custom_type_script = "uid://cm5e18lq2aj0d"

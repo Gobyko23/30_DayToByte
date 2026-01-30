@@ -17,7 +17,6 @@ config/features=PackedStringArray("4.4")
 [autoload]
 
 InventorySystem="*res://Scripts/ItemSystem/Inventory_System.gd"
-CashSystem="*res://Scripts/ItemSystem/CashSystem.gd"
 SaveAndLoad="*res://Scripts/SaveSystem/SaveAndLoadscript.gd"
 PlayerData="*res://Scripts/Data/PlayerData.gd"
 TimeManager="*res://Scripts/Data/TimeManager.gd"
@@ -26,6 +25,7 @@ MainMenuEvent="*res://Menu_scence/MainMenuUi.gd"
 ItemDataManager="*res://Scripts/ItemSystem/ItemDataManager.gd"
 QuestManager="*res://Scripts/Data/QuestManager.gd"
 NPCManager="*res://Scripts/Data/NPCManager.gd"
+PointSystem="*res://Scripts/ItemSystem/PointSystem.gd"
 
 [config]
 

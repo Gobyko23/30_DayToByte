@@ -16,21 +16,68 @@ enum NPC_TYPE {
 
 @export var npc_type: NPC_TYPE = NPC_TYPE.QUEST_GIVER
 @export var npc_name: String = "NPC"
+
+# --- ส่วนเดิม ---
+@export_group("Manual Quest Setup")
 @export var quest_list: Array[QuestData] = [] 
 @export var NonQuest_Dialogue:Array[String] =[] 
 
-# ตัวแปรช่วยจำ
-var current_processing_quest: QuestData = null # เควสที่กำลังโฟกัสอยู่
-var pending_action: NEXT_ACTION = NEXT_ACTION.NONE
-var _is_state_restored: bool = false # flag เพื่อหลีกเลี่ยง override pending_action หลัง restore
 
+
+# --- ส่วนที่เพิ่มเข้ามาใหม่สำหรับระบบสุ่ม ---
+@export_group("Random Quest System")
+@export var enable_random_quests: bool = false    # เปิด/ปิด ระบบสุ่ม
+@export var quest_pool: Array[QuestData] = []     # คลังเควสที่จะให้สุ่มเลือกมา
+@export var random_quest_amount: int = 1          # จำนวนเควสที่จะสุ่มมาให้ NPC ตัวนี้
+
+# ตัวแปรช่วยจำ
+var current_processing_quest: QuestData = null
+var pending_action: NEXT_ACTION = NEXT_ACTION.NONE
+var _is_state_restored: bool = false 
 
 # ---------------------------------------------------------
-# _ready: ไม่ต้องเรียก restore ที่นี่
-# (SaveAndLoadscript จะเรียกหลังจาก load_npc_data)
+# _ready: ทำงานเมื่อเกมเริ่ม
 # ---------------------------------------------------------
 func _ready() -> void:
-	pass
+	# ถ้าเปิดระบบสุ่ม ให้ทำการสุ่มเควสใส่ quest_list
+	if enable_random_quests and npc_type == NPC_TYPE.QUEST_GIVER:
+		_init_random_quests()
+
+# ---------------------------------------------------------
+# ฟังก์ชันใหม่: สุ่มเควสจาก Pool
+# ---------------------------------------------------------
+func _init_random_quests() -> void:
+	if quest_pool.is_empty():
+		return
+
+	# 1. สร้างรายการเควสที่ "สามารถรับได้" (ยังไม่เคยทำ และไม่อยู่ในรายการ manual)
+	var available_quests: Array[QuestData] = []
+	
+	for q in quest_pool:
+		# ข้ามเควสที่เป็น null
+		if q == null: continue
+		
+		# เช็คว่าเควสนี้มีอยู่ใน quest_list แบบ Manual แล้วหรือยัง (กันซ้ำ)
+		if quest_list.has(q): continue
+		
+		# เช็คกับ QuestManager ว่าเควสนี้เสร็จไปแล้วหรือยัง
+		# (ถ้าต้องการให้ทำซ้ำได้ ให้ลบเงื่อนไขนี้ออก)
+		if QuestManager.is_quest_completed(q.quest_id): continue
+		
+		# เช็คว่ากำลังทำอยู่หรือไม่ (ถ้ากำลังทำอยู่ ก็ไม่ควรสุ่มมาให้รับซ้ำ)
+		if QuestManager.is_quest_active(q.quest_id): continue
+		
+		available_quests.append(q)
+
+	# 2. สุ่มลำดับ (Shuffle)
+	available_quests.shuffle()
+	
+	# 3. หยิบมาตามจำนวนที่ต้องการ
+	var count_to_add = min(random_quest_amount, available_quests.size())
+	
+	for i in range(count_to_add):
+		quest_list.append(available_quests[i])
+		print("🎲 NPC ", npc_name, " สุ่มได้เควส: ", available_quests[i].quest_name)
 
 
 # ---------------------------------------------------------
@@ -38,7 +85,6 @@ func _ready() -> void:
 # Return: Dictionary ที่มี { "dialogues": Array[String], "action": NEXT_ACTION }
 # ---------------------------------------------------------
 func get_current_interaction() -> Dictionary:
-# แก้ไขบรรทัดนี้: เติม "as Array[String]" เพื่อระบุประเภทข้อมูลให้ชัดเจน
 	var result = {
 		"dialogues": ["..."] as Array[String], 
 		"action": NEXT_ACTION.NONE
@@ -52,13 +98,16 @@ func get_current_interaction() -> Dictionary:
 	current_processing_quest = _find_relevant_quest()
 
 	if current_processing_quest == null:
-		result.dialogues = ["ฉันไม่มีเควสให้คุณในตอนนี้"]
+		# ถ้าไม่มีเควสให้ทำแล้ว (หรือสุ่มแล้วไม่มีเควสเหลือ)
+		result.dialogues = ["ฉันไม่มีงานอะไรให้ทำในตอนนี้ ลองไปถามคนอื่นดูสิ"]
 		pending_action = NEXT_ACTION.NONE
 		_update_npc_action_state()
+		print("❌ No quest found for NPC: ", npc_name)
 		return result
 
 	# 2. เช็คสถานะของเควสนั้นๆ เพื่อเลือกบทพูดจาก QuestData 
 	var q_id = current_processing_quest.quest_id
+	print("🎯 Processing quest for NPC ", npc_name, ": ", current_processing_quest.quest_name, " (ID: ", q_id, ")")
 	
 	# กรณี: ยังไม่เคยรับเควสนี้ -> เตรียม "ให้เควส"
 	if not QuestManager.is_quest_active(q_id) and not QuestManager.is_quest_completed(q_id):
@@ -66,29 +115,32 @@ func get_current_interaction() -> Dictionary:
 		result.action = NEXT_ACTION.START_QUEST
 		if not _is_state_restored:
 			pending_action = NEXT_ACTION.START_QUEST
+		print("📌 Quest status: NEW (ready to give)")
 	
 	# กรณี: รับไปแล้ว แต่ยังทำไม่เสร็จ -> "รอคอย"
 	elif QuestManager.is_quest_active(q_id) and not current_processing_quest.is_completed:
-		result.dialogues = ["เควส '" + current_processing_quest.quest_name + "' ยังไม่เสร็จนะ พยายามเข้าล่ะ"]
+		result.dialogues = current_processing_quest.inprocess_dialogue
 		result.action = NEXT_ACTION.NONE
 		if not _is_state_restored:
 			pending_action = NEXT_ACTION.NONE
+		print("📌 Quest status: IN PROGRESS (waiting for completion)")
 		
 	# กรณี: ทำเงื่อนไขเสร็จแล้ว (รอส่ง) -> "ส่งเควส"
 	elif current_processing_quest.is_completed and QuestManager.is_quest_active(q_id):
-		# หมายเหตุ: ใน QuestData ควรมี is_completed เป็น true เมื่อทำเงื่อนไขครบ
-		# หรือคุณอาจจะเช็คเงื่อนไขจาก QuestManager แทนตรงนี้ได้
 		result.dialogues = current_processing_quest.complete_quest_dialogue
 		result.action = NEXT_ACTION.COMPLETE_QUEST
 		if not _is_state_restored:
 			pending_action = NEXT_ACTION.COMPLETE_QUEST
+		print("📌 Quest status: READY TO SUBMIT")
 	
 	# กรณี: ส่งเควสไปเรียบร้อยแล้ว -> "ขอบคุณ"
 	elif QuestManager.is_quest_completed(q_id):
+		# ส่วนนี้อาจจะไม่ค่อยเข้าเงื่อนไขเพราะ _find_relevant_quest มักจะข้ามเควสที่เสร็จแล้ว
 		result.dialogues = ["ขอบคุณที่ช่วยเหลือฉันเมื่อคราวก่อนนะ"]
 		result.action = NEXT_ACTION.NONE
 		if not _is_state_restored:
 			pending_action = NEXT_ACTION.NONE
+		print("📌 Quest status: COMPLETED")
 
 	# ใช้ pending_action เป็น result action ถ้าได้รับการ restore
 	if _is_state_restored:
@@ -102,7 +154,7 @@ func get_current_interaction() -> Dictionary:
 # ฟังก์ชันภายใน: หา Quest ที่ผู้เล่นควรทำกับ NPC นี้
 # ---------------------------------------------------------
 func _find_relevant_quest() -> QuestData:
-	# 1. หาเควสที่รับไปแล้วแต่ยังไม่ส่ง (Active)
+	# 1. หาเควสที่รับไปแล้วแต่ยังไม่ส่ง (Active) - สำคัญที่สุด
 	for quest in quest_list:
 		if QuestManager.is_quest_active(quest.quest_id):
 			return quest
@@ -112,7 +164,7 @@ func _find_relevant_quest() -> QuestData:
 		if not QuestManager.is_quest_completed(quest.quest_id):
 			return quest
 	
-	# 3. ถ้าทำหมดแล้ว คืนค่า null หรือเควสสุดท้ายเพื่อคุยเล่น
+	# 3. ถ้าทำหมดแล้ว คืนค่า null
 	return null
 
 # ---------------------------------------------------------
@@ -138,8 +190,6 @@ func perform_action(action: NEXT_ACTION) -> void:
 				npc_mgr.on_npc_interacted(npc_name)
 				npc_mgr.set_npc_action_state(npc_name, NEXT_ACTION.NONE, "")
 			print("💰 ส่งเควสและรับรางวัล: ", current_processing_quest.quest_name)
-			# ตรงนี้คุณอาจเพิ่มโค้ดให้เงินหรือไอเทมผู้เล่นจริงๆ ได้
-
 
 # ---------------------------------------------------------
 # ฟังก์ชัน Helper: ส่ง action state ไป NPCManager
@@ -147,40 +197,69 @@ func perform_action(action: NEXT_ACTION) -> void:
 func _update_npc_action_state() -> void:
 	var npc_mgr = get_node_or_null("/root/NPCManager")
 	if npc_mgr and current_processing_quest:
-		npc_mgr.set_npc_action_state(npc_name, pending_action, current_processing_quest.quest_id)
+		npc_mgr.set_npc_action_state(npc_name, pending_action, current_processing_quest.quest_id, current_processing_quest.quest_id)
 	elif npc_mgr:
-		npc_mgr.set_npc_action_state(npc_name, pending_action, "")
-
+		npc_mgr.set_npc_action_state(npc_name, pending_action, "", "")
 
 # ---------------------------------------------------------
 # ฟังก์ชัน Helper: ดึง action state จาก NPCManager เมื่อ load เกม
 # ---------------------------------------------------------
 func _restore_state_from_npc_manager() -> void:
-	print("🔍 _restore_state_from_npc_manager called for: ", npc_name)
 	var npc_mgr = get_node_or_null("/root/NPCManager")
-	if not npc_mgr:
-		print("❌ NPCManager not found!")
-		return
+	if not npc_mgr: return
 	
 	var saved_state = npc_mgr.get_npc_action_state(npc_name)
-	print("📋 Saved state: ", saved_state)
-	if saved_state.is_empty():
-		print("⚠️ No saved state found!")
-		return
+	if saved_state.is_empty(): return
 	
-	# restore pending_action
-	var old_action = pending_action
 	pending_action = saved_state["action"]
-	_is_state_restored = true  # set flag เพื่อบอก get_current_interaction() ว่า state มี restoration
-	print("✏️ pending_action: ", old_action, " -> ", pending_action)
+	_is_state_restored = true
 	
-	# restore current_processing_quest ถ้ามี quest_id
-	if saved_state["quest_id"] != "":
+	# restore current_processing_quest จาก current_processing_quest_id
+	var processing_quest_id = saved_state.get("current_processing_quest_id", "")
+	if processing_quest_id != "":
+		# ลองหาใน quest_list ปัจจุบัน
 		for quest in quest_list:
-			if quest.quest_id == saved_state["quest_id"]:
+			if quest.quest_id == processing_quest_id:
 				current_processing_quest = quest
-				print("✏️ current_processing_quest restored: ", quest.quest_name)
 				break
+		
+		# ถ้าไม่เจอในรายการปัจจุบัน ลองหาใน Pool
+		if current_processing_quest == null:
+			for quest in quest_pool:
+				if quest.quest_id == processing_quest_id:
+					current_processing_quest = quest
+					# แอบใส่กลับเข้าไปใน list ชั่วคราวเพื่อให้ logic อื่นทำงานได้
+					quest_list.append(quest)
+					print("🔄 Restored processing quest from pool: ", quest.quest_name)
+					break
+		
+		if current_processing_quest != null:
+			print("✅ Restored current_processing_quest: ", current_processing_quest.quest_name)
 	
-	print("🔄 NPC state restored: ", npc_name, " -> action: ", pending_action, ", quest: ", saved_state["quest_id"])
+	# restore quest_id (quest ที่ active)
+	var active_quest_id = saved_state.get("quest_id", "")
+	if active_quest_id != "":
+		print("📌 NPC had active quest: ", active_quest_id)
 
+
+# ---------------------------------------------------------
+# ฟังก์ชัน Debug: แสดงสถานะปัจจุบันของ NPC
+# ---------------------------------------------------------
+func debug_npc_state() -> void:
+	var npc_mgr = get_node_or_null("/root/NPCManager")
+	var state = npc_mgr.get_npc_state(npc_name) if npc_mgr else {}
+	
+	print("\n" + "=".repeat(60))
+	print("🔍 DEBUG NPC STATE: ", npc_name)
+	print("=".repeat(60))
+	print("Current Processing Quest: ", current_processing_quest.quest_name if current_processing_quest else "None")
+	print("Pending Action: ", NEXT_ACTION.keys()[pending_action] if pending_action < NEXT_ACTION.size() else "UNKNOWN")
+	print("Is State Restored: ", _is_state_restored)
+	print("\nSaved NPC Manager State:")
+	print("  - visited: ", state.get("visited", false))
+	print("  - greeted: ", state.get("greeted", false))
+	print("  - interaction_count: ", state.get("interaction_count", 0))
+	print("  - pending_action: ", state.get("pending_action", NEXT_ACTION.NONE))
+	print("  - current_quest_id: ", state.get("current_quest_id", ""))
+	print("  - current_processing_quest_id: ", state.get("current_processing_quest_id", ""))
+	print("=".repeat(60) + "\n")

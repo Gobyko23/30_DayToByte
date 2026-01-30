@@ -19,6 +19,7 @@ enum NPC_TYPE {
 
 # Dialogue arrays
 @export var give_quest_dialogue: Array[String] = ["คุณต้องการเควสหรือไม่?"]
+@export var inprocess_dialogue: Array[String] = ["คุณกำลังทำเควสนี้อยู่แล้ว"]
 @export var complete_quest_dialogue: Array[String] = ["ขอบคุณที่ทำให้เสร็จ!"]
 @export var reward_dialogue: Array[String] = ["นี่คือรางวัล!"]
 

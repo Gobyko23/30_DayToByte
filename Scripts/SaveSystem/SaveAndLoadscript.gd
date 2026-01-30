@@ -28,7 +28,7 @@ func save_game(slot: int, player: Node3D) -> void:
 		"scene": get_tree().current_scene.scene_file_path, 
 		"player": {
 			"name": PlayerData.Name, 
-			"money": CashSystem.money, 
+			"points": PointSystem.points, 
 			"position": {
 				"x": player.global_position.x,
 				"y": player.global_position.y,
@@ -75,9 +75,9 @@ func _on_request_load(slot: int) -> void:
 	var data = load_game(slot)
 	if data.is_empty(): return
 
-	# 1. อัปเดตเงิน
-	if data.has("player") and data["player"].has("money"):
-		CashSystem.set_money(int(data["player"]["money"])) 
+	# 1. อัปเดตคะแนน
+	if data.has("player") and data["player"].has("points"):
+		PointSystem.set_points(int(data["player"]["points"])) 
 	
 	# 2. อัปเดตตำแหน่ง Player
 	var player = get_tree().current_scene.find_child("Player", true, false) 
