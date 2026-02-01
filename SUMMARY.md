@@ -121,13 +121,13 @@ npc_node.debug_npc_state()
 ### Structure ของ NPC State:
 ```gdscript
 npc_states[npc_name] = {
-    "visited": false,                              # เคยไปหานี้เหรอ
-    "greeted": false,                              # เคยพูดจากับ NPC นี้เหรอ
-    "interaction_count": 0,                        # จำนวนครั้งที่คุย
-    "last_quest_given": "quest_001",               # Quest ให้ล่าสุด
-    "pending_action": 0,                           # NONE/START_QUEST/COMPLETE_QUEST
-    "current_quest_id": "quest_001",               # Quest ที่ active ปัจจุบัน
-    "current_processing_quest_id": "quest_001"     # ⭐ NEW! Quest ที่ NPC จัดการ
+	"visited": false,                              # เคยไปหานี้เหรอ
+	"greeted": false,                              # เคยพูดจากับ NPC นี้เหรอ
+	"interaction_count": 0,                        # จำนวนครั้งที่คุย
+	"last_quest_given": "quest_001",               # Quest ให้ล่าสุด
+	"pending_action": 0,                           # NONE/START_QUEST/COMPLETE_QUEST
+	"current_quest_id": "quest_001",               # Quest ที่ active ปัจจุบัน
+	"current_processing_quest_id": "quest_001"     # ⭐ NEW! Quest ที่ NPC จัดการ
 }
 ```
 

@@ -10,12 +10,15 @@ func _ready() -> void:
 	request_save.connect(_on_request_save)
 	request_load.connect(_on_request_load)
 
-func save_game(slot: int, player: Node3D) -> void:
+func save_game(slot: int, player: Node3D, time_node: Node) -> void:
 	if not DirAccess.dir_exists_absolute(SAVE_DIR):
 		DirAccess.make_dir_recursive_absolute(SAVE_DIR) 
 
 	# ดึงข้อมูลไอเทมจาก ItemDataManager
 	var saved_items = ItemDataManager.export_items_data()
+	
+	# ดึงข้อมูล Inventory (ไอเทมที่เก็บไว้ในเกม)
+	var saved_inventory = InventorySystem.Inventory.duplicate()
 	
 	# ดึงข้อมูล NPC (ถ้า NPCManager ได้ load แล้ว)
 	var saved_npcs = {}
@@ -35,14 +38,11 @@ func save_game(slot: int, player: Node3D) -> void:
 				"z": player.global_position.z
 			}
 		},
-		"items": saved_items, 
+		"items": saved_items,
+		"inventory": saved_inventory, 
 		"quests": QuestManager.export_quest_data(),
 		"npcs": saved_npcs,
-		"time": {
-			"day": TimeManager.day, 
-			"hour": TimeManager.hour, 
-			"minute": TimeManager.minute 
-		}
+		"time": time_node.export_time_data()
 	}
 
 	var path := SAVE_DIR + "slot_%d.json" % slot
@@ -71,26 +71,62 @@ func load_game(slot: int) -> Dictionary:
 
 	return data
 
-func _on_request_load(slot: int) -> void:
+func _on_request_load(slot: int, time_node: Node) -> void:
 	var data = load_game(slot)
-	if data.is_empty(): return
+	if data.is_empty(): 
+		print("❌ No save data found for slot: ", slot)
+		return
 
-	# 1. อัปเดตคะแนน
+	# 0. ล้างข้อมูลเก่าทั้งหมด ก่อนโหลดใหม่
+	print("🧹 Clearing old game data...")
+	
+	# ล้างคะแนน
+	PointSystem.set_points(0)
+	
+	# ล้าง Inventory
+	InventorySystem.Inventory.clear()
+	
+	# ล้าง ItemDataManager
+	ItemDataManager.clear_all_items()
+	
+	# ล้างไอเทมเก่าในฉาก
+	for old_item in get_tree().get_nodes_in_group("persist_items"):
+		old_item.queue_free()
+	
+	# ล้าง NPC state
+	if get_node_or_null("/root/NPCManager"):
+		print("🧹 Clearing NPC Manager data...")
+		get_node("/root/NPCManager").reset_all_npc_states()
+	
+	# ล้าง Quest data
+	if get_node_or_null("/root/QuestManager"):
+		print("🧹 Clearing Quest Manager data...")
+		var quest_manager = get_node("/root/QuestManager")
+		quest_manager.active_quests.clear()
+		quest_manager.completed_quests.clear()
+	
+	await get_tree().process_frame  # รอให้ item ถูกลบจริง
+
+	# 1. โหลดคะแนนใหม่
 	if data.has("player") and data["player"].has("points"):
-		PointSystem.set_points(int(data["player"]["points"])) 
+		PointSystem.set_points(int(data["player"]["points"]))
+		print("✅ Points restored: ", PointSystem.points)
 	
 	# 2. อัปเดตตำแหน่ง Player
 	var player = get_tree().current_scene.find_child("Player", true, false) 
 	if player and data["player"].has("position"):
 		var pos = data["player"]["position"] 
-		player.global_position = Vector3(pos.x, pos.y, pos.z) 
+		player.global_position = Vector3(pos.x, pos.y, pos.z)
+		print("✅ Player position restored: ", player.global_position)
 
-	# 3. คืนค่าสถานะไอเทม
-	# ลบไอเทมเก่าในฉากออกก่อน
-	for old_item in get_tree().get_nodes_in_group("persist_items"):
-		old_item.queue_free()
+	# 3. คืนค่า Inventory (ไอเทมที่เก็บไว้)
+	if data.has("inventory") and data["inventory"] is Dictionary:
+		for item_name in data["inventory"].keys():
+			InventorySystem.Inventory[item_name] = int(data["inventory"][item_name])
+		InventorySystem.emit_signal("inventory_changed")
+		print("✅ Inventory restored: ", InventorySystem.Inventory)
 
-	# โหลดข้อมูลไอเทมไปยัง ItemDataManager
+	# 4. โหลดข้อมูลไอเทมไปยัง ItemDataManager
 	if data.has("items") and data["items"] is Array:
 		var items_array: Array = data["items"]
 		ItemDataManager.load_items_data(items_array)
@@ -105,12 +141,19 @@ func _on_request_load(slot: int) -> void:
 					inst.global_position = Vector3(item_info["pos_x"], item_info["pos_y"], item_info["pos_z"])
 					inst.add_to_group("persist_items")
 					get_tree().current_scene.add_child(inst)
+		print("✅ Scene items restored: ", items_array.size(), " items")
 
-	# 4. โหลดข้อมูล Quest
+	# 5. โหลดข้อมูล Quest
 	if data.has("quests") and data["quests"] is Dictionary:
 		QuestManager.load_quest_data(data["quests"])
+		print("✅ Quest data restored")
 	
-	# 5. โหลดข้อมูล NPC
+	# 6. โหลดข้อมูล Time จาก time_node instance
+	if data.has("time") and data["time"] is Dictionary:
+		time_node.load_time_data(data["time"])
+		print("⏰ Time data restored")
+	
+	# 7. โหลดข้อมูล NPC
 	if data.has("npcs") and data["npcs"] is Dictionary and get_node_or_null("/root/NPCManager"):
 		print("📥 Loading NPC data...")
 		get_node("/root/NPCManager").load_npc_data(data["npcs"])
@@ -118,6 +161,8 @@ func _on_request_load(slot: int) -> void:
 		print("🔄 Restoring NPC states...")
 		_restore_all_npc_states()
 		print("✅ NPC states restored!")
+	
+	print("✅ Game loaded from slot: ", slot)
 
 
 func _restore_all_npc_states() -> void:
@@ -136,9 +181,10 @@ func _find_and_restore_npc_states(node: Node) -> void:
 		_find_and_restore_npc_states(child)
 
 func _on_request_save(slot: int) -> void:
-	var player = get_tree().current_scene.find_child("Player", true, false) 
-	if player:
-		save_game(slot, player) 
+	var player = get_tree().current_scene.find_child("Player", true, false)
+	var time_node = get_tree().current_scene.find_child("TimeNode", true, false)
+	if player and time_node:
+		save_game(slot, player, time_node) 
 
 func slot_exists(slot: int) -> bool:
 	return FileAccess.file_exists(SAVE_DIR + "slot_%d.json" % slot)

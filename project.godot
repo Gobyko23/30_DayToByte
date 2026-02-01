@@ -26,6 +26,7 @@ ItemDataManager="*res://Scripts/ItemSystem/ItemDataManager.gd"
 QuestManager="*res://Scripts/Data/QuestManager.gd"
 NPCManager="*res://Scripts/Data/NPCManager.gd"
 PointSystem="*res://Scripts/ItemSystem/PointSystem.gd"
+HardwareSpecs="*res://Scripts/ItemSystem/HardwareSpecs.gd"
 
 [config]
 

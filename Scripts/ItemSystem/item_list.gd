@@ -16,13 +16,13 @@ func update_inventory():
 	clear()  # ล้างรายการเก่า
 	
 	for item in InventorySystem.Inventory.keys():
-		var amount = InventorySystem.Inventory[item]
+		var amount = int(InventorySystem.Inventory[item])  # แปลงเป็น int
 		var data = get_item_data(item)
 		var color :Color= data[0] 
 		var icon_change = icon
 		
 		# เพิ่มแถวใหม่ใน ItemList
-		var index = add_item(item + " : " + str(amount),icon_change[data[1]])
+		var index = add_item(item + " : " + str(amount), icon_change[data[1]])
 		
 
 		# กำหนดสีสำหรับแต่ละแถว
@@ -31,15 +31,24 @@ func update_inventory():
 
 func get_item_data(item: String) -> Array:
 	match item:
-		"White":
-			return [Color.WHITE, 0]
-		"Red":
-			return [Color.RED, 1]
-		"Yellow":
-			return [Color(1,1,0), 2]
-		"Green":
-			return [Color(0,1,0), 3]
-		"RainBow":
-			return [Color(1,0,1), 4]
+
+		# CPU - สีน้ำเงิน
+		"CPU_Intel_i5", "CPU_Intel_i7", "CPU_Intel_i9":
+			return [Color(0.29, 0.56, 0.89), 0]  # สีน้ำเงิน
+		# GPU - สีเขียว
+		"GPU_RTX_3060", "GPU_RTX_3080", "GPU_RTX_4090":
+			return [Color(0.18, 0.8, 0.44), 1]  # สีเขียว
+		# MainBoard - สีส้ม
+		"MainBoard_B550", "MainBoard_X570", "MainBoard_TRX50":
+			return [Color(0.9, 0.49, 0.13), 2]  # สีส้ม
+		# Case - สีเทา
+		"Case_Standard", "Case_Premium", "Case_Titan":
+			return [Color(0.58, 0.65, 0.65), 3]  # สีเทา
+		# RAM - สีชมพู
+		"RAM_8GB", "RAM_16GB", "RAM_32GB":
+			return [Color(0.91, 0.12, 0.39), 4]  # สีชมพู
+		# Fan - สีแดง
+		"Fan_Standard", "Fan_Premium", "Fan_Gaming":
+			return [Color(0.91, 0.3, 0.24), 0]  # สีแดง
 		_:
 			return [Color.WHITE, null]

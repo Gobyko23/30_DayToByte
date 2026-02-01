@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=44 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="2_e6uwr"]
@@ -13,10 +13,12 @@
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="10_ijsrt"]
 [ext_resource type="Script" uid="uid://bgnk7hncuf6lx" path="res://Scripts/Blueprint/Gui_Script/SaveListUi.gd" id="11_i5cv0"]
 [ext_resource type="PackedScene" uid="uid://c8x2ngcxf2atn" path="res://Scripts/Blueprint/Gui_Script/ListBtd.tscn" id="12_oypcv"]
+[ext_resource type="Script" uid="uid://cga2k1c87b0f" path="res://Scripts/Blueprint/Gui_Script/time_panel.gd" id="13_2hect"]
 [ext_resource type="PackedScene" uid="uid://co7nieemwi3ku" path="res://Scence/NPC/Cat.tscn" id="13_rtsas"]
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="15_u0fgr"]
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="16_2hect"]
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="17_pi7ar"]
+[ext_resource type="Script" uid="uid://q4csc17lk5kw" path="res://Scripts/Data/TimeManager.gd" id="19_pi7ar"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -113,6 +115,9 @@ script = ExtResource("1_jysb6")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rkrtr")
 
+[node name="PlayerSpawn" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01541, -1.44368)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
@@ -154,6 +159,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13157, 0.924625, 2.14227)
 
 [node name="Cat" parent="." instance=ExtResource("13_rtsas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
+
+[node name="TimeNode" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("19_pi7ar")
+countdown_duration_seconds = 30
 
 [node name="Pause" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -210,40 +220,39 @@ show_percentage = false
 [node name="RichTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 layout_mode = 1
-offset_left = 73.0
-offset_top = 93.0
-offset_right = 306.0
-offset_bottom = 419.0
+offset_left = 7.0
+offset_top = 15.0
+offset_right = 240.0
+offset_bottom = 341.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "ssszzcfszfcz"
 context_menu_enabled = true
-horizontal_alignment = 1
 script = ExtResource("7_pi7ar")
 
 [node name="ItemList" type="ItemList" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 751.0
-offset_top = 14.0
-offset_right = 1132.0
-offset_bottom = 251.0
+offset_left = 766.0
+offset_top = 12.0
+offset_right = 1147.0
+offset_bottom = 249.0
+theme_override_font_sizes/font_size = 12
 theme_override_styles/focus = SubResource("StyleBoxEmpty_v8ycv")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_05q3b")
 theme_override_styles/selected = SubResource("StyleBoxFlat_v125s")
 theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_tutjn")
 theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_eblcu")
 theme_override_styles/cursor = SubResource("StyleBoxEmpty_qw36y")
-select_mode = 1
 allow_reselect = true
 auto_width = true
 auto_height = true
 item_count = 2
-max_columns = 4
+max_columns = 3
 same_column_width = true
 icon_mode = 0
-icon_scale = 0.09
+icon_scale = 0.06
 item_0/icon = ExtResource("8_2t52r")
 item_1/icon = ExtResource("8_2t52r")
 script = ExtResource("9_au0eo")
@@ -262,6 +271,45 @@ grow_horizontal = 0
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_tc4ov")
 script = ExtResource("10_ijsrt")
+
+[node name="TimePanel" type="Panel" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 478.0
+offset_top = 29.0
+offset_right = 693.0
+offset_bottom = 139.0
+script = ExtResource("13_2hect")
+
+[node name="TimeText" type="RichTextLabel" parent="Pause/Interact_Screen/TimePanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/bold_font_size = 26
+bbcode_enabled = true
+text = "afsfsf"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DayText" type="RichTextLabel" parent="Pause/Interact_Screen/TimePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.02791
+anchor_top = -0.00909091
+anchor_right = -0.027907
+anchor_bottom = 0.990909
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Datssa"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="PauseGui" type="Control" parent="Pause"]
 unique_name_in_owner = true
@@ -486,6 +534,65 @@ text = "Back"
 unique_name_in_owner = true
 stream = ExtResource("17_pi7ar")
 bus = &"SFXBus"
+
+[node name="EndLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 10
+visible = false
+
+[node name="EndUi" type="Control" parent="EndLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="EndLayer/EndUi"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EndLayer/EndUi/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 80.0
+offset_top = 84.0
+offset_right = -80.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="GameEndText" type="RichTextLabel" parent="EndLayer/EndUi/ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_font_sizes/italics_font_size = 46
+theme_override_font_sizes/normal_font_size = 101
+bbcode_enabled = true
+text = "Game END
+[i][rainbow freq=1.0 sat=0.8 val=0.8 speed=1.0][wave amp=100.0 freq=5.0]Scroll Down to see your Point[/wave][/rainbow][/i]"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TotalScoreText" type="RichTextLabel" parent="EndLayer/EndUi/ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 56
+theme_override_font_sizes/bold_font_size = 56
+bbcode_enabled = true
+text = "You Total Score: "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/ResumeButton" to="Pause" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/SaveGameButton" to="Pause" method="_on_save_game_button_pressed"]

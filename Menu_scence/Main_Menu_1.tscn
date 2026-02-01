@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://l27jg2e7gup2"]
+[gd_scene load_steps=23 format=3 uid="uid://l27jg2e7gup2"]
 
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="1_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="2_1bqi0"]
@@ -7,7 +7,6 @@
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="4_3t4wu"]
 [ext_resource type="Texture2D" uid="uid://7hjugrewqt22" path="res://Assets/Gui/Entity/Catking-export.png" id="4_cjnbx"]
 [ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/30Dtablet-export.png" id="4_jkqpj"]
-[ext_resource type="AudioStream" uid="uid://d3jyrco16dd4h" path="res://Assets/Music/Ogg_Menu_Music.ogg" id="5_4vtcr"]
 
 [sub_resource type="SystemFont" id="SystemFont_h2svc"]
 font_names = PackedStringArray("Fantasy")
@@ -277,11 +276,6 @@ text = "Back"
 unique_name_in_owner = true
 stream = ExtResource("4_3t4wu")
 bus = &"SFXBus"
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Option"]
-stream = ExtResource("5_4vtcr")
-autoplay = true
-bus = &"MusicBus"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
