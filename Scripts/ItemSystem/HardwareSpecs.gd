@@ -271,6 +271,51 @@ const HARDWARE_SPECS = {
 		"performance_tier": 3,
 		"price": 50,
 		"description": "พัดลมเกมมิ่ง RGB หลากหลายสี ระบายลมดีเยี่ยม"
+	},
+	
+	# ============================================
+	# PowerSupply - Power Supply Unit
+	# ============================================
+	"PowerSupply_550W": {
+		"name": "Corsair CX550M",
+		"category": "PowerSupply",
+		"rarity": "common",  # เบา
+		"specs": [
+			"Wattage: 550W",
+			"Efficiency: 80+ Bronze",
+			"Protection: Over Current, Over Voltage"
+		],
+		"performance_tier": 1,
+		"price": 60,
+		"description": "ยูนิตจ่ายไฟ 550W เหมาะสำหรับระบบพื้นฐาน เสถียร และราคาถูก"
+	},
+	
+	"PowerSupply_850W": {
+		"name": "EVGA SuperNOVA 850W",
+		"category": "PowerSupply",
+		"rarity": "rare",  # กลาง
+		"specs": [
+			"Wattage: 850W",
+			"Efficiency: 80+ Gold",
+			"Protection: OCP, OVP, OHP, SCP"
+		],
+		"performance_tier": 2,
+		"price": 140,
+		"description": "ยูนิตจ่ายไฟ 850W ประสิทธิภาพสูง เหมาะสำหรับระบบเกมมิ่งแรง"
+	},
+	
+	"PowerSupply_1600W": {
+		"name": "Corsair AX1600i",
+		"category": "PowerSupply",
+		"rarity": "legendary",  # แรง
+		"specs": [
+			"Wattage: 1600W",
+			"Efficiency: 80+ Platinum",
+			"Protection: Full Digital Control, Fan Control"
+		],
+		"performance_tier": 3,
+		"price": 350,
+		"description": "ยูนิตจ่ายไฟ 1600W ระดับสูงสุด สำหรับระบบ High-End และ Multi-GPU"
 	}
 }
 
@@ -286,14 +331,18 @@ func get_specs_text(item_name: String) -> String:
 	if specs.is_empty():
 		return "ไม่มีข้อมูล"
 	
+	if not specs.has("name") or not specs.has("specs"):
+		return "ข้อมูลไม่สมบูรณ์"
+	
 	var text = specs["name"] + "\n"
 	var separator = ""
 	for i in range(30):
 		separator += "="
 	text += separator + "\n"
 	
-	for spec in specs["specs"]:
-		text += "• " + spec + "\n"
+	if specs["specs"] is Array:
+		for spec in specs["specs"]:
+			text += "• " + str(spec) + "\n"
 	
 	return text
 

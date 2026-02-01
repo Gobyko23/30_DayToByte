@@ -38,7 +38,10 @@ func random_obj() -> String:
 		"RAM_32GB" = 2,
 		"Fan_Standard" = 8,
 		"Fan_Premium" = 5,
-		"Fan_Gaming" = 2
+		"Fan_Gaming" = 2,
+		"PowerSupply_550W" = 8,
+		"PowerSupply_850W" = 5,
+		"PowerSupply_1600W" = 2
 	}
 
 	var total_weight := 0

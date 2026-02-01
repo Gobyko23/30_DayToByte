@@ -68,15 +68,22 @@ func create_tooltip(item_code: String) -> String:
 	if specs.is_empty():
 		return ""
 	
+	if not specs.has("name") or not specs.has("category") or not specs.has("specs"):
+		return "ข้อมูลไม่สมบูรณ์"
+	
 	var tooltip = "[color=#ffff00]" + specs["name"] + "[/color]\n"
 	tooltip += "[color=#888888]" + specs["category"] + "[/color]\n"
 	tooltip += "━━━━━━━━━━━━\n"
 	
-	for spec in specs["specs"]:
-		tooltip += "[color=#aaffff]• " + spec + "[/color]\n"
+	if specs["specs"] is Array and specs["specs"].size() > 0:
+		for spec in specs["specs"]:
+			if spec != null:
+				tooltip += "[color=#aaffff]• " + str(spec) + "[/color]\n"
 	
 	tooltip += "━━━━━━━━━━━━\n"
-	tooltip += "[color=#00ff00]฿" + str(specs["price"]) + "[/color]\n"
-	tooltip += "[color=#ffaa00]" + specs["description"] + "[/color]"
+	if specs.has("price"):
+		tooltip += "[color=#00ff00]฿" + str(specs["price"]) + "[/color]\n"
+	if specs.has("description"):
+		tooltip += "[color=#ffaa00]" + specs["description"] + "[/color]"
 	
 	return tooltip

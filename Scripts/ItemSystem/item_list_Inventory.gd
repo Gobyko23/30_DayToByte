@@ -35,5 +35,8 @@ func get_color_by_item(item: String) -> String:
 		# Fan สีแดง
 		"Fan_Standard", "Fan_Premium", "Fan_Gaming":
 			return "#e74c3c"
+		# PowerSupply สีม่วง
+		"PowerSupply_550W", "PowerSupply_850W", "PowerSupply_1600W":
+			return "#9b59b6"
 		_:
 			return "white"
