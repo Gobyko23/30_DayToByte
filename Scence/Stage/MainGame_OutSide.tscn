@@ -139,11 +139,44 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05727, 5.43801, -4.59428)
 [node name="Node3D" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)
 
+[node name="Node3D4" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -2.38301)
+
+[node name="Node3D5" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52374, 0.658829, -2.38301)
+
+[node name="Node3D6" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.52374, 0.658829, -2.38301)
+
+[node name="Node3D7" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.52374, 0.658829, -0.0902781)
+
 [node name="Node3D3" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, 2.51871)
 
 [node name="Node3D2" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85678, 0.658829, 0.0519217)
+
+[node name="Node3D8" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23654, 0.658829, -0.0304479)
+
+[node name="Node3D9" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23654, 0.658829, -2.38301)
+
+[node name="Node3D10" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2365, 0.658829, -2.38301)
+
+[node name="Node3D11" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2365, 0.658829, -2.38301)
+
+[node name="Node3D12" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2365, 0.658829, -0.0902781)
+
+[node name="Node3D13" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23654, 0.658829, 2.51871)
+
+[node name="Node3D14" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5696, 0.658829, 0.0519217)
 
 [node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target") groups=["WorldCamera"]]
 script = ExtResource("4_cpf1t")

@@ -50,5 +50,8 @@ func get_item_data(item: String) -> Array:
 		# Fan - สีแดง
 		"Fan_Standard", "Fan_Premium", "Fan_Gaming":
 			return [Color(0.91, 0.3, 0.24), 0]  # สีแดง
+		# PowerSupply - สีม่วง
+		"PowerSupply_550W", "PowerSupply_850W", "PowerSupply_1600W":
+			return [Color(0.61, 0.35, 0.71), 1]  # สีม่วง
 		_:
-			return [Color.WHITE, null]
+			return [Color.WHITE, 0]  # ค่า default ที่ปลอดภัย
