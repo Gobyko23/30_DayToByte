@@ -46,7 +46,7 @@ func _on_countdown_finished() -> void:
 	
 	# 2. ตรวจสอบว่าครบ 3 วันหรือไม่
 	if time_node.day > time_node.max_days:
-		print("🎉 Day 3 completed! Showing end GUI...")
+		print("🎉 Day %d completed! Showing end GUI..." % time_node.max_days)
 		time_node.stop_countdown()
 		_show_end_gui()
 	else:

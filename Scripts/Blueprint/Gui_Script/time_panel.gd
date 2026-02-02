@@ -33,4 +33,7 @@ func _on_time_changed(minutes: int, seconds: int) -> void:
 	var final_bbcode = "[center][color=" + color + "]" + bb_prefix + "[b]" + time_string + "[/b]" + bb_suffix + "[/color][/center]"
 	
 	time_text.text = final_bbcode
-	day_text.text = "Day: [pulse freq=1.0 color=#ffffff40]%d/%d[/pulse]" % [time_node.day, time_node.max_days]
+	if time_node.day == time_node.max_days:
+		day_text.text = "Day: [shake rate=20.0 level=20][color=red]%d/%d[/color][/shake]" % [time_node.day, time_node.max_days]
+	else:
+		day_text.text = "Day: [pulse freq=1.0 color=#ffffff40]%d/%d[/pulse]" % [time_node.day, time_node.max_days]

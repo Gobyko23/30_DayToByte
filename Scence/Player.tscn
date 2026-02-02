@@ -169,7 +169,7 @@ texture = SubResource("ViewportTexture_16m5h")
 [node name="SubViewport" type="SubViewport" parent="ViewSprite"]
 transparent_bg = true
 canvas_cull_mask = 4294966273
-size = Vector2i(128, 128)
+size = Vector2i(256, 256)
 
 [node name="ViewPortControl" type="Control" parent="ViewSprite/SubViewport"]
 layout_mode = 3
@@ -195,6 +195,7 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+text = "bhgvvvbhbubbhubhbb"
 label_settings = SubResource("LabelSettings_h5heb")
 horizontal_alignment = 1
 vertical_alignment = 1
