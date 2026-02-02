@@ -1,8 +1,11 @@
-[gd_scene load_steps=44 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=47 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
+[ext_resource type="Texture2D" uid="uid://b2jxpeeahcg4v" path="res://Scence/BackGround/scence_bg_1.png" id="2_2t52r"]
 [ext_resource type="PackedScene" uid="uid://o6ai16t3tw6e" path="res://Scence/Player.tscn" id="2_e6uwr"]
 [ext_resource type="PackedScene" uid="uid://jf7una4atcek" path="res://Scence/Interac_Scence.tscn" id="3_51evp"]
+[ext_resource type="Texture2D" uid="uid://ce24ew280hn4" path="res://Scence/BackGround/scence_bg_2.png" id="3_au0eo"]
+[ext_resource type="Texture2D" uid="uid://31u2q0qwp1wa" path="res://Scence/ForeGround/scence_bg_3.png" id="3_ijsrt"]
 [ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/Entity/player_camera.gd" id="4_cpf1t"]
 [ext_resource type="PackedScene" uid="uid://brcdwospn3ewr" path="res://Scence/NPC/Npc.tscn" id="5_u0fgr"]
 [ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Scripts/Blueprint/Gui_Script/SaveUi.gd" id="6_2hect"]
@@ -112,6 +115,196 @@ thickness = 10
 [node name="MainGameOutSide" type="Node3D" groups=["interactable"]]
 script = ExtResource("1_jysb6")
 
+[node name="BackGround" type="Node3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D2" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D3" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.2375, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D4" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7141, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D5" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.2804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D6" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D7" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D8" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D9" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.6989, 8.19524, -19.3273)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D18" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1471, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D19" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.9375, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D20" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.518, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D21" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.8957, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D22" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.538, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D23" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.353, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D15" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2853, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D16" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.9575, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D17" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.198, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D10" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.8282, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D11" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.5277, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D12" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.2117, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D13" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3891, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D14" type="Sprite3D" parent="BackGround"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7192, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rkrtr")
 
@@ -133,8 +326,19 @@ mesh = SubResource("BoxMesh_0itcn")
 transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_0itcn")
 
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(-2.9986e-07, 0, 6.86, 0, 6.86, 0, -6.86, 0, -2.9986e-07, 28.7065, 0, 4.72351)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 1.42109e-14, 0, 3.5, -0.086401, 0, 0)
+mesh = SubResource("BoxMesh_0itcn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_0itcn")
+
 [node name="Player" parent="." instance=ExtResource("2_e6uwr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05727, 5.43801, -4.59428)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05727, 4.36619, -4.59428)
 
 [node name="Node3D" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)
@@ -196,8 +400,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
 [node name="TimeNode" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_pi7ar")
-countdown_duration_seconds = 3
-max_days = 1
+countdown_duration_seconds = 20
+max_days = 7
 
 [node name="Pause" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -572,6 +776,7 @@ bus = &"SFXBus"
 [node name="EndLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 10
+visible = false
 
 [node name="EndUi" type="Control" parent="EndLayer"]
 layout_mode = 3

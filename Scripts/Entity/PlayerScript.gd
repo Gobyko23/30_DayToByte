@@ -124,7 +124,7 @@ func cancel_interact():
 
 func showbar():
 	HoldBar.value = 0
-	HoldBar.visible = !HoldBar.visible
+	HoldBar.visible = true
 	
 
 	if highlighted and highlighted.has_method("interacting_cancle"):
