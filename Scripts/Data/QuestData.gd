@@ -4,7 +4,8 @@ class_name QuestData
 # ประเภท NPC
 enum NPC_TYPE {
 	DIALOGUE_ONLY,
-	QUEST_GIVER
+	QUEST_GIVER,
+	QUESTION
 }
 
 # ข้อมูลพื้นฐาน Quest
@@ -22,6 +23,11 @@ enum NPC_TYPE {
 @export var inprocess_dialogue: Array[String] = ["คุณกำลังทำเควสนี้อยู่แล้ว"]
 @export var complete_quest_dialogue: Array[String] = ["ขอบคุณที่ทำให้เสร็จ!"]
 @export var reward_dialogue: Array[String] = ["นี่คือรางวัล!"]
+
+# Questions & Answers (สำหรับ NPC ที่มี npc_type = QUESTION)
+@export var questions_dialogue: Array[String] = ["คุณพร้อมตอบคำถามหรือไม่?"]  # บทพูดก่อนถามคำถาม
+@export var question_text: String = "คำถามคืออะไร?"  # ข้อความคำถาม
+@export var accept_question_dialogue: Array[String] = ["ดีเลย! นี่คือคำถามของฉัน"]  # บทพูดหลังรับเควส/คำถาม
 
 # ข้อมูลสถานะ
 var is_completed: bool = false

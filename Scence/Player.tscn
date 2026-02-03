@@ -160,6 +160,7 @@ script = ExtResource("1_16m5h")
 
 [node name="ViewSprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51491, 1.11762, 0)
+visible = false
 layers = 2
 pixel_size = 0.025
 billboard = 1

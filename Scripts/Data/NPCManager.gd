@@ -10,8 +10,9 @@ signal npc_state_changed(npc_name: String)
 # Enum สำหรับเก็บ pending action (ต้องตรงกับ NPCQuestSystem.NEXT_ACTION)
 enum NEXT_ACTION {
 	NONE = 0,
-	START_QUEST = 1,
-	COMPLETE_QUEST = 2
+	ASK = 1,
+	START_QUEST = 2,
+	COMPLETE_QUEST = 3
 }
 
 func _ready() -> void:

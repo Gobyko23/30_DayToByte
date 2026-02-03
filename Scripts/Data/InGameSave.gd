@@ -10,13 +10,12 @@ func _ready():
 	
 	# เชื่อมต่อกับสัญญาณ countdown_finished จาก TimeNode
 	time_node.countdown_finished.connect(_on_countdown_finished)
+
+	if player and player_spawn:
+		player.global_position = player_spawn.global_position
+		print("📍 Player position set to spawn point: ", player_spawn.global_position)
 	
 	# ตรวจสอบว่าฉากปัจจุบันคือ Tutorial Scene หรือไม่
-	var current_scene_path = get_tree().current_scene.scene_file_path
-	if current_scene_path == "res://Scence/Stage/TutorialScene.tscn":
-		print("🎓 Tutorial Scene detected - skipping load and resetting points to 0")
-		PointSystem.set_points(0)
-		return
 	
 	# Restore day value จาก PlayerData ถ้ามีการบันทึกไว้
 	if "current_day" in PlayerData and PlayerData.current_day > 0:

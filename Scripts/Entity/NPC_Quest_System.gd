@@ -3,15 +3,18 @@ class_name NPCQuestSystem
 
 # สถานะการกระทำหลังจากคุยจบ
 enum NEXT_ACTION {
-	NONE,           # ไม่ทำอะไร
-	START_QUEST,    # เริ่มเควส
-	COMPLETE_QUEST  # ส่งเควส/รับรางวัล
+    NONE,           # ไม่ทำอะไร
+    START_QUEST,    # เริ่มเควส
+    COMPLETE_QUEST, # ส่งเควส/รับรางวัล
+    START_QUESTION, # [ใหม่] เริ่มถามคำถาม
+    ASK             # [ใหม่] ถามคำถามจริง (หลังจาก questions_dialogue)
 }
 
 # ประเภท NPC
 enum NPC_TYPE {
 	DIALOGUE_ONLY,
-	QUEST_GIVER
+	QUEST_GIVER,
+	QUESTION
 }
 
 @export var npc_type: NPC_TYPE = NPC_TYPE.QUEST_GIVER
@@ -21,6 +24,21 @@ enum NPC_TYPE {
 @export_group("Manual Quest Setup")
 @export var quest_list: Array[QuestData] = [] 
 @export var NonQuest_Dialogue:Array[String] =[] 
+
+
+# --- ส่วนที่ 2: เพิ่มตัวแปรสำหรับตั้งค่าคำถาม ---
+@export_group("Question Setup")
+@export_multiline var question_text: String = "คำถามคืออะไร?" # ข้อความคำถาม
+@export var choices: Array[String] = ["ตัวเลือก A", "ตัวเลือก B"] # ตัวเลือก
+@export var correct_choice_index: int = 0 # ดัชนีของคำตอบที่ถูก (เริ่มที่ 0)
+@export var correct_dialogue: Array[String] = ["ถูกต้อง!"] # บทพูดเมื่อตอบถูก
+@export var wrong_dialogue: Array[String] = ["ผิด! ลองใหม่นะ"] # บทพูดเมื่อตอบผิด
+@export var reward_item_id: String = "" # (เผื่อไว้) ไอเทมที่จะให้เมื่อตอบถูก
+
+# ตัวแปรช่วยจำสถานะ (อาจจะต้องบันทึกลง SaveSystem ในอนาคต)
+var is_question_answered: bool = false
+var question_dialogue_shown: bool = false  # [ใหม่] ติดตามว่าแสดง questions_dialogue หมดแล้วหรือยัง
+var player_answer: String = ""  # [ใหม่] เก็บคำตอบของ player
 
 
 
@@ -104,14 +122,30 @@ func get_current_interaction() -> Dictionary:
 		_update_npc_action_state()
 		print("❌ No quest found for NPC: ", npc_name)
 		return result
-
+	if npc_type == NPC_TYPE.QUESTION:
+		if is_question_answered:
+            # ถ้าตอบถูกไปแล้ว
+			result.dialogues = ["คุณตอบคำถามถูกต้องไปแล้ว ขอบคุณนะ"]
+			result.action = NEXT_ACTION.NONE
+		else:
+            # ถ้ายังไม่ตอบ ให้เริ่มถาม
+            # ส่งบทพูดนำเข้า + คำถาม (ไม่รวม "จะรับหรือไม่" เพราะจะแสดงเป็น UI)
+			result.dialogues = current_processing_quest.questions_dialogue.duplicate()
+			result.dialogues.append(current_processing_quest.question_text)
+			# ลบบรรทัด: result.dialogues.append("จะรับภารกิจหรือไม่?")
+			result.action = NEXT_ACTION.START_QUESTION  # ← ให้ emit signal ขอปุ่ม
+            
+		_update_npc_action_state() # อัปเดตสถานะ (ถ้าจำเป็น)
+		return result
 	# 2. เช็คสถานะของเควสนั้นๆ เพื่อเลือกบทพูดจาก QuestData 
 	var q_id = current_processing_quest.quest_id
 	print("🎯 Processing quest for NPC ", npc_name, ": ", current_processing_quest.quest_name, " (ID: ", q_id, ")")
 	
 	# กรณี: ยังไม่เคยรับเควสนี้ -> เตรียม "ให้เควส"
 	if not QuestManager.is_quest_active(q_id) and not QuestManager.is_quest_completed(q_id):
-		result.dialogues = current_processing_quest.give_quest_dialogue
+		result.dialogues = current_processing_quest.give_quest_dialogue.duplicate()
+		# เพิ่มคำถาม "จะรับภารกิจหรือไม่?" สำหรับ QUEST_GIVER และ QUESTION types
+		result.dialogues.append("จะรับภารกิจหรือไม่?")
 		result.action = NEXT_ACTION.START_QUEST
 		if not _is_state_restored:
 			pending_action = NEXT_ACTION.START_QUEST
@@ -177,12 +211,18 @@ func perform_action(action: NEXT_ACTION) -> void:
 	
 	match action:
 		NEXT_ACTION.START_QUEST:
-			QuestManager.start_quest(current_processing_quest)
-			if npc_mgr:
-				npc_mgr.on_npc_interacted(npc_name)
-				npc_mgr.record_quest_given(npc_name, current_processing_quest.quest_id)
-				npc_mgr.set_npc_action_state(npc_name, NEXT_ACTION.NONE, "")
-			print("✅ เริ่มเควส: ", current_processing_quest.quest_name)
+			if npc_type == NPC_TYPE.QUESTION:
+				# ถ้าเป็น NPC ที่ถามคำถาม ให้บันทึกว่ารับแล้ว (แต่ยังไม่ได้ตอบ)
+				is_question_answered = false
+				print("❓ NPC กำลังเริ่มถามคำถาม: ", current_processing_quest.question_text)
+			else:
+				# ถ้าเป็น Quest ปกติ ให้เริ่มเควส
+				QuestManager.start_quest(current_processing_quest)
+				if npc_mgr:
+					npc_mgr.on_npc_interacted(npc_name)
+					npc_mgr.record_quest_given(npc_name, current_processing_quest.quest_id)
+					npc_mgr.set_npc_action_state(npc_name, NEXT_ACTION.NONE, "")
+				print("✅ เริ่มเควส: ", current_processing_quest.quest_name)
 			
 		NEXT_ACTION.COMPLETE_QUEST:
 			QuestManager.complete_quest(current_processing_quest.quest_id)
@@ -190,6 +230,15 @@ func perform_action(action: NEXT_ACTION) -> void:
 				npc_mgr.on_npc_interacted(npc_name)
 				npc_mgr.set_npc_action_state(npc_name, NEXT_ACTION.NONE, "")
 			print("💰 ส่งเควสและรับรางวัล: ", current_processing_quest.quest_name)
+
+		# [ใหม่] จัดการเมื่อต้องเริ่มถามคำถาม
+		NEXT_ACTION.START_QUESTION:
+			print("❓ NPC กำลังเริ่มถามคำถาม: ", question_text)
+            # ตรงนี้คุณต้องเชื่อมต่อกับระบบ UI ของคุณ
+            # ตัวอย่าง:
+            # var ui = get_tree().root.get_node("UIManager")
+            # ui.show_question_dialog(question_text, choices, self) 
+			pass
 
 # ---------------------------------------------------------
 # ฟังก์ชัน Helper: ส่ง action state ไป NPCManager
@@ -240,6 +289,17 @@ func _restore_state_from_npc_manager() -> void:
 	var active_quest_id = saved_state.get("quest_id", "")
 	if active_quest_id != "":
 		print("📌 NPC had active quest: ", active_quest_id)
+
+# ฟังก์ชันนี้ให้ UI เรียกใช้เมื่อผู้เล่นกดเลือกคำตอบ
+func on_question_answered(choice_index: int) -> void:
+	if choice_index == correct_choice_index:
+		print("✅ ตอบถูกต้อง!")
+		is_question_answered = true
+        # เพิ่มโค้ดให้รางวัลตรงนี้ หรือเรียก Dialogue "correct_dialogue"
+	else:
+		print("❌ ตอบผิด!")
+        # เรียก Dialogue "wrong_dialogue"
+
 
 
 # ---------------------------------------------------------

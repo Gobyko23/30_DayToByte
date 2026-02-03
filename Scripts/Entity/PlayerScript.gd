@@ -26,15 +26,21 @@ var hold_timer :float= 0.0
 var is_holding :bool= false
 
 func _physics_process(delta: float) -> void:
+	# จัดการปุ่มกดระหว่างคุยกับ NPC
 	if is_talking and talking_npc:
+		# ป้องกันการกดข้ามบทสนทนาเมื่อกำลังแสดง Question UI
 		if Input.is_action_just_pressed("interact_bind"):
+			if talking_npc.is_question_phase:
+				print("❌ Player: Cannot proceed - waiting for button press (QUESTION PHASE)")
+				print("🎯 talking_npc.is_question_phase = ", talking_npc.is_question_phase)
+				get_tree().root.set_input_as_handled()  # บล็อก input ให้แน่นอน
+				return
+			
+			# อนุญาตให้กดข้ามบทสนทนาได้เมื่อไม่ใช่ question phase
+			print("💬 Player: Proceeding to next dialogue")
 			if talking_npc.has_method("next_dialogue"):
 				talking_npc.next_dialogue()
-				print("💬 Current NPC:", talking_npc.name)
-				if talking_npc.has_method("quest_system"):
-					var quest = talking_npc.quest_system.current_quest
-					if quest:
-						quest.debug_print_dialogues()
+				get_tree().root.set_input_as_handled()
 			else:
 				print("❌ NPC doesn't have next_dialogue() method")
 		return 

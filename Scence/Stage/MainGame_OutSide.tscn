@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=55 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
 [ext_resource type="Texture2D" uid="uid://b2jxpeeahcg4v" path="res://Scence/BackGround/scence_bg_1.png" id="2_2t52r"]
@@ -69,6 +69,23 @@ font_color = Color(7.21961e-06, 0.864387, 0.368493, 1)
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5cv0"]
+bg_color = Color(0, 0.997396, 0.0779215, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtsas"]
+bg_color = Color(1, 0.0130208, 0.0130208, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
 bg_color = Color(0.163909, 0.396979, 0.801575, 1)
 
@@ -111,6 +128,51 @@ grow_begin = -3.0
 thickness = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtsas"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijsrt"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ijsrt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i5cv0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oypcv"]
+bg_color = Color(0.015625, 1, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kv2uy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86f4d"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="MainGameOutSide" type="Node3D" groups=["interactable"]]
 script = ExtResource("1_jysb6")
@@ -394,13 +456,13 @@ Dialogoffset = Vector3(0.45, 0.445, 2.92)
 [node name="NPC" parent="." groups=["Npc"] instance=ExtResource("5_u0fgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13157, 0.924625, 2.14227)
 
-[node name="Cat" parent="." instance=ExtResource("13_rtsas")]
+[node name="Cat" parent="." groups=["Npc"] instance=ExtResource("13_rtsas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
 
 [node name="TimeNode" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_pi7ar")
-countdown_duration_seconds = 20
+countdown_duration_seconds = 1000000000
 max_days = 7
 
 [node name="Pause" type="CanvasLayer" parent="."]
@@ -548,6 +610,46 @@ text = "Day"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="Accept_btn" type="Button" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -361.0
+offset_top = -384.0
+offset_right = -159.0
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_i5cv0")
+text = "Accept"
+
+[node name="Refuse_btn" type="Button" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 138.0
+offset_top = -384.0
+offset_right = 340.0
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 41
+theme_override_styles/normal = SubResource("StyleBoxFlat_rtsas")
+text = "Refuse"
 
 [node name="PauseGui" type="Control" parent="Pause"]
 unique_name_in_owner = true
@@ -773,6 +875,88 @@ unique_name_in_owner = true
 stream = ExtResource("17_pi7ar")
 bus = &"SFXBus"
 
+[node name="Question_ui" type="Control" parent="Pause"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="Panel" parent="Pause/Question_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -381.0
+offset_top = -183.0
+offset_right = 381.0
+offset_bottom = 142.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijsrt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/Question_ui/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -345.0
+offset_top = -143.5
+offset_right = 345.0
+offset_bottom = 143.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 11
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pause/Question_ui/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "คำถาม:.....dvdgdxgdgdggfdgfdgfdgfdgfgfdgfdggdgdgfgdfgfdgffgdfgfdgdfgfdgfdgfdgfdgfgfdgfdgfdgfdgdfgfdgfdgfdgdgdfgdfgfd"
+fit_content = true
+
+[node name="TextAns" type="TextEdit" parent="Pause/Question_ui/ColorRect/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 61
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ijsrt")
+placeholder_text = "ตอบ....."
+scroll_smooth = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pause/Question_ui/ColorRect/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 431
+
+[node name="Submit" type="Button" parent="Pause/Question_ui/ColorRect/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i5cv0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_oypcv")
+text = "Submit"
+
+[node name="Cancle" type="Button" parent="Pause/Question_ui/ColorRect/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kv2uy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_86f4d")
+text = "Cancle"
+
 [node name="EndLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 10
@@ -840,3 +1024,5 @@ vertical_alignment = 1
 [connection signal="pressed" from="Pause/PauseGui/SaveListLabel/SaveLoadVbox/LoadButton" to="Pause/Interact_Screen" method="_on_load_button_pressed"]
 [connection signal="pressed" from="Pause/OptionGui/CenterContainer2/VBoxContainer/BackButton" to="Pause" method="_on_back_button_pressed"]
 [connection signal="pressed" from="Pause/OptionGui/CenterContainer2/VBoxContainer/BackButton" to="Pause/OptionGui" method="_on_back_button_pressed"]
+[connection signal="pressed" from="Pause/Question_ui/ColorRect/VBoxContainer/HBoxContainer/Submit" to="Pause" method="_on_submit_pressed"]
+[connection signal="pressed" from="Pause/Question_ui/ColorRect/VBoxContainer/HBoxContainer/Cancle" to="Pause" method="_on_cancle_pressed"]
