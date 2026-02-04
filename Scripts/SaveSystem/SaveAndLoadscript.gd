@@ -72,7 +72,7 @@ func load_game(slot: int) -> Dictionary:
 
 	return data
 
-func _on_request_load(slot: int, time_node: Node) -> void:
+func _on_request_load(slot: int) -> void:
 	var data = load_game(slot)
 	if data.is_empty(): 
 		print("❌ No save data found for slot: ", slot)
@@ -89,7 +89,20 @@ func _on_request_load(slot: int, time_node: Node) -> void:
 	
 	# ล้าง ItemDataManager
 	ItemDataManager.clear_all_items()
-	
+
+	# ตรวจสอบว่ามี Tree และ Scene หรือไม่
+	var current_scene = get_tree().current_scene
+	if current_scene == null:
+		# หากเป็นช่วงรอยต่อฉาก ให้รอจนกว่าฉากจะพร้อม
+		await get_tree().process_frame
+		current_scene = get_tree().current_scene
+	# หา time_node ในฉากปัจจุบัน
+	var time_node = get_tree().current_scene.find_child("TimeNode", true, false)
+
+	# 6. โหลดข้อมูล Time (เช็คก่อนว่าเจอโหนดไหม)
+	if time_node and data.has("time") and data["time"] is Dictionary:
+		time_node.load_time_data(data["time"])
+		print("⏰ Time data restored to NEW node")
 	# ล้างไอเทมเก่าในฉาก
 	for old_item in get_tree().get_nodes_in_group("persist_items"):
 		old_item.queue_free()
@@ -195,24 +208,24 @@ func _export_npc_states_detailed() -> Dictionary:
 	return states
 
 func _collect_npc_states_detailed(node: Node, states: Dictionary) -> void:
-	# ตรวจสอบว่า node นี้เป็น NPC หรือมี quest_system
-	if node.has_meta("is_npc") or (node.is_in_group("NPC") if node.is_in_group("NPC") else false):
-		if node.has_node("NPCQuestSystem"):
-			var quest_system = node.get_node("NPCQuestSystem")
-			var npc_name = quest_system.npc_name
+	# ค้นหาโหนด NPCQuestSystem ไม่ว่าจะอยู่ที่ไหนในลูกหลาน
+	var quest_system = node as NPCQuestSystem if node is NPCQuestSystem else null
+	
+	if quest_system:
+		var npc_name = quest_system.npc_name
+		var current_quest_id = ""
+		if quest_system.current_processing_quest:
+			current_quest_id = quest_system.current_processing_quest.quest_id
 			
-			var current_quest_id = ""
-			if quest_system.current_processing_quest:
-				current_quest_id = quest_system.current_processing_quest.quest_id
-			
-			states[npc_name] = {
-				"current_state": int(quest_system.current_state),
-				"is_question_answered": quest_system.is_question_answered,
-				"has_talked_to_npc": quest_system.has_talked_to_npc,
-				"current_processing_quest_id": current_quest_id,
-				"player_answer": quest_system.player_answer
-			}
-			print("💾 Saved NPC state: ", npc_name, " - state: ", NPCQuestSystem.NPC_STATE.keys()[quest_system.current_state], " answered: ", quest_system.is_question_answered)
+		states[npc_name] = {
+			"current_state": int(quest_system.current_state),
+			"is_question_answered": quest_system.is_question_answered, # <--- ค่าสำคัญ
+			"has_talked_to_npc": quest_system.has_talked_to_npc,
+			"current_processing_quest_id": current_quest_id
+		}
+	
+	for child in node.get_children():
+		_collect_npc_states_detailed(child, states)
 	
 	# วนลูปค้นหาใน children
 	for child in node.get_children():

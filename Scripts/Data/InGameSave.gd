@@ -90,4 +90,4 @@ func _on_request_save(slot: int) -> void:
 func _on_request_load(slot: int) -> void:
 	print("📥 Loading from slot: ", slot)
 	# ส่ง time_node ไปให้ SaveAndLoadscript เพื่อคืนค่าข้อมูลเวลา
-	SaveAndLoad._on_request_load(slot, time_node)
+	SaveAndLoad._on_request_load(slot)

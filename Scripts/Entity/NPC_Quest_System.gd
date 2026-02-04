@@ -36,11 +36,12 @@ enum NPC_TYPE {
 
 # --- ส่วนที่ 2: เพิ่มตัวแปรสำหรับตั้งค่าคำถาม ---
 @export_group("Question Setup")
-@export_multiline var question_text: String = "คำถามคืออะไร?"
+var question_text: String = "นี่คือคำถามของฉัน"
 @export var choices: Array[String] = ["ตัวเลือก A", "ตัวเลือก B"]
 @export var correct_choice_index: int = 0
 @export var correct_dialogue: Array[String] = ["ถูกต้อง!"]
 @export var wrong_dialogue: Array[String] = ["ผิด! ลองใหม่นะ"]
+
 @export var reward_item_id: String = ""
 
 # --- ส่วนที่เพิ่มเข้ามาใหม่สำหรับระบบสุ่ม ---
@@ -124,9 +125,11 @@ func get_current_interaction() -> Dictionary:
 		if is_question_answered:
 			# ถ้าตอบแล้ว → NONE state
 			result.dialogues = ["คุณตอบคำถามถูกต้องไปแล้ว ขอบคุณนะ"]
-			current_state = NPC_STATE.NONE
+			current_state = NPC_STATE.COMPLETE_QUEST
+			question_text = ""  # ล้างคำถาม
 		else:
 			# ถ้ายังไม่ตอบ → START_QUESTION state
+			question_text = current_processing_quest.question_ask
 			result.dialogues = current_processing_quest.questions_dialogue.duplicate()
 			current_state = NPC_STATE.START_QUESTION
 		
@@ -245,16 +248,22 @@ func _restore_state_from_npc_manager() -> void:
 	var saved_state = npc_mgr.get_npc_action_state(npc_name)
 	if saved_state.is_empty(): return
 	
+	# 1. คืนค่าสถานะหลัก
 	current_state = NPC_STATE.values()[saved_state["action"]]
 	_is_state_restored = true
 	
-	# restore current_processing_quest จาก quest_id
+	# 2. คืนค่า Quest ที่กำลังทำ
 	var processing_quest_id = saved_state.get("current_processing_quest_id", "")
 	if processing_quest_id != "":
 		for q in quest_list:
 			if q and q.quest_id == processing_quest_id:
 				current_processing_quest = q
 				break
+	
+	# 3. จุดสำคัญ: ต้องดึงค่า is_question_answered มาด้วย
+	# เนื่องจาก NPCManager เดิมของคุณไม่ได้เก็บ เราจะลองหาจาก npc_states (ถ้าคุณเพิ่ม key นี้เข้าไป)
+	if saved_state.has("is_question_answered"):
+		is_question_answered = saved_state["is_question_answered"]
 
 
 # ---------------------------------------------------------
@@ -268,6 +277,17 @@ func on_question_answered(choice_index: int) -> void:
 		is_question_answered = false
 		print("❌ คำตอบผิด!")
 
+
+# เพิ่มฟังก์ชันนี้ใน NPCQuestSystem.gd เพื่อใช้ตรวจคำตอบแบบพิมพ์
+func check_text_answer(answer: String) -> bool:
+	if current_processing_quest and current_processing_quest.has_method("get_correct_answer_chat"):
+		var correct = current_processing_quest.get_correct_answer_chat()
+		if answer.to_lower() == correct.to_lower():
+			is_question_answered = true
+			return true
+	
+	is_question_answered = false
+	return false
 
 # ---------------------------------------------------------
 # ฟังก์ชัน Debug

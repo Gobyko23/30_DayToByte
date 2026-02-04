@@ -38,8 +38,10 @@ give_quest_dialogue = Array[String](["คุณต้องการเควส
 inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
 complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
 reward_dialogue = Array[String](["นี่คือรางวัล!"])
-questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
-question_text = "คำถามคืออะไร?"
+answer_text = "6"
+questions_dialogue = Array[String](["สวัสดี"])
+question_text = "คุณพร้อมตอบคำถามหรือไม่?"
+question_ask = "001 + 101 = ?"
 accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
 metadata/_custom_type_script = "uid://6oofvb1sj85k"
 
@@ -139,5 +141,4 @@ script = ExtResource("4_j7mn5")
 npc_type = 2
 npc_name = "KingOfTheCat"
 quest_list = Array[ExtResource("5_dnxf6")]([SubResource("Resource_drsva")])
-question_text = "ๅ//ๅ-ๅ-ๅ =  12e2ewew"
 metadata/_custom_type_script = "uid://cm5e18lq2aj0d"

@@ -62,12 +62,19 @@ func _finish_loading_sequence():
 	# เปลี่ยนฉากจริง
 	_complete_transition()
 
+signal scene_loaded_successfully # เพิ่ม Signal ใหม่
+
 func _complete_transition():
 	set_process(false)
 	var new_scene = ResourceLoader.load_threaded_get(target_path)
 	if new_scene:
 		get_tree().change_scene_to_packed(new_scene)
-	
+        
+        # --- จุดสำคัญ ---
+        # รอ 1 Frame เพื่อให้โหนดในฉากใหม่ถูกสร้าง (Ready) จนครบ
+		await get_tree().process_frame 
+		scene_loaded_successfully.emit() # บอกว่าฉากใหม่พร้อมรับข้อมูลแล้ว
+    
 	if is_instance_valid(loading_screen_instance):
 		loading_screen_instance.queue_free()
 		loading_screen_instance = null

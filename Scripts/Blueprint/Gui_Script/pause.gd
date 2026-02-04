@@ -17,7 +17,7 @@ extends CanvasLayer
 @onready var cancle: Button = %Cancle
 @onready var accept_btn: Button = %Accept_btn
 @onready var refuse_btn: Button = %Refuse_btn
-
+@onready var question_label: RichTextLabel = $Question_ui/ColorRect/VBoxContainer/Question_text
 # UI Container สำหรับแสดงคำถาม
 var question_container: Control = null
 
@@ -183,25 +183,38 @@ func _on_submit_pressed() -> void:
 	if not question_ui.visible:
 		return
 	
-	print("✅ Question submitted")
-	var player_answer = text_ans.text
-	print("User answered: ", player_answer)
+	var player_answer = text_ans.text.strip_edges()
 	
-	# 1. บันทึกคำตอบไปให้ NPC
 	if current_npc and current_npc.quest_system:
-		current_npc.quest_system.player_answer = player_answer
-		print("💾 Saved player answer to NPC: ", player_answer)
+		var system = current_npc.quest_system
+		var quest = system.current_processing_quest
+		
+		if quest:
+			# ตรวจสอบคำตอบ: 
+			# สมมติว่าใน QuestData มีตัวแปรชื่อ 'answer_text' สำหรับเก็บคำตอบที่ถูก
+			if player_answer.to_lower() == quest.answer_text.to_lower():
+				print("✅ Correct!")
+				system.is_question_answered = true
+				# เปลี่ยนบทพูด NPC เป็นบทตอบถูก
+				current_npc.current_dialogue_queue.assign(system.correct_dialogue)
+			else:
+				print("❌ Wrong!")
+				system.is_question_answered = false
+				# เปลี่ยนบทพูด NPC เป็นบทตอบผิด
+				current_npc.current_dialogue_queue.assign(system.wrong_dialogue)
+			
+			# รีเซ็ตดัชนีบทพูดเพื่อให้ NPC เริ่มพูดใหม่จากบทสรุปผล
+			current_npc.current_line_index = 0
 	
-	# 2. ล้างคำตอบและปิด UI
+	# ปิด UI และแสดงบทพูดสรุปผลจาก NPC
 	text_ans.text = ""
 	question_ui.visible = false
 	
-	# 3. จบบทสนทนา
 	if current_npc:
+		current_npc.show_dialogue()
+		await get_tree().create_timer(1.5).timeout
 		current_npc.end_dialogue()
-		print("✅ NPC dialogue ended")
 	
-	# 4. Resume game
 	_on_resume()
 
 
@@ -212,6 +225,12 @@ func _on_cancle_pressed() -> void:
 	print("❌ Question cancelled")
 	text_ans.text = ""
 	question_ui.visible = false
+	# จบบทสนทนา
+	if current_npc:
+		current_npc.on_question_cancle()
+		print("Pending Quest Action: ", current_npc.pending_quest_action)
+	else:
+		print("❌ current_npc is null!")
 	_on_resume()
 
 # Signal handlers for Accept/Refuse buttons
@@ -365,5 +384,5 @@ func show_question_ui_for_answer(question_text: String) -> void:
 	question_ui.visible = true
 	text_ans.clear()
 	text_ans.placeholder_text = question_text
+	question_label.text = str(current_npc.quest_system.question_text)
 	text_ans.grab_focus()
-	_on_pause()  # pause game เมื่อแสดง question_ui

@@ -912,7 +912,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 11
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Pause/Question_ui/ColorRect/VBoxContainer"]
+[node name="Question_text" type="RichTextLabel" parent="Pause/Question_ui/ColorRect/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 25

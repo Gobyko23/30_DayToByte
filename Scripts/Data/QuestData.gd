@@ -23,10 +23,11 @@ enum NPC_TYPE {
 @export var inprocess_dialogue: Array[String] = ["คุณกำลังทำเควสนี้อยู่แล้ว"]
 @export var complete_quest_dialogue: Array[String] = ["ขอบคุณที่ทำให้เสร็จ!"]
 @export var reward_dialogue: Array[String] = ["นี่คือรางวัล!"]
-
+@export var answer_text: String	 = "คำตอบที่ถูกต้อง"  # คำตอบที่ถูกต้องสำหรับคำถาม
 # Questions & Answers (สำหรับ NPC ที่มี npc_type = QUESTION)
 @export var questions_dialogue: Array[String] = ["คุณพร้อมตอบคำถามหรือไม่?"]  # บทพูดก่อนถามคำถาม
 @export var question_text: String = "คำถามคืออะไร?"  # ข้อความคำถาม
+@export_multiline var question_ask: String = "001 + 101 = ?"  # รายการคำถาม
 @export var accept_question_dialogue: Array[String] = ["ดีเลย! นี่คือคำถามของฉัน"]  # บทพูดหลังรับเควส/คำถาม
 
 # ข้อมูลสถานะ
@@ -72,6 +73,9 @@ func get_quest_info() -> Dictionary:
 		"is_completed": is_completed,
 		"is_active": is_active,
 	}		
+# ฟังก์ชัน: ดึงคำตอบที่ถูกต้อง(แบบข้อความ)
+func get_correct_answer_chat() -> String:
+	return answer_text
 
 # ฟังก์ชัน: Debug - แสดงข้อมูล Quest ทั้งหมด
 func debug_print_quest_info() -> void:

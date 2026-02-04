@@ -19,6 +19,7 @@ var current_line_index: int = 0
 var current_npc_state: NPCQuestSystem.NPC_STATE = NPCQuestSystem.NPC_STATE.NONE
 var is_talking: bool = false
 var is_question_phase: bool = false  # ตัวแปรอ้างอิง: กำลังแสดงปุ่ม accept/refuse หรือไม่
+var pending_quest_action: String = ""
 
 # ปุ่ม UI
 var question_accept_btn: Button
@@ -121,6 +122,7 @@ func show_dialogue():
 	# สถานะ START_QUEST: ให้เควส
 	# ========================================
 	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUEST:
+		pending_quest_action = str(NPCQuestSystem.NPC_STATE.START_QUEST)
 		if current_line_index >= current_dialogue_queue.size():
 			# จบบทสนทนาแล้ว ลองแสดงปุ่ม
 			if not is_question_phase:
@@ -155,6 +157,7 @@ func show_dialogue():
 	# สถานะ START_QUESTION: ถามคำถาม
 	# ========================================
 	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUESTION:
+		pending_quest_action = str(NPCQuestSystem.NPC_STATE.START_QUESTION)
 		# 🔥 ตรวจสอบว่าจบบทสนทนาแนะนำแล้วหรือยัง
 		if current_line_index >= current_dialogue_queue.size():
 			# จบบทสนทนาแล้ว → ต้อง emit signal เพื่อแสดงปุ่ม
@@ -193,6 +196,7 @@ func show_dialogue():
 	# สถานะ ASK: กำลังถามจริง
 	# ========================================
 	if current_npc_state == NPCQuestSystem.NPC_STATE.ASK:
+		pending_quest_action = str(NPCQuestSystem.NPC_STATE.ASK)
 		if not is_question_phase:
 			is_question_phase = true
 			print("🔄 NPC: Setting is_question_phase = true (ASK)")
@@ -295,6 +299,12 @@ func _on_question_accept_pressed() -> void:
 	if not is_question_phase: 
 		return
 	
+	if question_accept_btn:
+		question_accept_btn.visible = false
+	if question_refuse_btn:
+		question_refuse_btn.visible = false
+	
+	
 	print("✅ NPC: Player accepted")
 	
 	# ========================================
@@ -324,16 +334,17 @@ func _on_question_accept_pressed() -> void:
 		
 		current_line_index = 0
 		print("📢 Showing accept_question_dialogue before question_ui")
+		
 		show_dialogue()
 		
 		# รอ 1 วินาที แล้วแสดง question_ui
 		await get_tree().create_timer(1.0).timeout
 		
-		var pause_node = get_tree().root.find_child("pause", true, false)
+		var pause_node = get_tree().root.find_child("Pause", true, false)
 		if pause_node and quest_system and quest_system.current_processing_quest:
 			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
 			print("📢 Showing question_ui for player to input answer")
-		
+
 		return
 	
 	# ========================================
@@ -343,7 +354,7 @@ func _on_question_accept_pressed() -> void:
 		print("❓ ASK: Player accepted - showing question_ui")
 		is_question_phase = false
 		
-		var pause_node = get_tree().root.find_child("pause", true, false)
+		var pause_node = get_tree().root.find_child("Pause", true, false)
 		if pause_node and quest_system and quest_system.current_processing_quest:
 			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
 			print("📢 Showing question_ui")
@@ -386,3 +397,15 @@ func _on_question_refuse_pressed() -> void:
 		is_question_phase = false
 		end_dialogue()
 		return
+
+func on_question_cancle() -> void:
+# ลบหรือคอมเมนต์บรรทัดตรวจสอบ is_question_phase ออก 
+	# หรือตรวจสอบว่ากำลังคุยอยู่หรือไม่แทน
+	if not is_talking: 
+		return
+	
+	print("❌ NPC: Player cancelled from Question UI")
+	
+	# บังคับจบการสนทนาทันที
+	is_question_phase = false
+	end_dialogue()
