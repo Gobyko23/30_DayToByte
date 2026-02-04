@@ -456,7 +456,7 @@ Dialogoffset = Vector3(0.45, 0.445, 2.92)
 [node name="NPC" parent="." groups=["Npc"] instance=ExtResource("5_u0fgr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13157, 0.924625, 2.14227)
 
-[node name="Cat" parent="." groups=["Npc"] instance=ExtResource("13_rtsas")]
+[node name="Cat" parent="." instance=ExtResource("13_rtsas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
 
 [node name="TimeNode" type="Node" parent="."]
@@ -613,7 +613,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Accept_btn" type="Button" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -633,7 +632,6 @@ text = "Accept"
 
 [node name="Refuse_btn" type="Button" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

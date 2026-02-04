@@ -49,35 +49,51 @@ func _ready() -> void:
 	if cancle:
 		cancle.pressed.connect(_on_cancle_pressed)
 	
-	# 🔥 ค้นหา NPC และเชื่อม signal ไป
+	# 🔥 เชื่อมต่อ NPC signals ทั้งหมด
+	_connect_all_npc_signals()
+	print("✅ pause.gd._ready() completed - NPC signal connections established")
+
+
+# 🔥 ฟังก์ชัน Helper: เชื่อมต่อ signals จากทั้งหมด NPC
+func _connect_all_npc_signals() -> void:
 	var npc_nodes = get_tree().get_nodes_in_group("Npc")
-	if npc_nodes.is_empty():
-		print("⚠️ No NPCs found in 'Npc' group yet - will try in _process")
-	else:
-		print("✅ Found ", npc_nodes.size(), " NPCs in group")
+	print("🔍 _connect_all_npc_signals(): Found ", npc_nodes.size(), " NPCs")
 	
 	for npc in npc_nodes:
-		print("DEBUG: Checking NPC: ", npc.name, " has signal? ", npc.has_signal("request_question_buttons"))
-		if npc.has_signal("request_question_buttons"):
-			if not npc.request_question_buttons.is_connected(_on_npc_request_question_buttons):
-				npc.request_question_buttons.connect(_on_npc_request_question_buttons)
-				print("✅ Connected to NPC: ", npc.name)
-			else:
-				print("⚠️ Already connected to NPC: ", npc.name)
+		if not npc:
+			print("⚠️ NPC node is null, skipping")
+			continue
+			
+		print("  📌 Checking NPC: ", npc.name)
+		
+		if not npc.has_signal("request_question_buttons"):
+			print("  ❌ NPC ", npc.name, " doesn't have request_question_buttons signal")
+			continue
+		
+		# ตรวจสอบว่า signal ยังไม่เชื่อมต่อ
+		if npc.request_question_buttons.is_connected(_on_npc_request_question_buttons):
+			print("  ⚠️ Already connected to NPC: ", npc.name)
 		else:
-			print("❌ NPC ", npc.name, " doesn't have request_question_buttons signal")
+			# เชื่อมต่อ signal
+			npc.request_question_buttons.connect(_on_npc_request_question_buttons)
+			print("  ✅ Connected request_question_buttons signal from NPC: ", npc.name)
 
 
 
 
 func _process(_delta: float) -> void:
-	# 🔥 หาและเชื่อม NPC ที่พลาดไปใน _ready
+	# 🔥 หาและเชื่อม NPC ที่เกิดขึ้นทีหลัง (dynamically spawned NPCs)
+	# เพียงทำครั้งเดียว และตรวจสอบถ้ามี NPC ใหม่ที่ยังไม่เชื่อมต่อ
 	var npc_nodes = get_tree().get_nodes_in_group("Npc")
 	for npc in npc_nodes:
+		if not npc:
+			continue
+		
+		# ถ้า signal มีแต่ยังไม่เชื่อมต่อ ให้เชื่อมต่อ
 		if npc.has_signal("request_question_buttons"):
 			if not npc.request_question_buttons.is_connected(_on_npc_request_question_buttons):
 				npc.request_question_buttons.connect(_on_npc_request_question_buttons)
-				print("✅ Late Connection to NPC: ", npc.name)
+				print("✅ Late-bind: Connected request_question_buttons signal from NPC: ", npc.name)
 	
 	# Debug: แสดงสถานะปุ่ม
 	if Input.is_action_just_pressed("inventory_menu"):  # ทดสอบด้วยปุ่ม Home
@@ -230,49 +246,102 @@ func _on_refuse_btn_pressed() -> void:
 
 # 🔥 Callback เมื่อ NPC ส่ง request_question_buttons signal
 func _on_npc_request_question_buttons(npc: NPC) -> void:
+	print("\n" + "=".repeat(60))
+	print("📡 === SIGNAL RECEIVED in pause.gd ===")
 	print("📡 pause.gd: Received request_question_buttons signal from NPC: ", npc.name)
-	print("DEBUG: accept_btn = ", accept_btn, " refuse_btn = ", refuse_btn)
-	print("DEBUG: accept_btn is null? = ", accept_btn == null)
-	print("DEBUG: refuse_btn is null? = ", refuse_btn == null)
-	if accept_btn:
-		print("DEBUG: accept_btn.visible before = ", accept_btn.visible)
+	print("  📌 NPC state: ", NPCQuestSystem.NPC_STATE.keys()[npc.current_npc_state])
+	print("  📌 is_question_phase: ", npc.is_question_phase)
+	
+	# Failsafe: ตรวจสอบ button references
+	print("  🔍 Button check BEFORE setup:")
+	print("    - accept_btn exists? ", accept_btn != null, " (visible: ", accept_btn.visible if accept_btn else "N/A", ")")
+	print("    - refuse_btn exists? ", refuse_btn != null, " (visible: ", refuse_btn.visible if refuse_btn else "N/A", ")")
+	
+	# ถ้า buttons เป็น null ให้ค้นหาใหม่
+	if not accept_btn or accept_btn == null:
+		print("  ⚠️ accept_btn is null - finding again...")
+		accept_btn = get_tree().root.find_child("Accept_btn", true, false)
+		if accept_btn:
+			print("  ✅ Found accept_btn")
+		else:
+			print("  ❌ CRITICAL: accept_btn not found in tree!")
+			
+	if not refuse_btn or refuse_btn == null:
+		print("  ⚠️ refuse_btn is null - finding again...")
+		refuse_btn = get_tree().root.find_child("Refuse_btn", true, false)
+		if refuse_btn:
+			print("  ✅ Found refuse_btn")
+		else:
+			print("  ❌ CRITICAL: refuse_btn not found in tree!")
+	
+	# เรียก setup function
+	print("📡 === CALLING setup_npc_question_buttons() ===")
 	setup_npc_question_buttons(npc)
+	print("📡 === SIGNAL CALLBACK COMPLETED ===")
+	print("=".repeat(60) + "\n")
 
 
 # เมธอดสำหรับตั้งค่าปุ่ม Accept/Refuse จาก NPC
 func setup_npc_question_buttons(npc: NPC) -> void:
+	print("\n>>> setup_npc_question_buttons() START")
 	current_npc = npc
 	
 	# ตรวจสอบว่าปุ่มมีอยู่และตั้งค่าให้ visible
+	print("  🔍 accept_btn check:")
+	print("    - accept_btn = ", accept_btn)
+	print("    - accept_btn is null? = ", accept_btn == null)
 	if accept_btn:
+		print("    - accept_btn.visible BEFORE = ", accept_btn.visible)
+		print("    - accept_btn.disabled BEFORE = ", accept_btn.disabled)
+	
+	if accept_btn:
+		print("  ✅ Setting accept_btn.visible = true")
 		accept_btn.visible = true
 		accept_btn.disabled = false
 		accept_btn.grab_focus()  # ให้ focus ไปที่ปุ่ม
+		print("    - accept_btn.visible AFTER = ", accept_btn.visible)
+		print("    - accept_btn.disabled AFTER = ", accept_btn.disabled)
 		print("✅ Accept button visible, focused and enabled")
 	else:
 		print("⚠️ Accept button not found - trying to find it again")
 		var root = get_tree().root
 		accept_btn = root.find_child("Accept_btn", true, false)
 		if accept_btn:
+			print("  ✅ Found accept_btn, setting visible")
 			accept_btn.visible = true
 			accept_btn.disabled = false
 			accept_btn.grab_focus()
 			accept_btn.pressed.connect(_on_accept_btn_pressed)
 			print("✅ Found, shown and focused Accept button")
+		else:
+			print("  ❌ CRITICAL: accept_btn still not found!")
+	
+	print("  🔍 refuse_btn check:")
+	print("    - refuse_btn = ", refuse_btn)
+	print("    - refuse_btn is null? = ", refuse_btn == null)
+	if refuse_btn:
+		print("    - refuse_btn.visible BEFORE = ", refuse_btn.visible)
+		print("    - refuse_btn.disabled BEFORE = ", refuse_btn.disabled)
 	
 	if refuse_btn:
+		print("  ✅ Setting refuse_btn.visible = true")
 		refuse_btn.visible = true
 		refuse_btn.disabled = false
+		print("    - refuse_btn.visible AFTER = ", refuse_btn.visible)
+		print("    - refuse_btn.disabled AFTER = ", refuse_btn.disabled)
 		print("✅ Refuse button visible and enabled")
 	else:
 		print("⚠️ Refuse button not found - trying to find it again")
 		var root = get_tree().root
 		refuse_btn = root.find_child("Refuse_btn", true, false)
 		if refuse_btn:
+			print("  ✅ Found refuse_btn, setting visible")
 			refuse_btn.visible = true
 			refuse_btn.disabled = false
 			refuse_btn.pressed.connect(_on_refuse_btn_pressed)
 			print("✅ Found and shown Refuse button")
+		else:
+			print("  ❌ CRITICAL: refuse_btn still not found!")
 	
 	# 🔥 ส่งปุ่มไปให้ NPC เพื่อใช้ในภายหลัง
 	if npc:
@@ -285,6 +354,8 @@ func setup_npc_question_buttons(npc: NPC) -> void:
 		print("⏸️ Game paused while showing question UI")
 	else:
 		print("⏭️ Game NOT paused for QUESTION type NPC")
+	
+	print(">>> setup_npc_question_buttons() END\n")
 
 
 # 🔥 ฟังก์ชันแสดง question_ui เมื่อ Player ตอบคำถาม

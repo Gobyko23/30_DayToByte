@@ -43,7 +43,7 @@ func save_game(slot: int, player: Node3D, time_node: Node) -> void:
 		"quests": QuestManager.export_quest_data(),
 		"npcs": saved_npcs,
 		"time": time_node.export_time_data(),
-		"npc_question_states": _export_npc_question_states()
+		"npc_states_detailed": _export_npc_states_detailed()
 	}
 
 	var path := SAVE_DIR + "slot_%d.json" % slot
@@ -163,11 +163,11 @@ func _on_request_load(slot: int, time_node: Node) -> void:
 		_restore_all_npc_states()
 		print("✅ NPC states restored!")
 	
-	# 8. โหลดข้อมูล Question states
-	if data.has("npc_question_states") and data["npc_question_states"] is Dictionary:
-		print("📥 Loading NPC question states...")
-		_restore_npc_question_states(data["npc_question_states"])
-		print("✅ NPC question states restored!")
+	# 8. โหลดข้อมูล Detailed NPC States
+	if data.has("npc_states_detailed") and data["npc_states_detailed"] is Dictionary:
+		print("📥 Loading detailed NPC states...")
+		_restore_npc_states_detailed(data["npc_states_detailed"])
+		print("✅ Detailed NPC states restored!")
 	
 	print("✅ Game loaded from slot: ", slot)
 
@@ -187,36 +187,45 @@ func _find_and_restore_npc_states(node: Node) -> void:
 	for child in node.get_children():
 		_find_and_restore_npc_states(child)
 
-# ฟังก์ชัน: ส่งออกสถานะคำถาม NPC
-func _export_npc_question_states() -> Dictionary:
+# ฟังก์ชัน: ส่งออกสถานะ NPC ที่ละเอียด
+func _export_npc_states_detailed() -> Dictionary:
 	var states := {}
 	var current_scene = get_tree().current_scene
-	_collect_npc_question_states(current_scene, states)
+	_collect_npc_states_detailed(current_scene, states)
 	return states
 
-func _collect_npc_question_states(node: Node, states: Dictionary) -> void:
+func _collect_npc_states_detailed(node: Node, states: Dictionary) -> void:
 	# ตรวจสอบว่า node นี้เป็น NPC หรือมี quest_system
 	if node.has_meta("is_npc") or (node.is_in_group("NPC") if node.is_in_group("NPC") else false):
 		if node.has_node("NPCQuestSystem"):
 			var quest_system = node.get_node("NPCQuestSystem")
 			var npc_name = quest_system.npc_name
+			
+			var current_quest_id = ""
+			if quest_system.current_processing_quest:
+				current_quest_id = quest_system.current_processing_quest.quest_id
+			
 			states[npc_name] = {
-				"is_question_answered": quest_system.is_question_answered
+				"current_state": int(quest_system.current_state),
+				"is_question_answered": quest_system.is_question_answered,
+				"has_talked_to_npc": quest_system.has_talked_to_npc,
+				"current_processing_quest_id": current_quest_id,
+				"player_answer": quest_system.player_answer
 			}
-			print("💾 Saved question state for NPC: ", npc_name, " - answered: ", quest_system.is_question_answered)
+			print("💾 Saved NPC state: ", npc_name, " - state: ", NPCQuestSystem.NPC_STATE.keys()[quest_system.current_state], " answered: ", quest_system.is_question_answered)
 	
 	# วนลูปค้นหาใน children
 	for child in node.get_children():
-		_collect_npc_question_states(child, states)
+		_collect_npc_states_detailed(child, states)
 
-# ฟังก์ชัน: โหลดสถานะคำถาม NPC
-func _restore_npc_question_states(states: Dictionary) -> void:
+# ฟังก์ชัน: โหลดสถานะ NPC ที่ละเอียด
+func _restore_npc_states_detailed(states: Dictionary) -> void:
 	if states.is_empty(): return
 	
 	var current_scene = get_tree().current_scene
-	_apply_npc_question_states(current_scene, states)
+	_apply_npc_states_detailed(current_scene, states)
 
-func _apply_npc_question_states(node: Node, states: Dictionary) -> void:
+func _apply_npc_states_detailed(node: Node, states: Dictionary) -> void:
 	# ตรวจสอบว่า node นี้เป็น NPC หรือมี quest_system
 	if node.has_node("NPCQuestSystem"):
 		var quest_system = node.get_node("NPCQuestSystem")
@@ -224,13 +233,39 @@ func _apply_npc_question_states(node: Node, states: Dictionary) -> void:
 		
 		if states.has(npc_name):
 			var state_data = states[npc_name]
+			
+			# โหลด current_state
+			if state_data.has("current_state"):
+				quest_system.current_state = NPCQuestSystem.NPC_STATE.values()[int(state_data["current_state"])]
+				print("✅ Restored current_state: ", NPCQuestSystem.NPC_STATE.keys()[quest_system.current_state])
+			
+			# โหลด is_question_answered
 			if state_data.has("is_question_answered"):
-				quest_system.is_question_answered = state_data["is_question_answered"]
-				print("✅ Restored question state for NPC: ", npc_name, " - answered: ", quest_system.is_question_answered)
+				quest_system.is_question_answered = bool(state_data["is_question_answered"])
+				print("✅ Restored is_question_answered: ", quest_system.is_question_answered)
+			
+			# โหลด has_talked_to_npc
+			if state_data.has("has_talked_to_npc"):
+				quest_system.has_talked_to_npc = bool(state_data["has_talked_to_npc"])
+				print("✅ Restored has_talked_to_npc: ", quest_system.has_talked_to_npc)
+			
+			# โหลด player_answer
+			if state_data.has("player_answer"):
+				quest_system.player_answer = str(state_data["player_answer"])
+				print("✅ Restored player_answer: ", quest_system.player_answer)
+			
+			# โหลด current_processing_quest_id และหา quest
+			if state_data.has("current_processing_quest_id") and state_data["current_processing_quest_id"] != "":
+				var quest_id = str(state_data["current_processing_quest_id"])
+				for quest in quest_system.quest_list:
+					if quest and quest.quest_id == quest_id:
+						quest_system.current_processing_quest = quest
+						print("✅ Restored current_processing_quest: ", quest.quest_name)
+						break
 	
 	# วนลูปค้นหาใน children
 	for child in node.get_children():
-		_apply_npc_question_states(child, states)
+		_apply_npc_states_detailed(child, states)
 
 func _on_request_save(slot: int) -> void:
 	var player = get_tree().current_scene.find_child("Player", true, false)
