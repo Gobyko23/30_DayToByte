@@ -9,10 +9,11 @@ signal npc_state_changed(npc_name: String)
 
 # Enum สำหรับเก็บ pending action (ต้องตรงกับ NPCQuestSystem.NEXT_ACTION)
 enum NEXT_ACTION {
-	NONE = 0,
-	ASK = 1,
-	START_QUEST = 2,
-	COMPLETE_QUEST = 3
+    NONE = 0,
+    START_QUEST = 1,
+    COMPLETE_QUEST = 2,
+    START_QUESTION = 3,
+    ASK = 4
 }
 
 func _ready() -> void:
@@ -29,7 +30,8 @@ func on_npc_interacted(npc_name: String) -> void:
 			"last_quest_given": "",
 			"pending_action": NEXT_ACTION.NONE,
 			"current_quest_id": "",
-			"current_processing_quest_id": ""
+			"current_processing_quest_id": "",
+			"is_question_answered": false
 		}
 	
 	var state = npc_states[npc_name]
@@ -60,7 +62,7 @@ func record_quest_given(npc_name: String, quest_id: String) -> void:
 
 
 # ฟังก์ชัน: บันทึก pending action state ของ NPC
-func set_npc_action_state(npc_name: String, action: int, quest_id: String = "", current_processing_quest_id: String = "") -> void:
+func set_npc_action_state(npc_name: String, action: int, quest_id: String = "", current_processing_quest_id: String = "",is_answered: bool = false) -> void:
 	if not npc_states.has(npc_name):
 		npc_states[npc_name] = {
 			"visited": false,
@@ -75,6 +77,7 @@ func set_npc_action_state(npc_name: String, action: int, quest_id: String = "", 
 	npc_states[npc_name]["pending_action"] = action
 	npc_states[npc_name]["current_quest_id"] = quest_id
 	npc_states[npc_name]["current_processing_quest_id"] = current_processing_quest_id
+	npc_states[npc_name]["is_question_answered"] = is_answered
 	npc_state_changed.emit(npc_name)
 	print("🔄 NPC action state updated: ", npc_name, " -> action: ", action, ", quest: ", quest_id, ", processing_quest: ", current_processing_quest_id)
 

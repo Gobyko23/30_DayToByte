@@ -204,24 +204,25 @@ func perform_action(state: NPC_STATE) -> void:
 	
 	match state:
 		NPC_STATE.START_QUEST:
-			if npc_type == NPC_TYPE.QUESTION:
-				# NPC ถามคำถาม - บันทึกว่ารับแล้วแต่ยังไม่ตอบ
-				is_question_answered = false
-				print("❓ NPC กำลังเริ่มถามคำถาม: ", current_processing_quest.question_text)
-			else:
-				# NPC ให้เควส
-				QuestManager.start_quest(current_processing_quest)
-				if npc_mgr:
-					npc_mgr.on_npc_interacted(npc_name)
-					npc_mgr.record_quest_given(npc_name, current_processing_quest.quest_id)
-				print("✅ รับเควสแล้ว")
-				print("✅ เริ่มเควส: ", current_processing_quest.quest_name)
-		
+			QuestManager.start_quest(current_processing_quest)
+			if npc_mgr: npc_mgr.on_npc_interacted(npc_name)
+
+		NPC_STATE.START_QUESTION:
+            # เมื่อเริ่มถาม ไม่ต้องทำอะไร รอให้ตอบถูกก่อน (is_question_answered = true)
+			print("❓ NPC รอคำตอบ...")
 		NPC_STATE.COMPLETE_QUEST:
-			QuestManager.complete_quest(current_processing_quest.quest_id)
-			if npc_mgr:
-				npc_mgr.on_npc_interacted(npc_name)
-			print("💰 ส่งเควสและรับรางวัล: ", current_processing_quest.quest_name)
+            # 🔥 จุดสำคัญ: จะยอมให้ส่งเควสได้ "เฉพาะ" เมื่อตอบถูกแล้วเท่านั้น
+			if npc_type == NPC_TYPE.QUESTION:
+				if is_question_answered:
+					QuestManager.complete_quest(current_processing_quest.quest_id)
+					if npc_mgr: npc_mgr.on_npc_interacted(npc_name)
+					print("💰 ตอบถูกและจบเควสเรียบร้อย")
+				else:
+					print("❌ ยังตอบไม่ถูก จะข้ามมา Complete ไม่ได้!")
+			else:
+                # กรณี Quest Giver ปกติ
+				QuestManager.complete_quest(current_processing_quest.quest_id)
+				if npc_mgr: npc_mgr.on_npc_interacted(npc_name)
 		
 		NPC_STATE.ASK:
 			print("❓ NPC กำลังถามคำถาม")
@@ -233,7 +234,7 @@ func perform_action(state: NPC_STATE) -> void:
 func _update_npc_action_state() -> void:
 	var npc_mgr = get_node_or_null("/root/NPCManager")
 	if npc_mgr and current_processing_quest:
-		npc_mgr.set_npc_action_state(npc_name, int(current_state), current_processing_quest.quest_id, current_processing_quest.quest_id)
+		npc_mgr.set_npc_action_state(npc_name, int(current_state), current_processing_quest.quest_id, current_processing_quest.quest_id,is_question_answered)
 	elif npc_mgr:
 		npc_mgr.set_npc_action_state(npc_name, int(current_state), "", "")
 
@@ -284,11 +285,22 @@ func check_text_answer(answer: String) -> bool:
 		var correct = current_processing_quest.get_correct_answer_chat()
 		if answer.to_lower() == correct.to_lower():
 			is_question_answered = true
+            # ถ้าตอบถูก ให้ขยับสถานะไป COMPLETE_QUEST ทันที
+			current_state = NPC_STATE.COMPLETE_QUEST
+			_update_npc_action_state()
 			return true
-	
+    
 	is_question_answered = false
 	return false
 
+# ฟังก์ชันรีเซ็ตสถานะกรณีผู้เล่นกด Cancel ในหน้า UI
+func reset_from_cancel():
+	print("🔄 NPCQuestSystem: Resetting from cancel...")
+    # หากยังไม่ตอบถูก ให้คงสถานะเดิมไว้ (เช่น กลับไปที่ START_QUESTION หรือ ASK)
+	if not is_question_answered:
+		if npc_type == NPC_TYPE.QUESTION:
+			current_state = NPC_STATE.START_QUESTION
+		_update_npc_action_state()
 # ---------------------------------------------------------
 # ฟังก์ชัน Debug
 # ---------------------------------------------------------

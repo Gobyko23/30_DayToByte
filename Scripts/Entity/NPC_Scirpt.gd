@@ -240,7 +240,7 @@ func next_dialogue():
 	show_dialogue()
 
 
-func end_dialogue():
+func end_dialogue(force_stop: bool = false) -> void:
 	"""จบการสนทนา"""
 	print("\n>>> NPC.end_dialogue()")
 	print("  current_npc_state: ", NPCQuestSystem.NPC_STATE.keys()[current_npc_state])
@@ -251,7 +251,7 @@ func end_dialogue():
 	is_question_phase = false
 	
 	# ทำ Action ตามสถานะ
-	if current_npc_state != NPCQuestSystem.NPC_STATE.NONE:
+	if not force_stop and current_npc_state != NPCQuestSystem.NPC_STATE.NONE:
 		quest_system.perform_action(current_npc_state)
 		current_npc_state = NPCQuestSystem.NPC_STATE.NONE
 	
@@ -313,7 +313,11 @@ func _on_question_accept_pressed() -> void:
 	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUEST:
 		print("📋 QUEST_GIVER: Player accepted quest")
 		is_question_phase = false
-		end_dialogue()
+    
+    # แทนที่จะ end_dialogue ทันที ให้เรียก perform_action เพื่อเปลี่ยน state เป็น ASK ก่อน
+    # แต่ถ้าคุณไม่อยากให้บทสนทนาจบลงดื้อๆ ให้ใส่ dialogue ขอบคุณก่อนแล้วค่อยจบ
+		quest_system.perform_action(current_npc_state) 
+		end_dialogue(true) # ใช้ true เพื่อไม่ให้มันไปเรียก perform_action ซ้ำในฟังก์ชัน end
 		return
 	
 	# ========================================
@@ -321,7 +325,7 @@ func _on_question_accept_pressed() -> void:
 	# ========================================
 	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUESTION:
 		print("❓ QUESTION: Player accepted to answer")
-		quest_system.is_question_answered = true
+
 		
 		# แสดง accept_question_dialogue
 		is_talking = true
@@ -399,13 +403,16 @@ func _on_question_refuse_pressed() -> void:
 		return
 
 func on_question_cancle() -> void:
-# ลบหรือคอมเมนต์บรรทัดตรวจสอบ is_question_phase ออก 
-	# หรือตรวจสอบว่ากำลังคุยอยู่หรือไม่แทน
-	if not is_talking: 
-		return
-	
-	print("❌ NPC: Player cancelled from Question UI")
-	
-	# บังคับจบการสนทนาทันที
+	if not is_talking: return
+    
+	print("❌ NPC: Player cancelled.")
+    
+    # รีเซ็ตค่าในระบบเควสให้เป็น false
+	if quest_system:
+		quest_system.is_question_answered = false
+        # อัปเดตไปยัง Manager ทันทีเพื่อให้ JSON เปลี่ยนจาก true เป็น false
+		quest_system._update_npc_action_state() 
+    
+	current_npc_state = NPCQuestSystem.NPC_STATE.NONE
 	is_question_phase = false
-	end_dialogue()
+	end_dialogue(true)
