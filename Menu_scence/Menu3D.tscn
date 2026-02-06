@@ -91,7 +91,7 @@ mesh = SubResource("PlaneMesh_e0f6x")
 [node name="Control" parent="." instance=ExtResource("1_d8pdy")]
 
 [node name="Camera_center_Pos" type="Node3D" parent="."]
-transform = Transform3D(0.682407, 0, -0.730973, 0, 1, 0, 0.730973, 0, 0.682407, 0, -1.24835, -3.14755)
+transform = Transform3D(0.6824072, 0, -0.7309729, 0, 1, 0, 0.7309729, 0, 0.6824072, 0, -1.24835, -3.14755)
 
 [node name="Camera3D" type="Camera3D" parent="Camera_center_Pos"]
 transform = Transform3D(1, 0, 0, 0, 0.979445, 0.20171, 0, -0.20171, 0.979445, 0, 2.58551, 8.69572)
