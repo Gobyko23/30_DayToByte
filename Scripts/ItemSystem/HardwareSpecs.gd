@@ -17,7 +17,7 @@ const HARDWARE_SPECS = {
 		],
 		"performance_tier": 1,
 		"price": 200,
-		"description": "โปรเซสเซอร์ Intel รุ่นกลาง เหมาะสำหรับงานทั่วไปและเกมเม็ดขนาดกลาง"
+		"description": "โปรเซสเซอร์ Intel รุ่นกลาง เหมาะสำหรับงานทั่วไปและเกม spec กลางๆ"
 	},
 	
 	"CPU_Intel_i7": {

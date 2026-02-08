@@ -42,12 +42,14 @@ func _ready() -> void:
 
 func start_countdown() -> void:
 	"""เริ่มนับถ่อยหลัง (นับต่อจากเวลาที่เหลือ)"""
-	if not is_counting:
-		is_counting = true
-		countdown_timer.start()
-		# ส่งสัญญาณให้ UI อัปเดตเมื่อเริ่มนับ
-		time_changed.emit(remaining_seconds / 60, remaining_seconds % 60)
-		print("⏱️ Countdown started: %d seconds remaining" % remaining_seconds)
+	"""บังคับให้เริ่มนับถอยหลังแน่นอน"""
+	is_counting = true
+	if countdown_timer:
+		countdown_timer.start() # สั่ง Timer โดยตรง
+    
+    # อัปเดต UI ทันทีหนึ่งครั้ง
+	time_changed.emit(remaining_seconds / 60, remaining_seconds % 60)
+	print("⏱️ Timer started via start_countdown()")
 
 func stop_countdown() -> void:
 	"""หยุดนับถ่อยหลัง"""
@@ -62,7 +64,6 @@ func reset_countdown() -> void:
 	time_changed.emit(total_seconds / 60, total_seconds % 60)
 	print("🔄 Countdown reset to %d seconds" % total_seconds)
 	# เริ่มนับถอยหลังใหม่โดยอัตโนมัติ
-	start_countdown()
 
 func set_countdown_duration(seconds: int) -> void:
 	"""ปรับเปลี่ยนระยะเวลานับถ่อยหลัง"""

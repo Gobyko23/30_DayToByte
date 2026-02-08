@@ -26,21 +26,22 @@ func start_quest(quest: QuestData) -> void:
 
 # ฟังก์ชัน: สำเร็จ Quest
 func complete_quest(quest_id: String) -> void:
+	if completed_quests.has(quest_id):
+		print("ℹ️ Quest %s is already completed. Skipping reward." % quest_id)
+		return
+
 	if active_quests.has(quest_id):
 		var quest = active_quests[quest_id]
 		quest.complete_quest()
-		
-		# ให้รางวัลคะแนน
+        
+        # จ่ายรางวัล (จะทำงานแค่ครั้งเดียวแน่นอนเพราะมีเช็คด้านบน)
 		if quest.reward_money > 0:
 			PointSystem.add(quest.reward_money)
 			print("💰 Received: ", quest.reward_money, " points")
-		
-		# ย้าย quest ไป completed
+        
 		completed_quests.append(quest_id)
 		active_quests.erase(quest_id)
-		
 		quest_completed.emit(quest_id, quest.reward_money)
-		print("✅ Quest completed: ", quest.quest_name)
 		quest_updated.emit()
 
 
@@ -111,3 +112,20 @@ func load_quest_data(data: Dictionary) -> void:
 			for quest_id in loaded_quests:
 				completed_quests.append(str(quest_id))
 	print("📥 Quest data loaded")
+
+func add_progress(target_id: String, amount: int = 1) -> void:
+	for quest_id in active_quests:
+		var quest = active_quests[quest_id]
+		# ตรวจสอบว่าเควสที่ผู้เล่นถืออยู่ ต้องการ target_id นี้หรือไม่
+		if quest.target_item_id == target_id:
+			quest.current_amount += amount
+			print("📈 Progress: ", quest.quest_name, " (", quest.current_amount, "/", quest.required_amount, ")")
+			
+			# แจ้งเตือน UI ให้รู้ว่ามีการเปลี่ยนแปลง (เช่นไปอัปเดต Label ใน pause.gd)
+			quest_updated.emit()
+
+func reset_system():
+	active_quests.clear()
+	completed_quests.clear()
+	quest_updated.emit()
+	print("🔄 QuestManager has been reset")

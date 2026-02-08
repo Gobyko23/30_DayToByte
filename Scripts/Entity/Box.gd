@@ -26,6 +26,7 @@ func interacting_cancle():
 func interactable() -> String:
 	var Objfound = InventorySystem.random_obj()
 	print("Drop :", Objfound)
+	QuestManager.add_progress("box", 1)
 	InventorySystem.update_item(Objfound, 1)
 	DesTime.start()
 	Box.visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=62 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
 [ext_resource type="Texture2D" uid="uid://b2jxpeeahcg4v" path="res://Scence/BackGround/scence_bg_1.png" id="2_2t52r"]
@@ -7,17 +7,16 @@
 [ext_resource type="Texture2D" uid="uid://ce24ew280hn4" path="res://Scence/BackGround/scence_bg_2.png" id="3_au0eo"]
 [ext_resource type="Texture2D" uid="uid://31u2q0qwp1wa" path="res://Scence/ForeGround/scence_bg_3.png" id="3_ijsrt"]
 [ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/Entity/player_camera.gd" id="4_cpf1t"]
-[ext_resource type="PackedScene" uid="uid://brcdwospn3ewr" path="res://Scence/NPC/Npc.tscn" id="5_u0fgr"]
 [ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Scripts/Blueprint/Gui_Script/SaveUi.gd" id="6_2hect"]
 [ext_resource type="Script" uid="uid://cdwt3v60femep" path="res://Scripts/Blueprint/Gui_Script/pause.gd" id="7_e6uwr"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/ItemSystem/item_list_Inventory.gd" id="7_pi7ar"]
-[ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Tote.jpg" id="8_2t52r"]
+[ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Ingame/Tote.jpg" id="8_2t52r"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/ItemSystem/item_list.gd" id="9_au0eo"]
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="10_ijsrt"]
 [ext_resource type="Script" uid="uid://bgnk7hncuf6lx" path="res://Scripts/Blueprint/Gui_Script/SaveListUi.gd" id="11_i5cv0"]
 [ext_resource type="PackedScene" uid="uid://c8x2ngcxf2atn" path="res://Scripts/Blueprint/Gui_Script/ListBtd.tscn" id="12_oypcv"]
 [ext_resource type="Script" uid="uid://cga2k1c87b0f" path="res://Scripts/Blueprint/Gui_Script/time_panel.gd" id="13_2hect"]
-[ext_resource type="PackedScene" uid="uid://co7nieemwi3ku" path="res://Scence/NPC/Cat.tscn" id="13_rtsas"]
+[ext_resource type="PackedScene" uid="uid://co7nieemwi3ku" path="res://Scence/NPC/NPC_Scene.tscn" id="13_rtsas"]
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="15_u0fgr"]
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="16_2hect"]
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="17_pi7ar"]
@@ -41,6 +40,12 @@ glow_enabled = true
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0itcn"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au0eo"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw30y"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_2plp7"]
 font_size = 26
 outline_size = 15
@@ -51,9 +56,47 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gks54"]
 bg_color = Color(0, 1, 0.359375, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v8ycv"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_au0eo"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_05q3b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d14tu"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0.0941176)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.000113828, 0.000113828, 0.000113828, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.160784)
+shadow_size = 3
+shadow_offset = Vector2(0.335, 2.845)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux8pb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.922825, 0.000689617, 0.922818, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djch6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tlt1v"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.8, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v125s"]
 
@@ -85,6 +128,14 @@ border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oypcv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sj0iv"]
+bg_color = Color(0.645551, 1.82897e-06, 3.36915e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv2uy"]
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
 bg_color = Color(0.163909, 0.396979, 0.801575, 1)
@@ -371,7 +422,7 @@ texture = ExtResource("3_au0eo")
 environment = SubResource("Environment_rkrtr")
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01541, -1.44368)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.08973, 1.01541, -1.44368)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -402,9 +453,6 @@ shape = SubResource("ConcavePolygonShape3D_0itcn")
 [node name="Player" parent="." instance=ExtResource("2_e6uwr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05727, 4.36619, -4.59428)
 
-[node name="Node3D" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -0.0304479)
-
 [node name="Node3D4" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, -2.38301)
 
@@ -413,18 +461,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52374, 0.658829, -2.38301)
 
 [node name="Node3D6" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.52374, 0.658829, -2.38301)
-
-[node name="Node3D7" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.52374, 0.658829, -0.0902781)
-
-[node name="Node3D3" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, 2.51871)
-
-[node name="Node3D2" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85678, 0.658829, 0.0519217)
-
-[node name="Node3D8" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23654, 0.658829, -0.0304479)
 
 [node name="Node3D9" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23654, 0.658829, -2.38301)
@@ -435,15 +471,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2365, 0.658829, -2.38301)
 [node name="Node3D11" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2365, 0.658829, -2.38301)
 
-[node name="Node3D12" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2365, 0.658829, -0.0902781)
-
-[node name="Node3D13" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23654, 0.658829, 2.51871)
-
-[node name="Node3D14" parent="." instance=ExtResource("3_51evp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5696, 0.658829, 0.0519217)
-
 [node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target") groups=["WorldCamera"]]
 script = ExtResource("4_cpf1t")
 target = NodePath("../Player")
@@ -453,21 +480,155 @@ dialog_fov = 45.0
 fov_speed = 1.085
 Dialogoffset = Vector3(0.45, 0.445, 2.92)
 
-[node name="NPC" parent="." groups=["Npc"] instance=ExtResource("5_u0fgr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.13157, 0.924625, 2.14227)
-
-[node name="Cat" parent="." instance=ExtResource("13_rtsas")]
+[node name="Npc" parent="." instance=ExtResource("13_rtsas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
+
+[node name="Npc2" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.37916, 1.62521, 6.42662)
+
+[node name="Npc3" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.255542, 1.62521, 6.42662)
+
+[node name="Npc9" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9247, 1.62521, 6.42662)
+
+[node name="Npc10" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14706, 1.62521, 3.51622)
+
+[node name="Npc11" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.17784, 1.62521, 3.51622)
+
+[node name="Npc4" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.53438, 1.62521, 1.14358)
+
+[node name="Npc5" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9499, 1.62521, 0.283262)
+
+[node name="Npc6" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6402, 1.62521, 6.42662)
+
+[node name="Npc7" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7638, 1.62521, 6.42662)
+
+[node name="Npc8" parent="." instance=ExtResource("13_rtsas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.485, 1.62521, 1.14358)
 
 [node name="TimeNode" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_pi7ar")
-countdown_duration_seconds = 1000000000
+autostart_countdown = false
 max_days = 7
 
 [node name="Pause" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource("7_e6uwr")
+
+[node name="WaitingGui" type="Control" parent="Pause"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Begin" type="Panel" parent="Pause/WaitingGui"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_au0eo")
+
+[node name="Text_Begin" type="RichTextLabel" parent="Pause/WaitingGui/Begin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 281.0
+offset_top = 158.0
+offset_right = -281.0
+offset_bottom = -158.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 106
+bbcode_enabled = true
+text = "Day ..."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndRound" type="Panel" parent="Pause/WaitingGui"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gw30y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/WaitingGui/EndRound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 120
+
+[node name="Text_End" type="RichTextLabel" parent="Pause/WaitingGui/EndRound/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 106
+bbcode_enabled = true
+text = "
+Time Out!"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pause/WaitingGui/EndRound"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -550.0
+offset_top = 81.0
+offset_right = 551.0
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 475
+
+[node name="Back" type="Button" parent="Pause/WaitingGui/EndRound/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "<Back to Menu"
+
+[node name="Next" type="Button" parent="Pause/WaitingGui/EndRound/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "NextDay>"
+
+[node name="TypingSFX" type="AudioStreamPlayer" parent="Pause/WaitingGui"]
+unique_name_in_owner = true
+stream = ExtResource("17_pi7ar")
+pitch_scale = 1.1
 
 [node name="Interact_Screen" type="Control" parent="Pause"]
 layout_mode = 3
@@ -523,7 +684,7 @@ layout_mode = 1
 offset_left = 7.0
 offset_top = 15.0
 offset_right = 240.0
-offset_bottom = 341.0
+offset_bottom = 95.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
@@ -538,9 +699,15 @@ offset_left = 766.0
 offset_top = 12.0
 offset_right = 1147.0
 offset_bottom = 249.0
+theme_override_colors/guide_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/h_separation = 10
 theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxEmpty_v8ycv")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_05q3b")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_au0eo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d14tu")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_ux8pb")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_djch6")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_tlt1v")
 theme_override_styles/selected = SubResource("StyleBoxFlat_v125s")
 theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_tutjn")
 theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_eblcu")
@@ -589,7 +756,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/bold_font_size = 26
+theme_override_font_sizes/normal_font_size = 35
+theme_override_font_sizes/bold_font_size = 35
 bbcode_enabled = true
 text = "Time"
 horizontal_alignment = 1
@@ -620,9 +788,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -361.0
-offset_top = -384.0
+offset_top = -218.0
 offset_right = -159.0
-offset_bottom = -296.0
+offset_bottom = -130.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 20
@@ -639,15 +807,58 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 138.0
-offset_top = -384.0
+offset_top = -218.0
 offset_right = 340.0
-offset_bottom = -296.0
+offset_bottom = -130.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 41
 theme_override_styles/normal = SubResource("StyleBoxFlat_rtsas")
 text = "Refuse"
+
+[node name="QuestPanel" type="Panel" parent="Pause/Interact_Screen"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -163.0
+offset_right = -183.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuestTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen/QuestPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "aaaaa"
+fit_content = true
+
+[node name="Exit_btn" type="Button" parent="Pause/Interact_Screen/QuestPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = 34.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+theme_override_styles/focus = SubResource("StyleBoxEmpty_oypcv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sj0iv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kv2uy")
+text = "X"
 
 [node name="PauseGui" type="Control" parent="Pause"]
 unique_name_in_owner = true
@@ -706,6 +917,7 @@ theme_override_font_sizes/font_size = 31
 text = "Back To menu"
 
 [node name="SaveListLabel" type="Label" parent="Pause/PauseGui"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1014,6 +1226,9 @@ text = "You Total Score: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="pressed" from="Pause/WaitingGui/EndRound/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Pause/WaitingGui/EndRound/HBoxContainer/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="Pause/Interact_Screen/QuestPanel/Exit_btn" to="Pause" method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/ResumeButton" to="Pause" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/SaveGameButton" to="Pause" method="_on_save_game_button_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/OptionButton" to="Pause" method="_on_option_button_pressed"]

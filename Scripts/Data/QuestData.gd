@@ -14,10 +14,15 @@ enum NPC_TYPE {
 @export var description: String = "คำบรรยายของ Quest"
 @export var reward_money: int = 100
 @export var reward_items: Array[String] = []
+@export_group("Quest Conditions")
+@export var target_item_id: String = ""      # ID ของสิ่งที่ต้องทำ เช่น "apple" หรือ "cat"
+@export var required_amount: int = 0         # จำนวนที่ต้องการ เช่น 5 หรือ 4
+@export var current_amount: int = 0
 
 # ตั้งค่า NPC
+@export_group("NPC Settings")
 @export var npc_type: NPC_TYPE = NPC_TYPE.QUEST_GIVER
-
+@export_group("Question Dialogues")
 # Dialogue arrays
 @export var give_quest_dialogue: Array[String] = ["คุณต้องการเควสหรือไม่?"]
 @export var inprocess_dialogue: Array[String] = ["คุณกำลังทำเควสนี้อยู่แล้ว"]
@@ -29,6 +34,8 @@ enum NPC_TYPE {
 @export var question_text: String = "คำถามคืออะไร?"  # ข้อความคำถาม
 @export_multiline var question_ask: String = "001 + 101 = ?"  # รายการคำถาม
 @export var accept_question_dialogue: Array[String] = ["ดีเลย! นี่คือคำถามของฉัน"]  # บทพูดหลังรับเควส/คำถาม
+
+
 
 # ข้อมูลสถานะ
 var is_completed: bool = false
@@ -61,6 +68,12 @@ func activate_quest() -> void:
 func cancel_quest() -> void:
 	is_active = false
 	is_completed = false
+
+# ฟังก์ชันเช็คว่าเงื่อนไขครบหรือยัง
+func is_goal_reached() -> bool:
+	if required_amount <= 0: return true # ถ้าไม่กำหนดจำนวน ถือว่าผ่านเลย (เช่นเควสคุยอย่างเดียว)
+	return current_amount >= required_amount
+
 
 # ดึงข้อมูล Quest
 func get_quest_info() -> Dictionary:

@@ -13,6 +13,7 @@ const JUMP_VELOCITY :float= 4.5
 @onready var TextView3D = $ViewSprite/SubViewport/ViewPortControl/TextView3D
 @onready var ViewPort3DAnim = $ViewSprite/ViewSpriteAnim
 @onready var MenuItem :ItemList = %ItemList
+
 var talking_npc :NPC = null
 var nearby_objects: Array[Node3D] = []
 var highlighted = null
@@ -44,7 +45,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				print("❌ NPC doesn't have next_dialogue() method")
 		return 
-	
+
 	
 	
 	# Add the gravity.

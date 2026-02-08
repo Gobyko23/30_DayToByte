@@ -35,3 +35,8 @@ func set_points(amount: int) -> void:
 	print("🔧 Points set to: ", amount)
 	points = max(0, amount)
 	points_changed.emit(points)
+
+func reset_system():
+	points = 0
+	points_changed.emit(0)
+	print("🔄 PointSystem has been reset")

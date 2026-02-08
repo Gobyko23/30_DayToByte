@@ -1,6 +1,8 @@
 extends CanvasLayer
 @onready var pause: Control = %PauseGui
 @onready var MenuItem: ItemList = %ItemList
+@onready var quest_panel: Panel = $Interact_Screen/QuestPanel
+@onready var quest_text_label: RichTextLabel = $Interact_Screen/QuestPanel/QuestTextLabel
 @onready var save_game_button: Button = $PauseGui/ColorRect/CenterContainer/SaveGameButton
 @onready var option_button: Button = $PauseGui/ColorRect/CenterContainer/OptionButton
 @onready var resume_button: Button = $PauseGui/ColorRect/CenterContainer/ResumeButton
@@ -82,8 +84,11 @@ func _connect_all_npc_signals() -> void:
 
 
 func _process(_delta: float) -> void:
+
 	# 🔥 หาและเชื่อม NPC ที่เกิดขึ้นทีหลัง (dynamically spawned NPCs)
 	# เพียงทำครั้งเดียว และตรวจสอบถ้ามี NPC ใหม่ที่ยังไม่เชื่อมต่อ
+	if quest_panel.visible:
+		cuurent_quest_text()
 	var npc_nodes = get_tree().get_nodes_in_group("Npc")
 	for npc in npc_nodes:
 		if not npc:
@@ -94,7 +99,7 @@ func _process(_delta: float) -> void:
 			if not npc.request_question_buttons.is_connected(_on_npc_request_question_buttons):
 				npc.request_question_buttons.connect(_on_npc_request_question_buttons)
 				print("✅ Late-bind: Connected request_question_buttons signal from NPC: ", npc.name)
-	
+
 	# Debug: แสดงสถานะปุ่ม
 	if Input.is_action_just_pressed("inventory_menu"):  # ทดสอบด้วยปุ่ม Home
 		print("=== DEBUG STATUS ===")
@@ -106,6 +111,7 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("inventory_menu"):
 		MenuItem.visible = !MenuItem.visible
+		quest_panel.visible = !quest_panel.visible
 
 	if Input.is_action_just_pressed("Esc"):
 		pause.visible = !pause.visible
@@ -117,7 +123,30 @@ func _process(_delta: float) -> void:
 			_on_pause()
 		else:
 			_on_resume()
+
+func cuurent_quest_text() -> void:
+# 1. ดึงรายการเควสที่กำลังทำทั้งหมดจาก QuestManager
+	var active_quests = QuestManager.get_all_active_quests()
 	
+	if active_quests.size() > 0:
+		var current_quest = active_quests[0]
+		
+		# ส่วนแสดงผลชื่อและรายละเอียดหลัก
+		var display_text = "ภารกิจ: " + current_quest.quest_name + "\n"
+		display_text += "รายละเอียด: " + current_quest.description + "\n"
+		
+		# ส่วนแสดงเงื่อนไข (Objective)
+		if current_quest.required_amount > 0:
+			display_text += "เป้าหมาย: เก็บ %s\n" % current_quest.target_item_id
+			display_text += "ความคืบหน้า: %d / %d" % [current_quest.current_amount, current_quest.required_amount]
+			
+			if current_quest.current_amount >= current_quest.required_amount:
+				display_text += " (สำเร็จแล้ว! กลับไปหา NPC)"
+		
+		quest_text_label.text = display_text
+	else:
+		quest_text_label.text = "ไม่มีภารกิจที่กำลังทำในขณะนี้"
+
 func _on_pause() -> void:
 	"""หยุด game process (ยกเว้น UI)"""
 	get_tree().paused = true
@@ -171,7 +200,25 @@ func _on_option_button_pressed() -> void:
 
 
 func _on_btm_button_pressed() -> void:
+	print("🔙 Back to menu: Resetting all game data...")
+    
+    # 1. รีเซ็ตทุกระบบที่เป็น Autoload
+	if PointSystem.has_method("reset_system"):
+		PointSystem.reset_system()
+        
+	if QuestManager.has_method("reset_system"):
+		QuestManager.reset_system()
+        
+	if PlayerData.has_method("reset_system"):
+		PlayerData.reset_system()
+	
+	if NPCManager.has_method("reset_all_npc_states"):
+		NPCManager.reset_all_npc_states()
+    
+    # 2. ปลดล็อก Pause (ถ้าเกมค้าง Pause อยู่)
 	get_tree().paused = false
+    
+    # 3. กลับหน้าเมนู
 	SceneLoader.load_scene("res://Menu_scence/Menu3D.tscn")
 
 
@@ -182,30 +229,25 @@ func _on_back_button_pressed() -> void:
 func _on_submit_pressed() -> void:
 	if not question_ui.visible:
 		return
-	
+    
 	var player_answer = text_ans.text.strip_edges()
-	
+    
 	if current_npc and current_npc.quest_system:
 		var system = current_npc.quest_system
-		var quest = system.current_processing_quest
-		
-		if quest:
-			# ตรวจสอบคำตอบ: 
-			# สมมติว่าใน QuestData มีตัวแปรชื่อ 'answer_text' สำหรับเก็บคำตอบที่ถูก
-			if player_answer.to_lower() == quest.answer_text.to_lower():
-				print("✅ Correct!")
-				system.is_question_answered = true
-				# เปลี่ยนบทพูด NPC เป็นบทตอบถูก
-				current_npc.current_dialogue_queue.assign(system.correct_dialogue)
-			else:
-				print("❌ Wrong!")
-				system.is_question_answered = false
-				# เปลี่ยนบทพูด NPC เป็นบทตอบผิด
-				current_npc.current_dialogue_queue.assign(system.wrong_dialogue)
-			
-			# รีเซ็ตดัชนีบทพูดเพื่อให้ NPC เริ่มพูดใหม่จากบทสรุปผล
-			current_npc.current_line_index = 0
-	
+        
+        # 🔥 ใช้ฟังก์ชันของระบบเควสเช็คคำตอบ (ที่เราแก้เรื่องเงินไว้ในไฟล์ NPC_Quest_System.gd)
+		var is_correct = system.check_text_answer(player_answer)
+        
+		if is_correct:
+			print("✅ UI: Answer Correct - Money should be added via NPCQuestSystem")
+            # เปลี่ยนบทพูดเป็นบทตอบถูก
+			current_npc.current_dialogue_queue.assign(system.correct_dialogue)
+		else:
+			print("❌ UI: Answer Wrong")
+            # เปลี่ยนบทพูดเป็นบทตอบผิด
+			current_npc.current_dialogue_queue.assign(system.wrong_dialogue)
+            
+		current_npc.current_line_index = 0
 	# ปิด UI และแสดงบทพูดสรุปผลจาก NPC
 	text_ans.text = ""
 	question_ui.visible = false
@@ -238,6 +280,7 @@ func _on_accept_btn_pressed() -> void:
 	print("\n=== ACCEPT BUTTON PRESSED ===")
 	print("✅ Player accepted - current_npc = ", current_npc)
 	if current_npc:
+
 		print("DEBUG BEFORE: is_talking = ", current_npc.is_talking)
 		print("DEBUG BEFORE: is_question_phase = ", current_npc.is_question_phase)
 		print("DEBUG BEFORE: pending_quest_action = ", current_npc.pending_quest_action)
@@ -262,6 +305,10 @@ func _on_refuse_btn_pressed() -> void:
 		print("❌ Called NPC._on_question_refuse_pressed()")
 	else:
 		print("❌ current_npc is null!")
+
+func _on_exit_btn_pressed() -> void:
+	quest_panel.visible = false
+
 
 # 🔥 Callback เมื่อ NPC ส่ง request_question_buttons signal
 func _on_npc_request_question_buttons(npc: NPC) -> void:
@@ -369,7 +416,6 @@ func setup_npc_question_buttons(npc: NPC) -> void:
 	
 	# Pause เกม เฉพาะเมื่อ QUEST_GIVER (ไม่ pause สำหรับ QUESTION type)
 	if npc and npc.quest_system and npc.quest_system.npc_type != NPCQuestSystem.NPC_TYPE.QUESTION:
-		_on_pause()
 		print("⏸️ Game paused while showing question UI")
 	else:
 		print("⏭️ Game NOT paused for QUESTION type NPC")

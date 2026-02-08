@@ -125,3 +125,4 @@ func load_npc_data(data: Dictionary) -> void:
 func reset_all_npc_states() -> void:
 	npc_states.clear()
 	print("🔄 All NPC states reset")
+

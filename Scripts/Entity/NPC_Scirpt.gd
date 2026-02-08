@@ -10,6 +10,10 @@ signal request_question_buttons(npc: NPC)
 @onready var world_camera = get_tree().get_first_node_in_group("WorldCamera")
 @onready var focus_marker: Marker3D = $NPC_Sprite/NpcPivot
 
+@export_group("Visual Randomizer")
+@export var npc_visual_pool: Dictionary = {} # ใส่รูป Sprite ต่างๆ ใน Inspector
+@onready var sprite_node: Sprite3D = %NPC_Sprite # หรือชื่อ Node Sprite ของคุณ
+
 # ระบบ Quest
 @export var quest_system: NPCQuestSystem
 
@@ -30,6 +34,9 @@ func _ready() -> void:
 	# 🔥 เพิ่ม NPC ไปยัง "Npc" group เพื่อให้ pause.gd หา ได้
 	add_to_group("Npc")
 	print("👥 NPC added to 'Npc' group: ", name)
+	
+	# ตั้งค่าสุ่ม Sprite
+	_randomize_appearance()
 	
 	if Dialogue_text: 
 		Dialogue_text.text = ""
@@ -314,10 +321,8 @@ func _on_question_accept_pressed() -> void:
 		print("📋 QUEST_GIVER: Player accepted quest")
 		is_question_phase = false
     
-    # แทนที่จะ end_dialogue ทันที ให้เรียก perform_action เพื่อเปลี่ยน state เป็น ASK ก่อน
-    # แต่ถ้าคุณไม่อยากให้บทสนทนาจบลงดื้อๆ ให้ใส่ dialogue ขอบคุณก่อนแล้วค่อยจบ
-		quest_system.perform_action(current_npc_state) 
-		end_dialogue(true) # ใช้ true เพื่อไม่ให้มันไปเรียก perform_action ซ้ำในฟังก์ชัน end
+		quest_system.perform_action(current_npc_state)
+		end_dialogue(true) 
 		return
 	
 	# ========================================
@@ -381,7 +386,7 @@ func _on_question_refuse_pressed() -> void:
 	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUEST:
 		print("📋 QUEST_GIVER: Player refused quest")
 		is_question_phase = false
-		end_dialogue()
+		end_dialogue(true)
 		return
 	
 	# ========================================
@@ -390,7 +395,7 @@ func _on_question_refuse_pressed() -> void:
 	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUESTION:
 		print("❓ QUESTION: Player refused to answer")
 		is_question_phase = false
-		end_dialogue()
+		end_dialogue(true)
 		return
 	
 	# ========================================
@@ -399,7 +404,7 @@ func _on_question_refuse_pressed() -> void:
 	if current_npc_state == NPCQuestSystem.NPC_STATE.ASK:
 		print("❓ ASK: Player refused to answer")
 		is_question_phase = false
-		end_dialogue()
+		end_dialogue(true)
 		return
 
 func on_question_cancle() -> void:
@@ -416,3 +421,44 @@ func on_question_cancle() -> void:
 	current_npc_state = NPCQuestSystem.NPC_STATE.NONE
 	is_question_phase = false
 	end_dialogue(true)
+
+# ========================================
+
+func _randomize_appearance() -> void:
+	if npc_visual_pool.is_empty():
+		return
+		
+	# 1. สุ่มเลือกคีย์ (path รูป) จาก pool
+	var all_paths = npc_visual_pool.keys()
+	var random_path = all_paths[randi() % all_paths.size()]
+	
+	# 2. ดึงข้อมูล Dictionary (จากเดิมที่เป็น Array)
+	var data = npc_visual_pool[random_path]
+	
+	# ตั้งค่า Default เผื่อข้อมูลใน pool ใส่มาไม่ครบ
+	var target_name : String = "Unknown NPC"
+	var target_pixel_size: float = 0.01
+	var target_pos: Vector3 = Vector3.ZERO
+	
+	# 3. ดึงค่าจาก Dictionary
+	if data is Dictionary:
+		target_name = data.get("name", "NPC")
+		target_pixel_size = data.get("scale", 0.01)
+		target_pos = data.get("pos", Vector3.ZERO)
+	elif data is Array: # กันเหนียวเผื่อคุณยังไม่ได้แก้ข้อมูลเก่าจาก Array เป็น Dictionary
+		if data.size() >= 1: target_pixel_size = data[0]
+		if data.size() >= 2: target_pos = data[1]
+
+	# 4. 🔥 เปลี่ยนชื่อในระบบ Quest System
+	if quest_system:
+		quest_system.npc_name = target_name
+		print("🆔 NPC Name changed to: ", target_name)
+
+	# 5. โหลดรูปภาพและตั้งค่าทาง Visual
+	var texture = load(random_path)
+	if sprite_node and texture:
+		sprite_node.texture = texture
+		sprite_node.pixel_size = target_pixel_size
+		sprite_node.position = target_pos
+		
+		print("🎭 NPC Randomized: ", target_name, " | Path: ", random_path.get_file())

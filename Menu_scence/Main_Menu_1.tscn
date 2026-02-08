@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="3_qydqw"]
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="4_3t4wu"]
 [ext_resource type="Texture2D" uid="uid://7hjugrewqt22" path="res://Assets/Gui/Entity/Catking-export.png" id="4_cjnbx"]
-[ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/30Dtablet-export.png" id="4_jkqpj"]
+[ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/Others/30Dtablet-export.png" id="4_jkqpj"]
 
 [sub_resource type="SystemFont" id="SystemFont_h2svc"]
 font_names = PackedStringArray("Fantasy")

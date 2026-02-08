@@ -75,21 +75,42 @@ func _init_random_quests() -> void:
 	if quest_pool.is_empty():
 		return
 
+    # 1. ลองดึงข้อมูลเก่าจาก NPCManager มาดูก่อน
+	var npc_mgr = get_node_or_null("/root/NPCManager")
+	if npc_mgr:
+		var saved_state = npc_mgr.get_npc_action_state(npc_name)
+		var saved_quest_id = saved_state.get("current_processing_quest_id", "")
+        
+        # ถ้าเคยมีเควสอยู่แล้ว ให้ดึงเควสนั้นมาจาก Pool แทนการสุ่มใหม่
+		if saved_quest_id != "":
+			for q in quest_pool:
+				if q and q.quest_id == saved_quest_id:
+					if not quest_list.has(q):
+						quest_list.append(q)
+						self.npc_type = q.npc_type as NPC_TYPE # คืนค่า Type เดิม
+					print("♻️ NPC ", npc_name, " ดึงเควสเดิมคืนมา: ", q.quest_name)
+					return # จบการทำงาน ไม่ต้องสุ่มใหม่
+
+    # 2. ถ้าไม่มีข้อมูลเก่า (เป็นครั้งแรกที่เจอ NPC) ถึงจะเริ่มสุ่ม
 	var available_quests: Array[QuestData] = []
-	
 	for q in quest_pool:
 		if q == null: continue
-		if quest_list.has(q): continue
 		if QuestManager.is_quest_completed(q.quest_id): continue
 		if QuestManager.is_quest_active(q.quest_id): continue
 		available_quests.append(q)
 
 	available_quests.shuffle()
 	var count_to_add = min(random_quest_amount, available_quests.size())
-	
+    
 	for i in range(count_to_add):
-		quest_list.append(available_quests[i])
-		print("🎲 NPC ", npc_name, " สุ่มได้เควส: ", available_quests[i].quest_name)
+		var selected_quest = available_quests[i]
+		quest_list.append(selected_quest)
+		self.npc_type = selected_quest.npc_type as NPC_TYPE 
+        
+        # บันทึกสถานะลง NPCManager ทันทีที่สุ่มได้ เพื่อให้ค้างอยู่ในระบบ Save
+		_update_npc_action_state()
+        
+		print("🎲 NPC ", npc_name, " สุ่มเควสใหม่: ", selected_quest.quest_name)
 
 
 # ---------------------------------------------------------
@@ -152,10 +173,17 @@ func get_current_interaction() -> Dictionary:
 	
 	# กรณี: รับไปแล้ว แต่ยังทำไม่เสร็จ
 	elif QuestManager.is_quest_active(q_id) and not current_processing_quest.is_completed:
-		result.dialogues = current_processing_quest.inprocess_dialogue.duplicate()
-		current_state = NPC_STATE.NONE
-		print("📌 Quest status: IN PROGRESS")
-		
+			# 🔥 เพิ่มการเช็ค: ถ้าเงื่อนไขในตัว QuestData ยังไม่ผ่าน (ของไม่ครบ)
+		if not can_complete_quest():
+			result.dialogues = current_processing_quest.inprocess_dialogue.duplicate()
+			current_state = NPC_STATE.NONE
+			print("📌 Quest status: IN PROGRESS (Items not enough: %d/%d)" % [current_processing_quest.current_amount, current_processing_quest.required_amount])
+		else:
+			result.dialogues = current_processing_quest.complete_quest_dialogue.duplicate()
+			for reward_line in current_processing_quest.reward_dialogue:
+				result.dialogues.append(reward_line)
+			current_state = NPC_STATE.COMPLETE_QUEST
+			print("📌 Quest status: READY TO SUBMIT (Conditions met!)")
 	# กรณี: ทำเงื่อนไขเสร็จแล้ว
 	elif current_processing_quest.is_completed and QuestManager.is_quest_active(q_id):
 		result.dialogues = current_processing_quest.complete_quest_dialogue.duplicate()
@@ -212,17 +240,20 @@ func perform_action(state: NPC_STATE) -> void:
 			print("❓ NPC รอคำตอบ...")
 		NPC_STATE.COMPLETE_QUEST:
             # 🔥 จุดสำคัญ: จะยอมให้ส่งเควสได้ "เฉพาะ" เมื่อตอบถูกแล้วเท่านั้น
-			if npc_type == NPC_TYPE.QUESTION:
-				if is_question_answered:
+			if not QuestManager.is_quest_completed(current_processing_quest.quest_id):
+				if npc_type == NPC_TYPE.QUESTION:
+					if is_question_answered :
+						QuestManager.complete_quest(current_processing_quest.quest_id)
+						if npc_mgr: npc_mgr.on_npc_interacted(npc_name)
+						print("💰 ตอบถูกและจบเควสเรียบร้อย")
+					else:
+						QuestManager.complete_quest(current_processing_quest.quest_id)
+						if npc_mgr: npc_mgr.on_npc_interacted(npc_name)
+						print("❌ ยังตอบไม่ถูก จะข้ามมา Complete ไม่ได้!")
+				else:
+                	# กรณี Quest Giver ปกติ
 					QuestManager.complete_quest(current_processing_quest.quest_id)
 					if npc_mgr: npc_mgr.on_npc_interacted(npc_name)
-					print("💰 ตอบถูกและจบเควสเรียบร้อย")
-				else:
-					print("❌ ยังตอบไม่ถูก จะข้ามมา Complete ไม่ได้!")
-			else:
-                # กรณี Quest Giver ปกติ
-				QuestManager.complete_quest(current_processing_quest.quest_id)
-				if npc_mgr: npc_mgr.on_npc_interacted(npc_name)
 		
 		NPC_STATE.ASK:
 			print("❓ NPC กำลังถามคำถาม")
@@ -279,20 +310,57 @@ func on_question_answered(choice_index: int) -> void:
 		print("❌ คำตอบผิด!")
 
 
-# เพิ่มฟังก์ชันนี้ใน NPCQuestSystem.gd เพื่อใช้ตรวจคำตอบแบบพิมพ์
-func check_text_answer(answer: String) -> bool:
-	if current_processing_quest and current_processing_quest.has_method("get_correct_answer_chat"):
-		var correct = current_processing_quest.get_correct_answer_chat()
-		if answer.to_lower() == correct.to_lower():
-			is_question_answered = true
-            # ถ้าตอบถูก ให้ขยับสถานะไป COMPLETE_QUEST ทันที
-			current_state = NPC_STATE.COMPLETE_QUEST
-			_update_npc_action_state()
-			return true
-    
-	is_question_answered = false
-	return false
 
+
+func check_text_answer(answer: String) -> bool:
+
+	if current_processing_quest and current_processing_quest.has_method("get_correct_answer_chat"):
+        # 1. เช็คว่าเคยตอบถูกไปแล้วหรือยัง (ถ้าตอบแล้ว return เลย ไม่จ่ายซ้ำ)
+		if is_question_answered: 
+			return true
+
+		var correct = current_processing_quest.get_correct_answer_chat()
+        
+        # 2. เช็คคำตอบ
+		if answer.to_lower() == correct.to_lower():
+			print("✅ NPC: ตอบถูกแล้ว! กำลังจ่ายรางวัล...")
+            
+            # =======================================================
+            # 💰 ส่วนที่แก้: จ่ายเงินทันทีตรงนี้! (Direct Payment)
+            # =======================================================
+			var reward = current_processing_quest.reward_money
+			if reward > 0:
+                # เรียก PointSystem โดยตรง
+				PointSystem.add(reward) 
+				print("💰 NPC: จ่ายสดให้ผู้เล่นแล้ว %d แต้ม" % reward)
+            
+            # =======================================================
+            # 📝 ส่วนจัดการสถานะ (Manager)
+            # =======================================================
+			is_question_answered = true
+			current_state = NPC_STATE.COMPLETE_QUEST
+            
+            # แจ้ง QuestManager ว่าจบแล้วนะ (เพื่อบันทึกว่าทำแล้ว)
+            # แต่เราจะไม่หวังพึ่งให้ Manager จ่ายเงินแล้ว เพราะเราจ่ายไปแล้วด้านบน
+			var q_id = current_processing_quest.quest_id
+            
+            # ถ้าเควสยังไม่จบในระบบ Manager ให้ยัดเข้า list completed ไปเลย
+			if not QuestManager.completed_quests.has(q_id):
+				QuestManager.completed_quests.append(q_id)
+                # ลบออกจาก active ถ้ามี
+				if QuestManager.active_quests.has(q_id):
+					QuestManager.active_quests.erase(q_id)
+            
+            # อัปเดต NPC Manager (ถ้ามี)
+			if get_node_or_null("/root/NPCManager"):
+				var npc_mgr = get_node("/root/NPCManager")
+				npc_mgr.on_npc_interacted(npc_name)
+                # บันทึกสถานะลงไฟล์ด้วย
+				_update_npc_action_state()
+
+			return true
+            
+	return false
 # ฟังก์ชันรีเซ็ตสถานะกรณีผู้เล่นกด Cancel ในหน้า UI
 func reset_from_cancel():
 	print("🔄 NPCQuestSystem: Resetting from cancel...")
@@ -301,6 +369,16 @@ func reset_from_cancel():
 		if npc_type == NPC_TYPE.QUESTION:
 			current_state = NPC_STATE.START_QUESTION
 		_update_npc_action_state()
+
+
+func can_complete_quest() -> bool:
+	if current_processing_quest:
+        # เช็คว่าจำนวนปัจจุบัน >= จำนวนที่ต้องการ
+		return current_processing_quest.current_amount >= current_processing_quest.required_amount
+	return false
+
+
+
 # ---------------------------------------------------------
 # ฟังก์ชัน Debug
 # ---------------------------------------------------------
