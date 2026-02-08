@@ -24,6 +24,7 @@ var icon :Dictionary= {
 
 
 func _ready():
+	# เชื่อมต่อสัญญาณเมื่อ Inventory มีการเปลี่ยนแปลง
 	InventorySystem.inventory_changed.connect(update_inventory)
 	update_inventory()
 

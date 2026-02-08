@@ -1,6 +1,7 @@
 extends CanvasLayer
 @onready var pause: Control = %PauseGui
 @onready var MenuItem: ItemList = %ItemList
+@onready var Item_amount: RichTextLabel = %RichTextLabel
 @onready var quest_panel: Panel = $Interact_Screen/QuestPanel
 @onready var quest_text_label: RichTextLabel = $Interact_Screen/QuestPanel/QuestTextLabel
 @onready var save_game_button: Button = $PauseGui/ColorRect/CenterContainer/SaveGameButton
@@ -26,6 +27,9 @@ var question_container: Control = null
 var current_npc: NPC = null  # เก็บ NPC ที่กำลังคุย
 
 func _ready() -> void:
+	Item_amount.visible = false
+	MenuItem.visible = false
+	quest_panel.visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	# ตั้งค่าปุ่ม Accept/Refuse
@@ -112,6 +116,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory_menu"):
 		MenuItem.visible = !MenuItem.visible
 		quest_panel.visible = !quest_panel.visible
+		Item_amount.visible = !Item_amount.visible
 
 	if Input.is_action_just_pressed("Esc"):
 		pause.visible = !pause.visible
