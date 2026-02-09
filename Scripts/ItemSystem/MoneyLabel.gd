@@ -10,4 +10,4 @@ func _ready():
 		_update_points(PointSystem.points)
 
 func _update_points(amount: int):
-	points_label.text = "%d 📊" % amount
+	points_label.text = "%d Point" % amount

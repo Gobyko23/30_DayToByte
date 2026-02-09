@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://n7jjbc1n2o0t"]
+
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="1_fyfnn"]
+
+[resource]
+script = ExtResource("1_fyfnn")
+quest_id = "Easy_quest_001"
+quest_name = "ถามตอบ 001"
+description = "หน่วยข้อมูลที่เล็กที่สุดของคอมพิวเตอร์"
+reward_money = 500
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
+npc_type = 2
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "Bit"
+questions_dialogue = Array[String](["สวัสดี ฉันมีเรื่องจะให้ช่วยหนะ", "คือตอนนี้ฉันไม่รู้หน่วยข้อมูลที่เล็กที่สุดของคอมพิวเตอร์", "ว่ามันเรียกว่าอะไรกันแน่...", "ฉันจำได้ลางๆ ว่ามัน ขึ้นตอนด้วยตัว 'B'", "และลงท้ายด้วยตัว 'T'", "มีค่าแค่ 0 กับ 1"])
+question_text = "นายพอรู้ไหม ว่ามันเรียกว่าอะไร?"
+question_ask = "หน่วยข้อมูลที่เล็กที่สุดของคอมพิวเตอร์คือ?"
+accept_question_dialogue = Array[String](["ดีเลย! งั้นขอฟังคำตอบหน่อยนะ"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"

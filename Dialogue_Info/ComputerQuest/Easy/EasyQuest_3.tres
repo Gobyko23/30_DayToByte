@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://yl2aqrfctwx5"]
+
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="1_sdgll"]
+
+[resource]
+script = ExtResource("1_sdgll")
+quest_id = "Easy_quest_003"
+quest_name = "สาย lan"
+description = "สาย Lan easy นะ"
+reward_money = 300
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
+npc_type = 2
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "RJ45"
+questions_dialogue = Array[String](["ฉันต่อสายเคยต่อสาย Lan มานานมาก", "แต่ไม่รู้ว่าหัวสาย Lan เรียกว่าอะไร?"])
+question_text = "นายพอรู้ไหม?"
+question_ask = "หัวสาย Lan เรียกว่าอะไร?"
+accept_question_dialogue = Array[String](["ดีเลย! งั้นขอฟังคำตอบหน่อยนะ"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"

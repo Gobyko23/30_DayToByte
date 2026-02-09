@@ -1,10 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://co7nieemwi3ku"]
+[gd_scene load_steps=14 format=3 uid="uid://co7nieemwi3ku"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_4hnuf"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_32ix6"]
 [ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="4_dnxf6"]
 [ext_resource type="Script" uid="uid://cm5e18lq2aj0d" path="res://Scripts/Entity/NPC_Quest_System.gd" id="4_j7mn5"]
 [ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="5_dnxf6"]
+[ext_resource type="Resource" uid="uid://n7jjbc1n2o0t" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_1.tres" id="6_f24wh"]
+[ext_resource type="Resource" uid="uid://d0ned6m41wthc" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_2.tres" id="7_u0u0m"]
+[ext_resource type="Resource" uid="uid://yl2aqrfctwx5" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_3.tres" id="8_4don6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
 radius = 0.867945
@@ -26,32 +29,10 @@ content_margin_top = 25.0
 content_margin_right = 25.0
 content_margin_bottom = 25.0
 
-[sub_resource type="Resource" id="Resource_drsva"]
+[sub_resource type="Resource" id="Resource_fydxc"]
 script = ExtResource("5_dnxf6")
-quest_id = "12222"
-quest_name = "NPC ถามตอบ"
-description = "คำบรรยายของ Quest"
-reward_money = 1000
-reward_items = Array[String]([])
-target_item_id = ""
-required_amount = 0
-current_amount = 0
-npc_type = 2
-give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
-inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
-complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
-reward_dialogue = Array[String](["นี่คือรางวัล!"])
-answer_text = "6"
-questions_dialogue = Array[String](["สวัสดี!"])
-question_text = "คุณพร้อมตอบคำถามหรือไม่?"
-question_ask = "001 + 101 = ?"
-accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
-metadata/_custom_type_script = "uid://6oofvb1sj85k"
-
-[sub_resource type="Resource" id="Resource_4hnuf"]
-script = ExtResource("5_dnxf6")
-quest_id = "quest_002"
-quest_name = "NPC พูด"
+quest_id = "quest_001"
+quest_name = "ทดสอบ Quest"
 description = "คำบรรยายของ Quest"
 reward_money = 100
 reward_items = Array[String]([])
@@ -59,28 +40,6 @@ target_item_id = ""
 required_amount = 0
 current_amount = 0
 npc_type = 0
-give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
-inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
-complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
-reward_dialogue = Array[String](["นี่คือรางวัล!"])
-answer_text = "คำตอบที่ถูกต้อง"
-questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
-question_text = "คำถามคืออะไร?"
-question_ask = "001 + 101 = ?"
-accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
-metadata/_custom_type_script = "uid://6oofvb1sj85k"
-
-[sub_resource type="Resource" id="Resource_fydxc"]
-script = ExtResource("5_dnxf6")
-quest_id = "quest_003"
-quest_name = "NPC ภารกิจ"
-description = "เปิดกล่อง 3 กล่อง"
-reward_money = 1000
-reward_items = Array[String]([])
-target_item_id = "box"
-required_amount = 3
-current_amount = 0
-npc_type = 1
 give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
 inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
 complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
@@ -162,12 +121,11 @@ texture_filter = 0
 texture = ExtResource("4_dnxf6")
 
 [node name="NpcPivot" type="Marker3D" parent="NPCStatic/NPCRigit/NPC_Sprite"]
-transform = Transform3D(6.06061, 0, 0, 0, 6.06061, 0, 0, 0, 6.06061, -3.35485, 1.69289, 21.1078)
+transform = Transform3D(6.06061, 0, 0, 0, 6.06061, 0, 0, 0, 6.06061, 0.30665, 1.43483, 20.5381)
 
 [node name="NPC_Dialog" type="Sprite3D" parent="NPCStatic/NPCRigit"]
-transform = Transform3D(0.585, 0, 0, 0, 0.585, 0, 0, 0, 0.585, -2.14421, 2.10873, 1.09974)
-visible = false
-pixel_size = 0.0065
+transform = Transform3D(0.585, 0, 0, 0, 0.585, 0, 0, 0, 0.585, -1.62758, 1.87892, 1.09974)
+pixel_size = 0.0045
 billboard = 1
 double_sided = false
 texture_filter = 0
@@ -207,10 +165,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -261.0
-offset_top = -141.5
-offset_right = 261.0
-offset_bottom = 141.5
+offset_left = -463.0
+offset_top = -251.0
+offset_right = 463.0
+offset_bottom = 251.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -235,8 +193,7 @@ texture = ExtResource("3_32ix6")
 
 [node name="NPCQuestSystem" type="Node" parent="NPCStatic/NPCRigit"]
 script = ExtResource("4_j7mn5")
-npc_name = "KingOfTheCat"
-NonQuest_Dialogue = Array[String](["aaaaaaaaaaa"])
+NonQuest_Dialogue = Array[String](["อะไร?"])
 enable_random_quests = true
-quest_pool = Array[ExtResource("5_dnxf6")]([SubResource("Resource_drsva"), SubResource("Resource_4hnuf"), SubResource("Resource_fydxc")])
+quest_pool = Array[ExtResource("5_dnxf6")]([SubResource("Resource_fydxc"), ExtResource("6_f24wh"), ExtResource("7_u0u0m"), ExtResource("8_4don6")])
 metadata/_custom_type_script = "uid://cm5e18lq2aj0d"

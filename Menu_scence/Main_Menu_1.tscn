@@ -1,12 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://l27jg2e7gup2"]
+[gd_scene load_steps=25 format=3 uid="uid://l27jg2e7gup2"]
 
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="1_jkqpj"]
-[ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="2_1bqi0"]
+[ext_resource type="Texture2D" uid="uid://dk782rlbhe8d8" path="res://Assets/Gui/Tutorial/img_2.png" id="2_3t4wu"]
+[ext_resource type="Texture2D" uid="uid://c4uqn65a3a8uv" path="res://Assets/Gui/Tutorial/img_3.png" id="3_4vtcr"]
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="3_jkqpj"]
-[ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="3_qydqw"]
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="4_3t4wu"]
-[ext_resource type="Texture2D" uid="uid://7hjugrewqt22" path="res://Assets/Gui/Entity/Catking-export.png" id="4_cjnbx"]
+[ext_resource type="Texture2D" uid="uid://byix6eq5ajsq3" path="res://Assets/Gui/Tutorial/img_5.png" id="4_54cll"]
 [ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/Others/30Dtablet-export.png" id="4_jkqpj"]
+[ext_resource type="Texture2D" uid="uid://w6aq25fo6e0t" path="res://Assets/Gui/Tutorial/img_4.png" id="5_1bqi0"]
+[ext_resource type="Texture2D" uid="uid://86l261h5qtgc" path="res://Assets/Gui/Tutorial/img_6.png" id="6_1bqi0"]
 
 [sub_resource type="SystemFont" id="SystemFont_h2svc"]
 font_names = PackedStringArray("Fantasy")
@@ -75,8 +77,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jkqpj")
-img = Array[Texture2D]([ExtResource("2_1bqi0"), ExtResource("3_qydqw"), ExtResource("4_cjnbx")])
-TextDscription = Array[String](["วิธีเล่น", "ผู้เล่นจะต้องเก็บสะสมคะแนนเรื่อยๆ จนกว่าจะครบ 15 วันในเกม", "โดยคะแนนจะมาจากการทำ Quest ให้กับ Npc ต่างๆ ซึ่งจะเกิดแบบสุ่มและยากขึ้นเรื่อยๆตามจำนวนวันยากขึ้น", "aaaaa"])
+img = Array[Texture2D]([null, ExtResource("2_3t4wu"), ExtResource("3_4vtcr"), ExtResource("4_54cll"), ExtResource("5_1bqi0"), ExtResource("4_54cll"), ExtResource("6_1bqi0")])
+TextDscription = Array[String](["วิธีเล่น", "ผู้เล่นจะต้องเก็บสะสมคะแนนเรื่อยๆ จนกว่าจะครบ 15 วันในเกม", "(1 วัน = 5 นาที)", "โดยคะแนนจะมาจากการทำ Quest ให้กับ Npc ต่างๆ ซึ่งจะเกิดแบบสุ่ม", "ผู้เล่นสามารถกด WASD เพื่อเคลื่อนไหว", "กด TAB จะแสดงหน้า Quest ที่กำลังทำและจำนวน item ที่เก็บได้", "โดยสามารถดูข้อมูลของ Item โดยการนำเมาส์ไปชี้ที่ Item นั้น"])
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -286,7 +288,6 @@ offset_bottom = 522.0
 
 [node name="TutorialLabel" type="ColorRect" parent="CenterContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(750, 500)
 layout_mode = 2
 color = Color(0.127604, 0.127604, 0.127604, 1)
@@ -306,8 +307,9 @@ theme_override_constants/separation = 35
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/TutorialLabel/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(-200, 250)
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
+expand_mode = 1
 stretch_mode = 5
 
 [node name="Decription" type="RichTextLabel" parent="CenterContainer/TutorialLabel/VBoxContainer"]

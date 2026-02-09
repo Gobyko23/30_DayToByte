@@ -17,6 +17,7 @@ func _ready() -> void:
 # ฟังก์ชัน: เริ่ม Quest
 func start_quest(quest: QuestData) -> void:
 	if not active_quests.has(quest.quest_id):
+		quest.reset_quest_data()
 		quest.activate_quest()
 		active_quests[quest.quest_id] = quest
 		quest_started.emit(quest.quest_id)
@@ -124,8 +125,13 @@ func add_progress(target_id: String, amount: int = 1) -> void:
 			# แจ้งเตือน UI ให้รู้ว่ามีการเปลี่ยนแปลง (เช่นไปอัปเดต Label ใน pause.gd)
 			quest_updated.emit()
 
-func reset_system():
+func reset_system() -> void:
+	# 1. รีเซ็ตค่าใน QuestData ของทุกเควสที่กำลังทำอยู่ (Active)
+	for quest_id in active_quests:
+		active_quests[quest_id].reset_quest_data()
+
 	active_quests.clear()
 	completed_quests.clear()
 	quest_updated.emit()
 	print("🔄 QuestManager has been reset")
+

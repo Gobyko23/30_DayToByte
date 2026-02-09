@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://d0ned6m41wthc"]
+
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="1_egekb"]
+
+[resource]
+script = ExtResource("1_egekb")
+quest_id = "Easy_quest_002"
+quest_name = "ขอฟรีมีรึจะไม่เอา"
+description = "เปิดกล่อง 5 กล่อง"
+reward_money = 200
+reward_items = Array[String]([])
+target_item_id = "box"
+required_amount = 5
+current_amount = 0
+npc_type = 1
+give_quest_dialogue = Array[String](["นายรู้อะไรมั้ยว่าในเมืองนี้มีการทิ้งสิ่งของมากมายที่ไม่ได้ใช้อยู่ด้วยหนะ", "ส่วนใหญ่ก็จะอยู่ในกล่องกระดาษลังที่หาได้ทั่วไปในแถวๆนี้ ", "นายจะลองหาดูมั้ย? สัก 3 กล่อง"])
+inprocess_dialogue = Array[String](["ทำไมไม่ไปหาหละ!"])
+complete_quest_dialogue = Array[String](["สุดยอด ได้ของดีเลยหนิ~"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "คำตอบที่ถูกต้อง"
+questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
+question_text = "คำถามคืออะไร?"
+question_ask = "001 + 101 = ?"
+accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"

@@ -12,6 +12,7 @@ extends CanvasLayer
 @onready var option_gui: Control = %OptionGui
 @onready var back_button: Button = $OptionGui/CenterContainer2/VBoxContainer/BackButton
 @onready var time_node: Node = %TimeNode
+@onready var success_sfx: AudioStreamPlayer = $SuccessSFX
 
 @onready var question_ui: Control = $Question_ui
 @onready var text_ans: TextEdit = %TextAns
@@ -246,6 +247,7 @@ func _on_submit_pressed() -> void:
 		if is_correct:
 			print("✅ UI: Answer Correct - Money should be added via NPCQuestSystem")
             # เปลี่ยนบทพูดเป็นบทตอบถูก
+			success_sfx.play()
 			current_npc.current_dialogue_queue.assign(system.correct_dialogue)
 		else:
 			print("❌ UI: Answer Wrong")

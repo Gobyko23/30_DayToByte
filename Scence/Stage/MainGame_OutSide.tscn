@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=68 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
 [ext_resource type="Texture2D" uid="uid://b2jxpeeahcg4v" path="res://Scence/BackGround/scence_bg_1.png" id="2_2t52r"]
@@ -20,7 +20,10 @@
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="15_u0fgr"]
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="16_2hect"]
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="17_pi7ar"]
+[ext_resource type="AudioStream" uid="uid://bvxccjvmy6gi2" path="res://Assets/SFX/ClockTick.wav" id="18_ijsrt"]
+[ext_resource type="AudioStream" uid="uid://d3of4uv7r427x" path="res://Assets/SFX/ClockTick_fast.wav" id="19_i5cv0"]
 [ext_resource type="Script" uid="uid://q4csc17lk5kw" path="res://Scripts/Data/TimeManager.gd" id="19_pi7ar"]
+[ext_resource type="AudioStream" uid="uid://bneclmpybgccy" path="res://Assets/SFX/Success.wav" id="24_oypcv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -39,6 +42,12 @@ glow_enabled = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0itcn"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au0eo"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw30y"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2plp7"]
 font_size = 26
@@ -111,10 +120,12 @@ border_color = Color(0.8, 0.8, 0, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qw36y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tc4ov"]
-font_size = 51
-font_color = Color(7.21961e-06, 0.864387, 0.368493, 1)
+font_size = 41
+font_color = Color(0.986979, 0.971558, 0, 1)
 outline_size = 15
 outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.207843)
+shadow_offset = Vector2(-1.35, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6e0xh"]
 bg_color = Color(0.162066, 0.162066, 0.162065, 1)
@@ -185,12 +196,6 @@ bg_color = Color(0.645551, 1.82897e-06, 3.36915e-07, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv2uy"]
 bg_color = Color(1, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au0eo"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw30y"]
-bg_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
 bg_color = Color(0.163909, 0.396979, 0.801575, 1)
 border_width_left = 5
@@ -252,13 +257,6 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
 border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55plg"]
-bg_color = Color(0.241156, 0.241156, 0.241156, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -545,11 +543,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2365, 0.658829, -2.38301)
 [node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target") groups=["WorldCamera"]]
 script = ExtResource("4_cpf1t")
 target = NodePath("../Player")
-offset = Vector3(0, 0.605, 5.12)
-mouse_return_speed = 0.82
-dialog_fov = 45.0
-fov_speed = 1.085
-Dialogoffset = Vector3(0.45, 0.445, 2.92)
+offset = Vector3(0, 0.865, 4.79)
+mouse_return_speed = 0.94
+dialog_fov = 60.0
+fov_speed = 0.93
+Dialogoffset = Vector3(0.69, 0.205, 2.415)
 
 [node name="Npc" parent="." instance=ExtResource("13_rtsas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
@@ -587,256 +585,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.485, 1.62521, 1.14358)
 [node name="TimeNode" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_pi7ar")
-countdown_duration_seconds = 3
+countdown_duration_seconds = 100
 autostart_countdown = false
-max_days = 2
 
 [node name="Pause" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource("7_e6uwr")
 
-[node name="Interact_Screen" type="Control" parent="Pause"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_2hect")
-
-[node name="Interact_Text" type="Label" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -111.0
-offset_top = 101.0
-offset_right = 110.0
-offset_bottom = 204.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 46
-text = "E To Interact"
-label_settings = SubResource("LabelSettings_2plp7")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HoldBar" type="ProgressBar" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -177.0
-offset_top = 189.0
-offset_right = 177.0
-offset_bottom = 202.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_tviiy")
-theme_override_styles/fill = SubResource("StyleBoxFlat_gks54")
-show_percentage = false
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 1
-offset_left = 7.0
-offset_top = 15.0
-offset_right = 240.0
-offset_bottom = 95.0
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/normal_font_size = 16
-bbcode_enabled = true
-text = "itemListText"
-context_menu_enabled = true
-script = ExtResource("7_pi7ar")
-
-[node name="ItemList" type="ItemList" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 766.0
-offset_top = 12.0
-offset_right = 1147.0
-offset_bottom = 249.0
-theme_override_colors/guide_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_constants/h_separation = 10
-theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxEmpty_au0eo")
-theme_override_styles/panel = SubResource("StyleBoxFlat_d14tu")
-theme_override_styles/hovered = SubResource("StyleBoxFlat_ux8pb")
-theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_djch6")
-theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_tlt1v")
-theme_override_styles/selected = SubResource("StyleBoxFlat_v125s")
-theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_tutjn")
-theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_eblcu")
-theme_override_styles/cursor = SubResource("StyleBoxEmpty_qw36y")
-allow_reselect = true
-auto_width = true
-auto_height = true
-item_count = 2
-max_columns = 3
-same_column_width = true
-icon_mode = 0
-icon_scale = 0.06
-item_0/icon = ExtResource("8_2t52r")
-item_1/icon = ExtResource("8_2t52r")
-script = ExtResource("9_au0eo")
-
-[node name="Cash_Label" type="Label" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -253.0
-offset_top = -81.0
-grow_horizontal = 0
-grow_vertical = 0
-label_settings = SubResource("LabelSettings_tc4ov")
-script = ExtResource("10_ijsrt")
-
-[node name="TimePanel" type="Panel" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 478.0
-offset_top = 29.0
-offset_right = 693.0
-offset_bottom = 139.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_6e0xh")
-script = ExtResource("13_2hect")
-
-[node name="TimeText" type="RichTextLabel" parent="Pause/Interact_Screen/TimePanel"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 35
-theme_override_font_sizes/bold_font_size = 35
-bbcode_enabled = true
-text = "Time"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="DayText" type="RichTextLabel" parent="Pause/Interact_Screen/TimePanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -1.02791
-anchor_top = -0.00909091
-anchor_right = -0.027907
-anchor_bottom = 0.990909
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "Day"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Accept_btn" type="Button" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -361.0
-offset_top = -245.0
-offset_right = -159.0
-offset_bottom = -157.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/outline_size = 20
-theme_override_font_sizes/font_size = 41
-theme_override_styles/hover = SubResource("StyleBoxFlat_iqgxn")
-theme_override_styles/normal = SubResource("StyleBoxFlat_i5cv0")
-text = "Accept"
-
-[node name="Refuse_btn" type="Button" parent="Pause/Interact_Screen"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 138.0
-offset_top = -245.0
-offset_right = 340.0
-offset_bottom = -157.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/outline_size = 20
-theme_override_font_sizes/font_size = 41
-theme_override_styles/hover = SubResource("StyleBoxFlat_8udgm")
-theme_override_styles/normal = SubResource("StyleBoxFlat_rtsas")
-text = "Refuse"
-
-[node name="QuestPanel" type="Panel" parent="Pause/Interact_Screen"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -560.0
-offset_top = -163.0
-offset_right = -183.0
-offset_bottom = 88.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="QuestTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen/QuestPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "aaaaa"
-fit_content = true
-
-[node name="Exit_btn" type="Button" parent="Pause/Interact_Screen/QuestPanel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -36.0
-offset_top = -11.0
-offset_right = 9.0
-offset_bottom = 34.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 26
-theme_override_styles/focus = SubResource("StyleBoxEmpty_oypcv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_sj0iv")
-theme_override_styles/normal = SubResource("StyleBoxFlat_kv2uy")
-text = "X"
-
 [node name="WaitingGui" type="Control" parent="Pause"]
 visible = false
-visibility_layer = 2
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Begin" type="Panel" parent="Pause/WaitingGui"]
 unique_name_in_owner = true
@@ -935,6 +700,256 @@ text = "NextDay>"
 unique_name_in_owner = true
 stream = ExtResource("17_pi7ar")
 pitch_scale = 1.1
+bus = &"SFXBus"
+
+[node name="Interact_Screen" type="Control" parent="Pause"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_2hect")
+
+[node name="Interact_Text" type="Label" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = 101.0
+offset_right = 110.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 46
+text = "E To Interact"
+label_settings = SubResource("LabelSettings_2plp7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HoldBar" type="ProgressBar" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = 189.0
+offset_right = 177.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_tviiy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gks54")
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 7.0
+offset_top = 15.0
+offset_right = 240.0
+offset_bottom = 95.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "itemListText"
+context_menu_enabled = true
+script = ExtResource("7_pi7ar")
+
+[node name="ItemList" type="ItemList" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 766.0
+offset_top = 12.0
+offset_right = 1147.0
+offset_bottom = 249.0
+theme_override_colors/guide_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/h_separation = 10
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_au0eo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_d14tu")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_ux8pb")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_djch6")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_tlt1v")
+theme_override_styles/selected = SubResource("StyleBoxFlat_v125s")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_tutjn")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_eblcu")
+theme_override_styles/cursor = SubResource("StyleBoxEmpty_qw36y")
+allow_reselect = true
+auto_width = true
+auto_height = true
+item_count = 2
+max_columns = 3
+same_column_width = true
+icon_mode = 0
+icon_scale = 0.06
+item_0/icon = ExtResource("8_2t52r")
+item_1/icon = ExtResource("8_2t52r")
+script = ExtResource("9_au0eo")
+
+[node name="Cash_Label" type="Label" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -253.0
+offset_top = -99.0
+offset_bottom = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Point"
+label_settings = SubResource("LabelSettings_tc4ov")
+vertical_alignment = 1
+script = ExtResource("10_ijsrt")
+
+[node name="TimePanel" type="Panel" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 511.0
+offset_top = 46.0
+offset_right = 660.0
+offset_bottom = 122.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6e0xh")
+script = ExtResource("13_2hect")
+
+[node name="TimeText" type="RichTextLabel" parent="Pause/Interact_Screen/TimePanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+bbcode_enabled = true
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DayText" type="RichTextLabel" parent="Pause/Interact_Screen/TimePanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.02791
+anchor_top = -0.00909091
+anchor_right = -0.027907
+anchor_bottom = 0.990909
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "Day"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ClockSFX" type="AudioStreamPlayer" parent="Pause/Interact_Screen/TimePanel"]
+stream = ExtResource("18_ijsrt")
+volume_db = -1.5
+bus = &"SFXBus"
+
+[node name="ClockSFXFast" type="AudioStreamPlayer" parent="Pause/Interact_Screen/TimePanel"]
+stream = ExtResource("19_i5cv0")
+volume_db = 5.5
+bus = &"SFXBus"
+
+[node name="Accept_btn" type="Button" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -314.0
+offset_top = -245.0
+offset_right = -153.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 31
+theme_override_styles/hover = SubResource("StyleBoxFlat_iqgxn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_i5cv0")
+text = "Accept"
+
+[node name="Refuse_btn" type="Button" parent="Pause/Interact_Screen"]
+unique_name_in_owner = true
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 149.0
+offset_top = -245.0
+offset_right = 310.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 31
+theme_override_styles/hover = SubResource("StyleBoxFlat_8udgm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rtsas")
+text = "Refuse"
+
+[node name="QuestPanel" type="Panel" parent="Pause/Interact_Screen"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -163.0
+offset_right = -183.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuestTextLabel" type="RichTextLabel" parent="Pause/Interact_Screen/QuestPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "aaaaa"
+fit_content = true
+
+[node name="Exit_btn" type="Button" parent="Pause/Interact_Screen/QuestPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = 34.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+theme_override_styles/focus = SubResource("StyleBoxEmpty_oypcv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sj0iv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kv2uy")
+text = "X"
 
 [node name="PauseGui" type="Control" parent="Pause"]
 unique_name_in_owner = true
@@ -1212,7 +1227,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 61
-theme_override_styles/normal = SubResource("StyleBoxFlat_55plg")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ijsrt")
 placeholder_text = "ตอบ....."
 scroll_smooth = true
@@ -1242,6 +1256,11 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kv2uy")
 theme_override_styles/normal = SubResource("StyleBoxFlat_86f4d")
 text = "Cancle"
+
+[node name="SuccessSFX" type="AudioStreamPlayer" parent="Pause"]
+stream = ExtResource("24_oypcv")
+volume_db = 1.16
+bus = &"SFXBus"
 
 [node name="EndLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -1307,9 +1326,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 31
 text = "Back To menu"
 
-[connection signal="pressed" from="Pause/Interact_Screen/QuestPanel/Exit_btn" to="Pause" method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="Pause/WaitingGui/EndRound/HBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Pause/WaitingGui/EndRound/HBoxContainer/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="Pause/Interact_Screen/QuestPanel/Exit_btn" to="Pause" method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/ResumeButton" to="Pause" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/SaveGameButton" to="Pause" method="_on_save_game_button_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/OptionButton" to="Pause" method="_on_option_button_pressed"]

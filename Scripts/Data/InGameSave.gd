@@ -10,6 +10,8 @@ extends Node3D
 @onready var text_begin: RichTextLabel = $Pause/WaitingGui/Begin/Text_Begin
 @onready var text_end: RichTextLabel = $Pause/WaitingGui/EndRound/VBoxContainer/Text_End
 @onready var typing_sfx: AudioStreamPlayer = %TypingSFX
+@onready var success_sfx: AudioStreamPlayer = $Pause/SuccessSFX
+
 var last_visible_count: int = 0
 
 func _ready():
@@ -31,6 +33,8 @@ func _ready():
 	# 4. เชื่อมต่อ Signal ต่างๆ
 	SaveAndLoad.request_load.connect(_on_request_load)
 	SaveAndLoad.request_save.connect(_on_request_save)
+	QuestManager.quest_completed.connect(_play_quest_success_sound)
+
 	if not time_node.countdown_finished.is_connected(_on_countdown_finished):
 		time_node.countdown_finished.connect(_on_countdown_finished)
 
@@ -170,7 +174,15 @@ func _on_back_pressed() -> void:
 func _on_next_pressed() -> void:
 	"""เรียกเมื่อกดปุ่ม Next Day ใน endGui"""
 	print("➡️ Next Day button pressed.")
+	    
+    # 1. รีเซ็ตทุกระบบที่เป็น Autoload
+        
+	if QuestManager.has_method("reset_system"):
+		QuestManager.reset_system()
 	
+	if NPCManager.has_method("reset_all_npc_states"):
+		NPCManager.reset_all_npc_states()
+
 	# 1. ย้ายตำแหน่งผู้เล่น (เผื่อไว้)
 	if player and player_spawn:
 		player.global_position = player_spawn.global_position
@@ -185,3 +197,7 @@ func _on_next_pressed() -> void:
 	
 	# 4. โหลดฉากใหม่
 	get_tree().reload_current_scene()
+
+func _play_quest_success_sound(quest_id: String, reward_money: int):
+	if success_sfx:
+		success_sfx.play()

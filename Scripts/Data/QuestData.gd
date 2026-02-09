@@ -75,6 +75,14 @@ func is_goal_reached() -> bool:
 	return current_amount >= required_amount
 
 
+# เพิ่มฟังก์ชันนี้ใน QuestData.gd
+func reset_quest_data() -> void:
+	current_amount = 0
+	is_completed = false
+	is_active = false
+	progress = 0
+
+
 # ดึงข้อมูล Quest
 func get_quest_info() -> Dictionary:
 	return {
