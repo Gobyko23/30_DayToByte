@@ -3,140 +3,150 @@ extends Node
 # ข้อมูลสเปคของฮาร์ดแวร์คอมพิวเตอร์ (เบาไปแรง)
 
 const HARDWARE_SPECS = {
-	# ============================================
-	# CPU - Intel Processor
-	# ============================================
-	"CPU_Intel_i5": {
-		"name": "Intel Core i5 (12th Gen)",
-		"category": "CPU",
-		"rarity": "common",  # เบา
-		"specs": [
-			"Core Count: 10 Cores (P+E)",
-			"Base Clock: 3.3 GHz",
-			"TDP: 65W"
-		],
-		"performance_tier": 1,
-		"price": 200,
-		"description": "โปรเซสเซอร์ Intel รุ่นกลาง เหมาะสำหรับงานทั่วไปและเกม spec กลางๆ"
-	},
-	
-	"CPU_Intel_i7": {
-		"name": "Intel Core i7 (13th Gen)",
-		"category": "CPU",
-		"rarity": "rare",  # กลาง
-		"specs": [
-			"Core Count: 16 Cores (P+E)",
-			"Base Clock: 3.4 GHz",
-			"TDP: 125W"
-		],
-		"performance_tier": 2,
-		"price": 400,
-		"description": "โปรเซสเซอร์ Intel แรง เหมาะสำหรับการแก้ไขวิดีโอ หรือสตรีมเกม"
-	},
-	
-	"CPU_Intel_i9": {
-		"name": "Intel Core i9 (13th Gen)",
-		"category": "CPU",
-		"rarity": "legendary",  # แรง
-		"specs": [
-			"Core Count: 24 Cores (P+E)",
-			"Base Clock: 3.0 GHz",
-			"TDP: 253W"
-		],
-		"performance_tier": 3,
-		"price": 700,
-		"description": "โปรเซสเซอร์ Intel ระดับสูงสุด เหมาะสำหรับการคำนวณหนักและการทำงานมัลติเทสก์"
-	},
-	
-	# ============================================
-	# GPU - NVIDIA Graphics Card
-	# ============================================
-	"GPU_RTX_3060": {
-		"name": "NVIDIA GeForce RTX 3060",
-		"category": "GPU",
-		"rarity": "common",  # เบา
-		"specs": [
-			"Memory: 12GB GDDR6",
-			"CUDA Cores: 3584",
-			"Memory Bandwidth: 360 GB/s"
-		],
-		"performance_tier": 1,
-		"price": 300,
-		"description": "การ์ดจอ NVIDIA แรงพอสำหรับเกม 1440p และงาน 3D กลาง"
-	},
-	
-	"GPU_RTX_3080": {
-		"name": "NVIDIA GeForce RTX 3080",
-		"category": "GPU",
-		"rarity": "rare",  # กลาง
-		"specs": [
-			"Memory: 10GB GDDR6X",
-			"CUDA Cores: 8704",
-			"Memory Bandwidth: 760 GB/s"
-		],
-		"performance_tier": 2,
-		"price": 700,
-		"description": "การ์ดจอ NVIDIA ระดับสูง เหมาะสำหรับเกม 4K และการเรนเดอร์"
-	},
-	
-	"GPU_RTX_4090": {
-		"name": "NVIDIA GeForce RTX 4090",
-		"category": "GPU",
-		"rarity": "legendary",  # แรง
-		"specs": [
-			"Memory: 24GB GDDR6X",
-			"CUDA Cores: 16384",
-			"Memory Bandwidth: 1036 GB/s"
-		],
-		"performance_tier": 3,
-		"price": 1600,
-		"description": "การ์ดจอ NVIDIA ระดับสูงสุด สำหรับการเล่นเกม 4K Ultra และการคำนวณ AI"
-	},
-	
-	# ============================================
-	# MainBoard - AMD Socket AM5
-	# ============================================
-	"MainBoard_B550": {
-		"name": "ASUS ROG STRIX B550-E",
-		"category": "MainBoard",
-		"rarity": "common",  # เบา
-		"specs": [
-			"Socket: AM5",
-			"USB 3.2: 6 Ports",
-			"Max Memory: 192GB"
-		],
-		"performance_tier": 1,
-		"price": 200,
-		"description": "เมนบอร์ด AMD รุ่นกลาง พื้นฐานดี สำหรับใช้งานทั่วไป"
-	},
-	
-	"MainBoard_X570": {
-		"name": "ASUS ROG STRIX X570-E",
-		"category": "MainBoard",
-		"rarity": "rare",  # กลาง
-		"specs": [
-			"Socket: AM5",
-			"USB 3.2: 8 Ports",
-			"Max Memory: 192GB"
-		],
-		"performance_tier": 2,
-		"price": 350,
-		"description": "เมนบอร์ด AMD ระดับสูง พร้อม PCIe 4.0 สำหรับการใช้งานหนัก"
-	},
-	
+    # ============================================
+    # CPU (ต้องเช็ค socket ให้ตรงกับ MainBoard)
+    # ============================================
+    "CPU_Intel_i5": {
+        "name": "Intel Core i5 (12th Gen)",
+        "category": "CPU",
+        "rarity": "common",
+        "specs": ["10 Cores (P+E)", "3.3 GHz"],
+        "socket": "LGA1700",    # <--- ใส่เพิ่ม
+        "wattage_draw": 65,     # <--- ใส่เพิ่มเพื่อคำนวณไฟ
+        "performance_tier": 1,
+        "price": 200,
+        "description": "โปรเซสเซอร์รุ่นกลาง เหมาะสำหรับงานทั่วไป"
+    },
+    "CPU_Intel_i7": {
+        "name": "Intel Core i7 (13th Gen)",
+        "category": "CPU",
+        "rarity": "rare",
+        "specs": ["16 Cores (P+E)", "3.4 GHz"],
+        "socket": "LGA1700", 
+        "wattage_draw": 125,
+        "performance_tier": 2,
+        "price": 400,
+        "description": "โปรเซสเซอร์แรง เหมาะสำหรับการสตรีมเกม"
+    },
+    "CPU_Intel_i9": {
+        "name": "Intel Core i9 (13th Gen)",
+        "category": "CPU",
+        "rarity": "legendary",
+        "specs": ["24 Cores (P+E)", "3.0 GHz"],
+        "socket": "LGA1700",
+        "wattage_draw": 253,
+        "performance_tier": 3,
+        "price": 700,
+        "description": "ระดับสูงสุด สำหรับการคำนวณหนัก"
+    },
+
+    # ============================================
+    # GPU (เน้นเช็ค wattage_draw ว่า PSU จ่ายไหวไหม)
+    # ============================================
+    "GPU_RTX_3060": {
+        "name": "NVIDIA GeForce RTX 3060",
+        "category": "GPU",
+        "rarity": "common",
+        "specs": ["12GB GDDR6", "CUDA: 3584"],
+        "wattage_draw": 170,    # <--- ใส่เพิ่ม
+        "performance_tier": 1,
+        "price": 300,
+        "description": "การ์ดจอแรงพอสำหรับเกม 1440p"
+    },
+    "GPU_RTX_3080": {
+        "name": "NVIDIA GeForce RTX 3080",
+        "category": "GPU",
+        "rarity": "rare",
+        "specs": ["10GB GDDR6X", "CUDA: 8704"],
+        "wattage_draw": 320,    # <--- ใส่เพิ่ม
+        "performance_tier": 2,
+        "price": 700,
+        "description": "เหมาะสำหรับเกม 4K และการเรนเดอร์"
+    },
+    "GPU_RTX_4090": {
+        "name": "NVIDIA GeForce RTX 4090",
+        "category": "GPU",
+        "rarity": "legendary",
+        "specs": ["24GB GDDR6X", "CUDA: 16384"],
+        "wattage_draw": 450,    # <--- ใส่เพิ่ม
+        "performance_tier": 3,
+        "price": 1600,
+        "description": "ระดับสูงสุด สำหรับ 4K Ultra และ AI"
+    },
+
+    # ============================================
+    # MainBoard (ต้องเช็ค socket ให้ตรงกับ CPU)
+    # ============================================
+    "MainBoard_B550": {
+        "name": "ASUS B550-E (Intel Edition)",
+        "category": "MainBoard",
+        "rarity": "common",
+        "socket": "LGA1700",    # <--- ปรับให้ตรงกับ CPU Intel ด้านบน
+		"supported_ram": ["DDR4"],
+        "ram_slots": 4,         # <--- เผื่อใช้จำกัดจำนวน RAM
+        "performance_tier": 1,
+        "price": 200,
+        "description": "เมนบอร์ดรุ่นกลาง พื้นฐานดี"
+    },
+    "MainBoard_X570": {
+        "name": "ASUS X570-E (Intel Edition)",
+        "category": "MainBoard",
+        "rarity": "rare",
+        "socket": "LGA1700",
+		"supported_ram": ["DDR4", "DDR5"],
+        "ram_slots": 4,
+        "performance_tier": 2,
+        "price": 350,
+        "description": "เมนบอร์ดระดับสูง พร้อม PCIe 4.0"
+    },
 	"MainBoard_TRX50": {
-		"name": "ASUS Pro WS TRX50-SAGE",
-		"category": "MainBoard",
-		"rarity": "legendary",  # แรง
-		"specs": [
-			"Socket: TRX50",
-			"USB 3.2: 10 Ports",
-			"Max Memory: 1.2TB"
-		],
-		"performance_tier": 3,
-		"price": 800,
-		"description": "เมนบอร์ด AMD Threadripper ระดับสูงสุด สำหรับการคำนวณและวิทยาศาสตร์"
-	},
+        "name": "ASUS Pro WS TRX50-SAGE",
+        "category": "MainBoard",
+        "rarity": "legendary",
+        "specs": [
+            "Socket: TRX50",
+            "Quad-Channel Memory",
+            "Max Memory: 1.2TB"
+        ],
+        # --- Technical Data สำหรับใช้เช็คเงื่อนไข ---
+        "socket": "TRX50",              # ต้องตรงกับ CPU Threadripper (ถ้าคุณจะเพิ่มในอนาคต)
+        "ram_type": ["DDR5"],           # รองรับแรม DDR5
+        "ram_slots": 4,                 # จำนวนแถวที่ใส่ได้
+        "performance_tier": 3,
+        "price": 800,
+        "description": "เมนบอร์ด Workstation ระดับสูงสุด รองรับการประมวลผลขั้นสูง"
+    },
+
+    # ============================================
+    # PowerSupply (ส่วนสำคัญที่ขาดไป!)
+    # ============================================
+    "PSU_650W": {
+        "name": "CoolerMaster 650W Gold",
+        "category": "PowerSupply",
+        "rarity": "common",
+        "wattage_capacity": 650, # <--- ค่าพลังงานที่จ่ายได้
+        "performance_tier": 1,
+        "price": 80,
+        "description": "จ่ายไฟเสถียรสำหรับสเปคเริ่มต้น"
+    },
+    "PSU_850W": {
+        "name": "Corsair RM850x",
+        "category": "PowerSupply",
+        "rarity": "rare",
+        "wattage_capacity": 850,
+        "performance_tier": 2,
+        "price": 150,
+        "description": "จ่ายไฟสูง สำหรับการ์ดจอระดับกลาง-สูง"
+    },
+    "PSU_1200W": {
+        "name": "EVGA SuperNOVA 1200 P2",
+        "category": "PowerSupply",
+        "rarity": "legendary",
+        "wattage_capacity": 1200,
+        "performance_tier": 3,
+        "price": 300,
+        "description": "ที่สุดของการจ่ายไฟ สำหรับ RTX 4090"
+    },
 	
 	# ============================================
 	# Case - Computer Case
@@ -183,51 +193,42 @@ const HARDWARE_SPECS = {
 		"description": "เคสคอมพิวเตอร์ยักษ์ ดีไซน์โปรแกรม พื้นที่เยอะมาก"
 	},
 	
-	# ============================================
-	# RAM - Memory
-	# ============================================
-	"RAM_8GB": {
-		"name": "Corsair Vengeance RGB Pro 8GB",
-		"category": "RAM",
-		"rarity": "common",  # เบา
-		"specs": [
-			"Capacity: 8GB",
-			"Speed: 3600MHz",
-			"Latency: CAS 18"
-		],
-		"performance_tier": 1,
-		"price": 50,
-		"description": "หน่วยความจำ 8GB เหมาะสำหรับงานพื้นฐาน"
-	},
-	
-	"RAM_16GB": {
-		"name": "Corsair Dominator Platinum 16GB",
-		"category": "RAM",
-		"rarity": "rare",  # กลาง
-		"specs": [
-			"Capacity: 16GB",
-			"Speed: 5200MHz",
-			"Latency: CAS 20"
-		],
-		"performance_tier": 2,
-		"price": 120,
-		"description": "หน่วยความจำ 16GB เหมาะสำหรับหลายงาน"
-	},
-	
-	"RAM_32GB": {
-		"name": "G.Skill Trident Z Royal 32GB",
-		"category": "RAM",
-		"rarity": "legendary",  # แรง
-		"specs": [
-			"Capacity: 32GB",
-			"Speed: 6000MHz",
-			"Latency: CAS 30"
-		],
-		"performance_tier": 3,
-		"price": 300,
-		"description": "หน่วยความจำ 32GB สำหรับการทำงานหนักและโปรแกรมมิ่ง"
-	},
-	
+# ============================================
+    # RAM - Memory (ต้องเช็ค ram_type ให้ตรงกับ MainBoard)
+    # ============================================
+    "RAM_8GB": {
+        "name": "Corsair Vengeance RGB Pro 8GB",
+        "category": "RAM",
+        "rarity": "common",
+        "specs": ["8GB", "3600MHz"],
+        "ram_type": "DDR4",      # <--- เพิ่ม: ประเภทแรม
+        "performance_tier": 1,
+        "price": 50,
+        "description": "หน่วยความจำ 8GB เหมาะสำหรับงานพื้นฐาน"
+    },
+    
+    "RAM_16GB": {
+        "name": "Corsair Dominator Platinum 16GB",
+        "category": "RAM",
+        "rarity": "rare",
+        "specs": ["16GB", "5200MHz"],
+        "ram_type": "DDR5",      # <--- เพิ่ม: ประเภทแรม (รุ่นใหม่)
+        "performance_tier": 2,
+        "price": 120,
+        "description": "หน่วยความจำ 16GB ความเร็วสูง DDR5"
+    },
+    
+    "RAM_32GB": {
+        "name": "G.Skill Trident Z Royal 32GB",
+        "category": "RAM",
+        "rarity": "legendary",
+        "specs": ["32GB", "6000MHz"],
+        "ram_type": "DDR5",
+        "performance_tier": 3,
+        "price": 300,
+        "description": "หน่วยความจำ 32GB สำหรับการทำงานหนักและดีไซน์หรูหรา"
+    },
+
 	# ============================================
 	# Fan - Cooling System
 	# ============================================
@@ -349,3 +350,10 @@ func get_specs_text(item_name: String) -> String:
 # ฟังก์ชัน: ดึงทั้งหมด
 func get_all_specs() -> Dictionary:
 	return HARDWARE_SPECS
+
+func calculate_pc_score(parts: Dictionary) -> int:
+	var score = 0
+	for part_id in parts.values():
+		var spec = HardwareSpecs.get_specs(part_id)
+		score += spec.get("performance_tier", 0)
+	return score

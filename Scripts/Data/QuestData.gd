@@ -5,7 +5,8 @@ class_name QuestData
 enum NPC_TYPE {
 	DIALOGUE_ONLY,
 	QUEST_GIVER,
-	QUESTION
+	QUESTION,
+	CUSTOMER
 }
 
 # ข้อมูลพื้นฐาน Quest

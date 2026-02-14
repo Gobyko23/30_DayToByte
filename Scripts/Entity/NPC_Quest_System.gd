@@ -23,7 +23,8 @@ enum NEXT_ACTION {
 enum NPC_TYPE {
 	DIALOGUE_ONLY,
 	QUEST_GIVER,
-	QUESTION
+	QUESTION,
+	CUSTOMER
 }
 
 @export var npc_type: NPC_TYPE = NPC_TYPE.QUEST_GIVER
@@ -123,33 +124,34 @@ func get_current_interaction() -> Dictionary:
 		"state": NPC_STATE.NONE
 	}
 
+	# 1. กรณี NPC คุยเล่นอย่างเดียว
 	if npc_type == NPC_TYPE.DIALOGUE_ONLY:
 		result.dialogues = NonQuest_Dialogue
 		result.state = NPC_STATE.NONE
 		return result
 
-	# หาเควสที่เหมาะสม
+	# หาเควสที่เกี่ยวข้อง
 	current_processing_quest = _find_relevant_quest()
 
-	# ถ้าไม่มีเควสให้ทำแล้ว
+	# 2. กรณีไม่มีเควสที่ตรงเงื่อนไขเหลืออยู่เลย
 	if current_processing_quest == null:
 		result.dialogues = ["ฉันไม่มีงานอะไรให้ทำในตอนนี้ ลองไปถามคนอื่นดูสิ"]
 		current_state = NPC_STATE.NONE
 		_update_npc_action_state()
-		print("❌ No quest found for NPC: ", npc_name)
+		result.state = current_state
 		return result
 
+	# ดึง ID ไว้ใช้ (เพื่อลดการเขียนซ้ำ)
+	var q_id = current_processing_quest.quest_id
+
 	# ========================================
-	# ของ QUESTION Type
+	# 3. Logic สำหรับ QUESTION Type
 	# ========================================
 	if npc_type == NPC_TYPE.QUESTION:
 		if is_question_answered:
-			# ถ้าตอบแล้ว → NONE state
 			result.dialogues = ["คุณตอบคำถามถูกต้องไปแล้ว ขอบคุณนะ"]
 			current_state = NPC_STATE.COMPLETE_QUEST
-			question_text = ""  # ล้างคำถาม
 		else:
-			# ถ้ายังไม่ตอบ → START_QUESTION state
 			question_text = current_processing_quest.question_ask
 			result.dialogues = current_processing_quest.questions_dialogue.duplicate()
 			current_state = NPC_STATE.START_QUESTION
@@ -159,50 +161,61 @@ func get_current_interaction() -> Dictionary:
 		return result
 
 	# ========================================
-	# ของ QUEST_GIVER Type
+	# 4. Logic สำหรับ CUSTOMER (ประกอบคอม)
 	# ========================================
-	var q_id = current_processing_quest.quest_id
-	print("🎯 Processing quest for NPC ", npc_name, ": ", current_processing_quest.quest_name, " (ID: ", q_id, ")")
+	if npc_type == NPC_TYPE.CUSTOMER:
+		# ยังไม่ได้รับงาน
+		if not QuestManager.is_quest_active(q_id) and not QuestManager.is_quest_completed(q_id):
+			result.dialogues = current_processing_quest.give_quest_dialogue.duplicate()
+			current_state = NPC_STATE.START_QUEST 
+			
+		# รับงานไปแล้ว แต่ยังทำไม่เสร็จ
+		elif QuestManager.is_quest_active(q_id) and not current_processing_quest.is_completed:
+			if not can_complete_quest():
+				result.dialogues = current_processing_quest.inprocess_dialogue.duplicate()
+				current_state = NPC_STATE.NONE
+			else:
+				# ของครบ (ใช้ START_QUESTION เพื่อให้ NPC_Script โชว์ปุ่ม Accept)
+				result.dialogues = current_processing_quest.complete_quest_dialogue.duplicate()
+				current_state = NPC_STATE.START_QUESTION 
+		
+		# งานสำเร็จแล้ว
+		elif QuestManager.is_quest_completed(q_id):
+			result.dialogues = ["คอมพิวเตอร์ที่ใช้งานอยู่ตอนนี้ดีมากเลยครับ!"]
+			current_state = NPC_STATE.NONE
+
+		_update_npc_action_state()
+		result.state = current_state
+		return result
+
+	# ========================================
+	# 5. Logic สำหรับ QUEST_GIVER (ส่งของ/เควสปกติ)
+	# ========================================
+	# หมายเหตุ: ตรงนี้ไม่ต้องใส่ if npc_type == QUEST_GIVER ก็ได้ 
+	# เพราะ NPC ประเภทอื่นถูก return ออกไปหมดแล้ว
 	
-	# กรณี: ยังไม่เคยรับเควสนี้ (ไม่ Active และไม่ Completed)
 	if not QuestManager.is_quest_active(q_id) and not QuestManager.is_quest_completed(q_id):
 		result.dialogues = current_processing_quest.give_quest_dialogue.duplicate()
 		current_state = NPC_STATE.START_QUEST
-		has_talked_to_npc = true
-		print("📌 Quest status: NEW (ready to give)")
 	
-	# กรณี: รับไปแล้ว แต่ยังทำไม่เสร็จ
 	elif QuestManager.is_quest_active(q_id) and not current_processing_quest.is_completed:
-			# 🔥 เพิ่มการเช็ค: ถ้าเงื่อนไขในตัว QuestData ยังไม่ผ่าน (ของไม่ครบ)
 		if not can_complete_quest():
 			result.dialogues = current_processing_quest.inprocess_dialogue.duplicate()
 			current_state = NPC_STATE.NONE
-			print("📌 Quest status: IN PROGRESS (Items not enough: %d/%d)" % [current_processing_quest.current_amount, current_processing_quest.required_amount])
 		else:
+			# เตรียมส่งเควส
 			result.dialogues = current_processing_quest.complete_quest_dialogue.duplicate()
 			for reward_line in current_processing_quest.reward_dialogue:
 				result.dialogues.append(reward_line)
 			current_state = NPC_STATE.COMPLETE_QUEST
-			print("📌 Quest status: READY TO SUBMIT (Conditions met!)")
-	# กรณี: ทำเงื่อนไขเสร็จแล้ว
-	elif current_processing_quest.is_completed and QuestManager.is_quest_active(q_id):
-		result.dialogues = current_processing_quest.complete_quest_dialogue.duplicate()
-		# เพิ่ม reward_dialogue
-		for reward_line in current_processing_quest.reward_dialogue:
-			result.dialogues.append(reward_line)
-		current_state = NPC_STATE.COMPLETE_QUEST
-		print("📌 Quest status: READY TO SUBMIT")
 	
-	# กรณี: ส่งเควสไปเรียบร้อยแล้ว
 	elif QuestManager.is_quest_completed(q_id):
 		result.dialogues = ["ขอบคุณที่ช่วยเหลือฉันเมื่อคราวก่อนนะ"]
 		current_state = NPC_STATE.NONE
-		print("📌 Quest status: COMPLETED")
 	
 	_update_npc_action_state()
 	result.state = current_state
 	return result
-
 
 # ---------------------------------------------------------
 # ฟังก์ชันภายใน: หา Quest ที่ผู้เล่นควรทำกับ NPC นี้

@@ -369,6 +369,34 @@ func _on_question_accept_pressed() -> void:
 			print("📢 Showing question_ui")
 		
 		return
+	
+# ========================================
+	# ภาคแยกสำหรับ CUSTOMER (แก้ปัญหาที่ 1 และ 2)
+	# ========================================
+	if quest_system.npc_type == NPCQuestSystem.NPC_TYPE.CUSTOMER:
+		print("🛠️ CUSTOMER MODE: Processing PC Building...")
+		is_question_phase = false
+		
+		# 1. แสดงบทพูดสำหรับ Customer เท่านั้น (complete_quest_dialogue)
+		if quest_system.current_processing_quest:
+			current_dialogue_queue.assign(quest_system.current_processing_quest.complete_quest_dialogue)
+			current_line_index = 0
+			show_dialogue()
+		
+		# 2. รอ 1 วินาทีตามเงื่อนไข
+		await get_tree().create_timer(1.0).timeout
+		
+		# 3. จบการสนทนา (End Dialogue) ก่อนเข้า State ใหม่
+		end_dialogue(true)
+		
+		# 4. แสดงสถานะประกอบคอม (จะไม่ไปเรียก Question UI แน่นอน)
+		var pause_node = get_tree().root.find_child("Pause", true, false)
+		if pause_node and quest_system and quest_system.current_processing_quest:
+			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
+			print("PC Building State: ON")
+		
+		# **สำคัญ**: ต้อง return ตรงนี้เพื่อไม่ให้ Code ไหลไปทำงานส่วนล่าง
+		return
 
 
 # ========================================

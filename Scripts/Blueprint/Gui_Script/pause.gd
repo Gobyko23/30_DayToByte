@@ -439,3 +439,7 @@ func show_question_ui_for_answer(question_text: String) -> void:
 	text_ans.placeholder_text = question_text
 	question_label.text = str(current_npc.quest_system.question_text)
 	text_ans.grab_focus()
+
+func show_building_process():
+	print("YAYYYYYYYYYYY")
+	question_ui.visible = true
