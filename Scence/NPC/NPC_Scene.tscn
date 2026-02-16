@@ -230,7 +230,7 @@ vertical_alignment = 1
 transform = Transform3D(0.315, 0, 0, 0, 0.315, 0, 0, 0, 0.315, -2.10552, 1.51946, -0.0258)
 visible = false
 pixel_size = 0.0901
-billboard = 2
+billboard = 1
 texture_filter = 0
 texture = ExtResource("3_32ix6")
 

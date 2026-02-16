@@ -43,6 +43,7 @@ project/assembly_name="Demo_101"
 Npc=""
 interactable=""
 Removed_Item=""
+Item=""
 
 [input]
 

@@ -12,6 +12,7 @@ extends Node3D
 @onready var typing_sfx: AudioStreamPlayer = %TypingSFX
 @onready var success_sfx: AudioStreamPlayer = $Pause/SuccessSFX
 @onready var npc_spawner = get_tree().get_first_node_in_group("NPC_Spawner_System")
+@onready var item_spawner = get_tree().get_first_node_in_group("Item_Spawner_System")
 var last_visible_count: int = 0
 
 func _ready():
@@ -30,7 +31,6 @@ func _ready():
 		player.global_position = player_spawn.global_position
 		print("📍 Player position set to spawn point")
 
-	call_deferred("_spawn_npcs_on_start")
 	# 4. เชื่อมต่อ Signal ต่างๆ
 	SaveAndLoad.request_load.connect(_on_request_load)
 	SaveAndLoad.request_save.connect(_on_request_save)
@@ -61,12 +61,6 @@ func _ready():
 		print("⚠️ No save slot specified") 
 	'''
 
-
-func _spawn_npcs_on_start():
-	var spawner = get_tree().get_first_node_in_group("NPC_Spawner_System")
-	if spawner:
-		print("🎯 Scene Load: สั่ง Spawner สร้าง NPC สำหรับวันที ", time_node.day)
-		spawner.spawn_random_npcs(time_node.day)
 
 func _on_countdown_finished() -> void:
 	"""เรียกเมื่อเวลานับถ่อยหลังเสร็จ"""
@@ -204,6 +198,14 @@ func _on_next_pressed() -> void:
 		spawner.spawn_random_npcs(time_node.day)
 	else:
 		print("❌ หา Node ในกลุ่ม NPC_Spawner_System ไม่เจอเลย!")
+	
+	# --- ส่วนที่ต้องเพิ่ม: จัดการ Item Spawner ---
+	var i_spawner = get_tree().get_first_node_in_group("Item_Spawner_System")
+	if i_spawner:
+		print("📦 เจอ Item Spawner แล้ว กำลังสั่งให้สุ่มไอเทม...")
+		i_spawner.spawn_random_items() # เรียกฟังก์ชันสุ่มไอเทม
+	else:
+		print("⚠️ ไม่เจอ Item Spawner (ถ้ายังไม่ได้สร้างให้ข้ามส่วนนี้ไป)")
 
 	# 2. บันทึกค่าวันที่ "ล่าสุด" ที่ TimeNode ถืออยู่ลงใน PlayerData
 	# (ปกติ TimeManager จะบวกวันเพิ่มให้แล้วเมื่อจบ Countdown)

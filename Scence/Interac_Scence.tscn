@@ -7,7 +7,6 @@
 [ext_resource type="AudioStream" uid="uid://b3psnrnxybylf" path="res://Assets/SFX/pickupSFX_1.wav" id="5_ywkrd"]
 [ext_resource type="AudioStream" uid="uid://cmts7jfxrlc0p" path="res://Assets/SFX/OpenBox/OpeningBox1.wav" id="6_ckggs"]
 
-
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8wiu1"]
 rough = true
 
@@ -383,7 +382,7 @@ _data = {
 &"RESET": SubResource("Animation_ckggs")
 }
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" groups=["Item"]]
 
 [node name="TheBox" type="RigidBody3D" parent="." groups=["interactable"]]
 disable_mode = 1

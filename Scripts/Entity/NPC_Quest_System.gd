@@ -127,7 +127,7 @@ func get_current_interaction() -> Dictionary:
 
 	# 1. กรณี NPC คุยเล่นอย่างเดียว
 	if npc_type == NPC_TYPE.DIALOGUE_ONLY:
-		result.dialogues = NonQuest_Dialogue
+		result.dialogues = [NonQuest_Dialogue.pick_random()]
 		result.state = NPC_STATE.NONE
 		return result
 

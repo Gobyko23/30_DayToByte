@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ipd12coc2b2d"
-path="res://.godot/imported/Trash.png-ebb6c366703bfd0cd1ae6bb97dcd9d14.ctex"
+uid="uid://fvh30kxnl0xn"
+path="res://.godot/imported/citybits_texture.png-fd39332a2cc578fcfcc19459296cef63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Models/Trash.png"
-dest_files=["res://.godot/imported/Trash.png-ebb6c366703bfd0cd1ae6bb97dcd9d14.ctex"]
+source_file="res://Scence/texture/citybits_texture.png"
+dest_files=["res://.godot/imported/citybits_texture.png-fd39332a2cc578fcfcc19459296cef63.ctex"]
 
 [params]
 

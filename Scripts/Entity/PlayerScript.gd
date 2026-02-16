@@ -27,6 +27,13 @@ var hold_timer :float= 0.0
 var is_holding :bool= false
 
 func _physics_process(delta: float) -> void:
+
+	# ดึงค่า Rotation ของกล้องในแกน Y
+	var camera_rotation_y = get_viewport().get_camera_3d().global_rotation.y
+    
+    # สั่งให้ Player หันตามแกน Y ของกล้อง
+    # ใช้ lerp_angle เพื่อให้การหมุนดูนุ่มนวล
+	rotation.y = lerp_angle(rotation.y, camera_rotation_y, delta * 10.0)
 	# จัดการปุ่มกดระหว่างคุยกับ NPC
 	if is_talking and talking_npc:
 		# ป้องกันการกดข้ามบทสนทนาเมื่อกำลังแสดง Question UI

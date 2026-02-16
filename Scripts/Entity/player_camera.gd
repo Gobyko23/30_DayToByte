@@ -17,6 +17,20 @@ var mouse_offset := Vector2.ZERO
 var focus_target: Node3D = null          # NPC ที่กำลังคุย
 var is_talking := false
 
+# เพิ่มตัวแปรและฟังก์ชันใน player_camera.gd
+var is_custom_view := false
+var custom_offset := Vector3.ZERO
+var custom_look_target: Node3D = null
+
+func set_custom_view(new_offset: Vector3):
+	is_custom_view = true
+	custom_offset = new_offset
+	custom_look_target = target
+
+func reset_view():
+	is_custom_view = false
+	is_talking = false # คืนค่าสถานะคุยด้วย
+
 func focus_on(npc: Node3D):
 	is_talking = true
 	focus_target = npc
@@ -71,7 +85,10 @@ func _process(delta):
 			delta * smooth_speed
 		)
 		# ===== 👆 จบตรงนี้ =====
-		
+	elif is_custom_view:
+		# 🔥 โหมดพื้นที่พิเศษ (Trigger)
+		look_target = custom_look_target
+		desired_pos = custom_look_target.global_position + custom_offset	
 	else:
 		# 🟢 ปกติ → ตาม Player
 		look_target = target
