@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://31u2q0qwp1wa" path="res://Scence/ForeGround/scence_bg_3.png" id="3_ijsrt"]
 [ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/Entity/player_camera.gd" id="4_cpf1t"]
 [ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Scripts/Blueprint/Gui_Script/SaveUi.gd" id="6_2hect"]
-[ext_resource type="Texture2D" uid="uid://c17dwbtd8ksgh" path="res://Scence/gltf/citybits_texture.png" id="6_8udgm"]
+[ext_resource type="Texture2D" uid="uid://dgk66jovbem2f" path="res://Scence/gltf/citybits_texture.png" id="6_8udgm"]
 [ext_resource type="Texture2D" uid="uid://sr2pk0h5x5a4" path="res://Pic/wall/wallll_0.png" id="6_86f4d"]
 [ext_resource type="Texture2D" uid="uid://ucno4wihkfub" path="res://Assets/Models/Prop_1.png" id="7_d14tu"]
 [ext_resource type="Script" uid="uid://cdwt3v60femep" path="res://Scripts/Blueprint/Gui_Script/pause.gd" id="7_e6uwr"]
@@ -3054,7 +3054,9 @@ Dialogoffset = Vector3(0.69, 0.205, 2.415)
 [node name="TimeNode" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_pi7ar")
+countdown_duration_seconds = 1
 autostart_countdown = false
+max_days = 1
 
 [node name="NpcSpawnNode" type="Node3D" parent="." groups=["NPC_Spawner_System"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.9146, 0, 0)
@@ -3746,7 +3748,6 @@ layer = 10
 visible = false
 
 [node name="EndUi" type="Control" parent="EndLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
