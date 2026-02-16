@@ -102,8 +102,14 @@ func _get_drag_data(at_position: Vector2):
 	if index == -1: return null
 	
 	var item_full_text = get_item_text(index) # "CPU_Intel_i5 : 1"
-	var item_name = item_full_text.split(" : ")[0] # ดึงแค่ "CPU_Intel_i5"
-	
+	var item_id = item_full_text.split(" : ")[0] # ดึงแค่ "CPU_Intel_i5"
+	var item_icon = get_item_icon(index)
+
+	var category = _get_item_category(item_id).to_upper()
+
+    # ✅ สั่งให้ Slot ที่ประเภทตรงกันแสดงตัวออกมา
+	get_tree().call_group("slot_" + category, "show_highlight", true)
+
 	# สร้างหน้าตาไอคอนตอนที่กำลังลาก (Drag Preview)
 	var preview = TextureRect.new()
 	preview.texture = get_item_icon(index)
@@ -112,15 +118,20 @@ func _get_drag_data(at_position: Vector2):
 	set_drag_preview(preview)
 	
 	# ส่งข้อมูล Dictionary ของไอเทมที่ลาก
-	return { "item_name": item_name, "category": _get_item_category(item_name) }
+	return { "item_id": item_id, "category": _get_item_category(item_id),"icon_texture": item_icon }
 
-func _get_item_category(item_name: String) -> String:
-	# ใช้ HardwareSpecs หรือ Match เพื่อหา Category
-	if "CPU" in item_name: return "CPU"
-	if "GPU" in item_name: return "GPU"
-	if "RAM" in item_name: return "Ram"
-	if "MainBoard" in item_name: return "MainBoard"
-	if "Case" in item_name: return "Case"
-	if "Fan" in item_name: return "Fan"
-	if "PowerSupply" in item_name: return "PowerSupply"
+func _get_item_category(item_id: String) -> String:
+    # วิธีที่ชัวร์ที่สุดคือดึงจาก HardwareSpecs โดยตรงครับ
+	var specs = HardwareSpecs.get_specs(item_id)
+	if not specs.is_empty():
+		return specs.get("category", "None")
+    
+    # ถ้าใน Specs ไม่มี ให้ใช้ Logic เดิมของคุณเป็นแผนสำรอง
+	if "CPU" in item_id: return "CPU"
+	if "GPU" in item_id: return "GPU"
+	if "RAM" in item_id: return "RAM"
+	if "MainBoard" in item_id: return "MainBoard"
+	if "Case" in item_id: return "Case"
+	if "Fan" in item_id: return "Fan"
+	if "PowerSupply" in item_id: return "PowerSupply"
 	return "None"

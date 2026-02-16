@@ -13,7 +13,9 @@ func update_item(item: String, amount: int):
 		Inventory.erase(item)
 	emit_signal("inventory_changed")
 
-
+func reset_inventory():
+	Inventory.clear()
+	emit_signal("inventory_changed")
 
 # ----------------------------
 #  ฟังก์ชันสุ่มแบบ Weighted

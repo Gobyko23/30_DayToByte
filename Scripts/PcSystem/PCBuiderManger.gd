@@ -6,51 +6,43 @@ var current_build: Dictionary = {
 	"CPU": null,
 	"RAM": null,
 	"GPU": null,
-	"PowerSupply": null
+	"PowerSupply": null,
+	"Fan": null,    
+	"Case": null    
 }
 
 # อ้างอิง Node UI (ต้องลากมาใส่เองใน Editor)
-@onready var inventory_container = $HBoxContainer/InventoryPanel/GridContainer
+@onready var success_sfx: AudioStreamPlayer = %SuccessSFX
 @onready var status_label = $StatusLabel
-@onready var slots = {
-	"MainBoard": $CaseArea/Slot_MainBoard,
-	"CPU": $CaseArea/Slot_CPU,
-	"GPU": $CaseArea/Slot_GPU,
-	"RAM": $CaseArea/Slot_RAM,
-	"PowerSupply": $CaseArea/Slot_PSU
-}
+var current_npc: NPC = null
+var slots: Dictionary = {}
+
 
 func _ready():
-	refresh_inventory_ui()
+	slots = {
+		"MainBoard": %Slot_MainBoard,
+		"CPU": %Slot_CPU,
+		"GPU": %Slot_GPU,
+		"RAM": %Slot_RAM,
+		"PowerSupply": %Slot_PSU,
+		"Fan": %Slot_Fan,
+		"Case": %Slot_Case
+	}
+	print("🔍 ตรวจสอบ Slot CPU: ", %Slot_CPU)
 	update_build_status()
 
-# 1. โหลดของจาก Inventory_System มาแสดง
-func refresh_inventory_ui():
-	# เคลียร์ของเก่าใน UI
-	for child in inventory_container.get_children():
-		child.queue_free()
-	
-	# วนลูปของในกระเป๋า
-	for item_id in InventorySystem.Inventory.keys():
-		var amount = InventorySystem.Inventory[item_id]
-		if amount > 0:
-			create_inventory_slot(item_id, amount)
-
-func create_inventory_slot(item_id: String, amount: int):
-	# สร้างปุ่มหรือไอคอนสำหรับลาก (Drag Source)
-	var btn = Button.new()
-	btn.text = item_id + " (x" + str(amount) + ")"
-	# ตรงนี้ต้องเขียน script ย่อยให้ปุ่มเพื่อรองรับ get_drag_data()
-	btn.set_script(load("res://Scripts/DraggableItem.gd")) 
-	btn.set_meta("item_id", item_id)
-	inventory_container.add_child(btn)
+func _process(delta):
+	var npc_nodes = get_tree().get_nodes_in_group("Npc")
+	for npc in npc_nodes:
+		if not npc:
+			continue
 
 # 2. ฟังก์ชันตรวจสอบ Compatibility (หัวใจสำคัญ)
 func check_compatibility(part_category: String, item_id: String) -> String:
 	var new_part_data = HardwareSpecs.get_specs(item_id)
 	
 	# กฎที่ 1: ต้องใส่ Mainboard ก่อนใส่ CPU/RAM/GPU
-	if part_category != "MainBoard" and part_category != "PowerSupply":
+	if part_category != "MainBoard" and part_category != "PowerSupply" and part_category != "Case":
 		if current_build["MainBoard"] == null:
 			return "ต้องติดตั้ง Mainboard ก่อน!"
 			
@@ -85,7 +77,6 @@ func install_part(category: String, item_id: String):
 	# อัปเดต UI Slot ให้เปลี่ยนรูป
 	# slots[category].texture = load("res://Path/To/Icon.png") 
 	
-	refresh_inventory_ui()
 	update_build_status()
 
 # 4. คำนวณ Wattage รวม
@@ -107,3 +98,77 @@ func update_build_status():
 		status_label.modulate = Color.RED # ไฟไม่พอ!
 	else:
 		status_label.modulate = Color.GREEN
+# ฟังก์ชันตรวจสอบว่าประกอบครบหรือยัง
+func is_build_complete() -> bool:
+	for category in current_build:
+		if current_build[category] == null:
+			# ถ้ามีแม้แต่ชิ้นเดียวที่เป็น null แปลว่ายังไม่ครบ
+			return false
+	return true
+
+# ใน NPC_Scirpt.gd (ตรงจุดที่คุณสั่งเปิดหน้าประกอบคอม)
+func open_pc_builder():
+	var manager = get_tree().get_first_node_in_group("PCBuilderManager")
+	if manager:
+		manager.current_npc = self  # ✅ ส่งตัวเองไปให้ Manager จำไว้
+		manager.visible = true      # เปิดหน้าจอประกอบคอม
+
+# ใน PCBuilderManager.gd
+
+func _on_accept_btn_pc_pressed() -> void:
+	if is_build_complete():
+		# ✅ ใช้ current_npc ที่ได้มาจากการฝากไว้ตอนเปิดเครื่อง
+		if current_npc and current_npc.quest_system:
+			var success = current_npc.quest_system.complete_pc_build_quest()
+			
+			if success:
+				print("✅ ประกอบคอมส่งงานสำเร็จ!")
+				success_sfx.play()
+				status_label.text = "[color=green]สำเร็จ![/color]"
+				await get_tree().create_timer(1.0).timeout # รอเสียงเล่นจบก่อนค่อยปิด
+				self.visible = false
+				current_npc = null # เคลียร์ค่าออกเมื่อจบงาน
+				
+			else:
+				print("❌ เงื่อนไขเควสไม่ถูกต้อง")
+		else:
+			# ถ้า current_npc เป็น null ให้ลองหาจากกลุ่ม ActiveNPC เป็นแผนสำรอง
+			var active_npcs = get_tree().get_nodes_in_group("ActiveNPC")
+			if active_npcs.size() > 0:
+				current_npc = active_npcs[0]
+				_on_accept_btn_pc_pressed() # รันฟังก์ชันซ้ำอีกรอบ
+			else:
+				status_label.text = "[color=red]ไม่พบข้อมูลลูกค้า![/color]"
+	else:
+		status_label.text = "[color=yellow]ยังติดตั้งอุปกรณ์ไม่ครบ![/color]"
+
+# ใน PCBuilderManager.gd
+
+# ใน PCBuiderManger.gd
+
+func _on_cancle_btn_pc_pressed() -> void:
+	print("--- เริ่มกระบวนการ Cancel ---")
+	
+	# 1. คืนของ (รันได้ปกติ)
+	for category in current_build.keys():
+		if current_build[category] != null:
+			InventorySystem.update_item(current_build[category], 1)
+			current_build[category] = null
+			
+	# 2. รีเซ็ต Slot
+	for slot_name in slots.keys():
+		var slot_node = slots[slot_name]
+		
+		# ตรวจสอบว่า slot_node ไม่ใช่ null
+		if slot_node != null:
+			if slot_node.has_method("reset_slot"):
+				slot_node.reset_slot()
+			else:
+				# กรณีฉุกเฉิน: ถ้าหา func ไม่เจอแต่มี Node ให้ล้างมือเองเลย
+				slot_node.texture = null
+				slot_node.visible = false
+		else:
+			print("⚠️ คำเตือน: ระบบยังหา Node '", slot_name, "' ไม่เจอ (Null)")
+
+	update_build_status()
+	self.visible = false

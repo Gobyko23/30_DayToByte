@@ -102,6 +102,7 @@ func _init_random_quests() -> void:
 
 	available_quests.shuffle()
 	var count_to_add = min(random_quest_amount, available_quests.size())
+	print("DEBUG: Available Quests for ", npc_name, ": ", available_quests.size())
     
 	for i in range(count_to_add):
 		var selected_quest = available_quests[i]
@@ -175,9 +176,9 @@ func get_current_interaction() -> Dictionary:
 				result.dialogues = current_processing_quest.inprocess_dialogue.duplicate()
 				current_state = NPC_STATE.NONE
 			else:
-				# ของครบ (ใช้ START_QUESTION เพื่อให้ NPC_Script โชว์ปุ่ม Accept)
+				question_text = current_processing_quest.question_text # หรือฟิลด์ที่เก็บสเปคคอม
 				result.dialogues = current_processing_quest.complete_quest_dialogue.duplicate()
-				current_state = NPC_STATE.START_QUESTION 
+				current_state = NPC_STATE.START_QUESTION
 		
 		# งานสำเร็จแล้ว
 		elif QuestManager.is_quest_completed(q_id):
@@ -322,7 +323,41 @@ func on_question_answered(choice_index: int) -> void:
 		is_question_answered = false
 		print("❌ คำตอบผิด!")
 
-
+# ฟังก์ชันสำหรับการจบเควสด้วยการประกอบคอมพิวเตอร์
+func complete_pc_build_quest() -> bool:
+	if current_processing_quest:
+		# 1. เช็คว่าเคยทำเสร็จไปแล้วหรือยัง
+		if is_question_answered:
+			return true
+		
+		print("✅ NPC: ตรวจสอบการประกอบคอมเสร็จสิ้น! กำลังจ่ายรางวัล...")
+		
+		# 2. จ่ายรางวัล (Direct Payment)
+		var reward = current_processing_quest.reward_money
+		if reward > 0:
+			PointSystem.add(reward)
+			print("💰 NPC: จ่ายเงินรางวัลประกอบคอมให้ %d แต้ม" % reward)
+		
+		# 3. จัดการสถานะเควสและ NPC
+		is_question_answered = true
+		current_state = NPC_STATE.COMPLETE_QUEST
+		
+		# บันทึกเควสลงใน QuestManager
+		var q_id = current_processing_quest.quest_id
+		if not QuestManager.completed_quests.has(q_id):
+			QuestManager.completed_quests.append(q_id)
+			if QuestManager.active_quests.has(q_id):
+				QuestManager.active_quests.erase(q_id)
+		
+		# 4. อัปเดต NPC Manager เพื่อจดจำสถานะ
+		var npc_mgr = get_node_or_null("/root/NPCManager")
+		if npc_mgr:
+			npc_mgr.on_npc_interacted(npc_name)
+			_update_npc_action_state()
+		
+		return true
+		
+	return false
 
 
 func check_text_answer(answer: String) -> bool:

@@ -22,6 +22,10 @@ extends CanvasLayer
 @onready var accept_btn: Button = %Accept_btn
 @onready var refuse_btn: Button = %Refuse_btn
 @onready var question_label: RichTextLabel = $Question_ui/ColorRect/VBoxContainer/Question_text
+@onready var pc_builder = get_tree().root.find_child("PCBuilderUI", true, false) as Control
+
+
+
 # UI Container สำหรับแสดงคำถาม
 var question_container: Control = null
 
@@ -31,6 +35,7 @@ func _ready() -> void:
 	Item_amount.visible = false
 	MenuItem.visible = false
 	quest_panel.visible = false
+	pc_builder.visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	# ตั้งค่าปุ่ม Accept/Refuse
@@ -220,6 +225,11 @@ func _on_btm_button_pressed() -> void:
 	
 	if NPCManager.has_method("reset_all_npc_states"):
 		NPCManager.reset_all_npc_states()
+	
+	if InventorySystem.has_method("reset_inventory"):
+		InventorySystem.reset_inventory()
+	
+	PlayerData.current_day = 0
     
     # 2. ปลดล็อก Pause (ถ้าเกมค้าง Pause อยู่)
 	get_tree().paused = false
@@ -442,4 +452,4 @@ func show_question_ui_for_answer(question_text: String) -> void:
 
 func show_building_process():
 	print("YAYYYYYYYYYYY")
-	question_ui.visible = true
+	pc_builder.visible = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=70 format=3 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
 [ext_resource type="Texture2D" uid="uid://b2jxpeeahcg4v" path="res://Scence/BackGround/scence_bg_1.png" id="2_2t52r"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Ingame/Tote.jpg" id="8_2t52r"]
 [ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/ItemSystem/item_list.gd" id="9_au0eo"]
 [ext_resource type="Script" uid="uid://cjhjydyy2el31" path="res://Scripts/ItemSystem/MoneyLabel.gd" id="10_ijsrt"]
+[ext_resource type="Script" uid="uid://b72jdegaxjky8" path="res://Scripts/Entity/NPCSpawner.gd" id="10_kv2uy"]
 [ext_resource type="Script" uid="uid://bgnk7hncuf6lx" path="res://Scripts/Blueprint/Gui_Script/SaveListUi.gd" id="11_i5cv0"]
 [ext_resource type="PackedScene" uid="uid://c8x2ngcxf2atn" path="res://Scripts/Blueprint/Gui_Script/ListBtd.tscn" id="12_oypcv"]
 [ext_resource type="Script" uid="uid://cga2k1c87b0f" path="res://Scripts/Blueprint/Gui_Script/time_panel.gd" id="13_2hect"]
@@ -24,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://d3of4uv7r427x" path="res://Assets/SFX/ClockTick_fast.wav" id="19_i5cv0"]
 [ext_resource type="Script" uid="uid://q4csc17lk5kw" path="res://Scripts/Data/TimeManager.gd" id="19_pi7ar"]
 [ext_resource type="AudioStream" uid="uid://bneclmpybgccy" path="res://Assets/SFX/Success.wav" id="24_oypcv"]
+[ext_resource type="PackedScene" uid="uid://cgcfslx0embdf" path="res://Scence/pc_builder_ui.tscn" id="24_rtsas"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -42,12 +44,6 @@ glow_enabled = true
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_0itcn"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au0eo"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw30y"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2plp7"]
 font_size = 26
@@ -294,10 +290,17 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au0eo"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gw30y"]
+bg_color = Color(0, 0, 0, 1)
+
 [node name="MainGameOutSide" type="Node3D" groups=["interactable"]]
 script = ExtResource("1_jysb6")
 
 [node name="BackGround" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.8138)
 
 [node name="Sprite3D" type="Sprite3D" parent="BackGround"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25378, -32.9623)
@@ -487,6 +490,579 @@ billboard = 1
 alpha_cut = 1
 texture = ExtResource("3_au0eo")
 
+[node name="BackGround2" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 70.3315)
+
+[node name="Sprite3D" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D2" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D3" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.2375, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D4" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7141, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D5" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.2804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D6" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D7" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D8" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D9" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.6989, 8.19524, -19.3273)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D18" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1471, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D19" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.9375, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D20" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.518, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D21" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.8957, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D22" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.538, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D23" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.353, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D15" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2853, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D16" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.9575, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D17" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.198, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D10" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.8282, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D11" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.5277, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D12" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.2117, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D13" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3891, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D14" type="Sprite3D" parent="BackGround2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7192, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="BackGround3" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -169.407, 0, 27.1393)
+
+[node name="Sprite3D" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D2" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D3" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.2375, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D4" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7141, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D5" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.2804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D6" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D7" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D8" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D9" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.6989, 8.19524, -19.3273)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D18" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1471, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D19" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.9375, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D20" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.518, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D21" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.8957, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D22" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.538, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D23" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.353, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D15" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2853, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D16" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.9575, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D17" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.198, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D10" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.8282, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D11" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.5277, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D12" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.2117, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D13" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3891, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D14" type="Sprite3D" parent="BackGround3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7192, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="BackGround4" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 176.613, 0, 27.139)
+
+[node name="Sprite3D" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D2" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D3" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.2375, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D4" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7141, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D5" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.2804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D6" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 106.804, 7.25378, -32.9623)
+pixel_size = 0.095
+billboard = 1
+shaded = true
+alpha_cut = 1
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D7" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D8" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5234, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D9" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72.6989, 8.19524, -19.3273)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D18" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1471, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D19" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.9375, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D20" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -156.518, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D21" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.8957, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D22" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125.538, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D23" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 196.353, 16.164, -67.5394)
+flip_h = true
+modulate = Color(0, 0, 0, 1)
+pixel_size = 0.188
+shaded = true
+alpha_cut = 1
+alpha_scissor_threshold = 0.191
+texture_filter = 0
+texture = ExtResource("2_2t52r")
+
+[node name="Sprite3D15" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2853, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D16" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.9575, 8.19524, -19.3193)
+flip_h = true
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D17" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 108.198, 8.19524, -19.3193)
+pixel_size = 0.095
+alpha_cut = 1
+texture = ExtResource("3_ijsrt")
+
+[node name="Sprite3D10" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.8282, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D11" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.5277, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D12" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.2117, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D13" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3891, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
+[node name="Sprite3D14" type="Sprite3D" parent="BackGround4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7192, 27.3638, -44.2418)
+pixel_size = 0.0425
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_au0eo")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rkrtr")
 
@@ -501,7 +1077,7 @@ shadow_enabled = true
 transform = Transform3D(6.86, 0, 0, 0, 6.86, 0, 0, 0, 6.86, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0)
+transform = Transform3D(5.04, 0, 0, 0, 0.131511, 0, 0, 0, 3.5, 0, 0, 0.110408)
 mesh = SubResource("BoxMesh_0itcn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
@@ -540,6 +1116,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2365, 0.658829, -2.38301)
 [node name="Node3D11" parent="." instance=ExtResource("3_51evp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2365, 0.658829, -2.38301)
 
+[node name="Node3D7" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.52374, 0.658829, 0.0429397)
+
+[node name="Node3D8" parent="." instance=ExtResource("3_51evp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52374, 0.658829, 0.0429397)
+
 [node name="PlayerCamera" type="Camera3D" parent="." node_paths=PackedStringArray("target") groups=["WorldCamera"]]
 script = ExtResource("4_cpf1t")
 target = NodePath("../Player")
@@ -549,158 +1131,75 @@ dialog_fov = 60.0
 fov_speed = 0.93
 Dialogoffset = Vector3(0.69, 0.205, 2.415)
 
-[node name="Npc" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.06948, 1.62521, 0.283262)
-
-[node name="Npc2" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.37916, 1.62521, 6.42662)
-
-[node name="Npc3" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.255542, 1.62521, 6.42662)
-
-[node name="Npc9" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9247, 1.62521, 6.42662)
-
-[node name="Npc10" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14706, 1.62521, 3.51622)
-
-[node name="Npc11" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.17784, 1.62521, 3.51622)
-
-[node name="Npc4" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.53438, 1.62521, 1.14358)
-
-[node name="Npc5" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.9499, 1.62521, 0.283262)
-
-[node name="Npc6" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.6402, 1.62521, 6.42662)
-
-[node name="Npc7" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7638, 1.62521, 6.42662)
-
-[node name="Npc8" parent="." instance=ExtResource("13_rtsas")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.485, 1.62521, 1.14358)
-
 [node name="TimeNode" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("19_pi7ar")
-countdown_duration_seconds = 100
+countdown_duration_seconds = 20
 autostart_countdown = false
+
+[node name="NpcSpawnNode" type="Node3D" parent="." node_paths=PackedStringArray("spawn_points") groups=["NPC_Spawner_System"]]
+script = ExtResource("10_kv2uy")
+npc_scene = ExtResource("13_rtsas")
+spawn_points = [NodePath("P1"), NodePath("P2"), NodePath("P3"), NodePath("P4"), NodePath("P5"), NodePath("P6"), NodePath("P7"), NodePath("P8"), NodePath("P9"), NodePath("P10"), NodePath("P11"), NodePath("P12"), NodePath("P13")]
+npc_min_spawn = 5
+npc_max_spawn = 13
+customer_chance = 0.6
+
+[node name="P1" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.661618, 0)
+gizmo_extents = 2.55
+
+[node name="P2" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.03923, 0.661618, 0)
+gizmo_extents = 2.55
+
+[node name="P3" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9997, 0.661618, 0)
+gizmo_extents = 2.55
+
+[node name="P4" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9997, 0.661618, 4.44706)
+gizmo_extents = 2.55
+
+[node name="P5" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94947, 0.661618, 4.44706)
+gizmo_extents = 2.55
+
+[node name="P6" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94947, 0.661618, 8.29261)
+gizmo_extents = 2.55
+
+[node name="P7" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4861, 0.661618, 8.29261)
+gizmo_extents = 2.55
+
+[node name="P8" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4861, 0.661618, -6.01677)
+gizmo_extents = 2.55
+
+[node name="P9" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1348, 0.661618, -6.01677)
+gizmo_extents = 2.55
+
+[node name="P10" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7048, 0.661618, -6.01677)
+gizmo_extents = 2.55
+
+[node name="P11" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.7048, 0.661618, 2.2103)
+gizmo_extents = 2.55
+
+[node name="P12" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.03066, 0.661618, 2.2103)
+gizmo_extents = 2.55
+
+[node name="P13" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.03066, 0.661618, 7.46042)
+gizmo_extents = 2.55
 
 [node name="Pause" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 script = ExtResource("7_e6uwr")
-
-[node name="WaitingGui" type="Control" parent="Pause"]
-visible = false
-z_as_relative = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Begin" type="Panel" parent="Pause/WaitingGui"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_au0eo")
-
-[node name="Text_Begin" type="RichTextLabel" parent="Pause/WaitingGui/Begin"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 281.0
-offset_top = 158.0
-offset_right = -281.0
-offset_bottom = -158.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/normal_font_size = 106
-bbcode_enabled = true
-text = "Day ..."
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EndRound" type="Panel" parent="Pause/WaitingGui"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gw30y")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause/WaitingGui/EndRound"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 4.0
-offset_right = -8.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 120
-
-[node name="Text_End" type="RichTextLabel" parent="Pause/WaitingGui/EndRound/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 106
-bbcode_enabled = true
-text = "
-Time Out!"
-fit_content = true
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Pause/WaitingGui/EndRound"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -550.0
-offset_top = 81.0
-offset_right = 551.0
-offset_bottom = 159.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 475
-
-[node name="Back" type="Button" parent="Pause/WaitingGui/EndRound/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 51
-text = "<Back to Menu"
-
-[node name="Next" type="Button" parent="Pause/WaitingGui/EndRound/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 51
-text = "NextDay>"
-
-[node name="TypingSFX" type="AudioStreamPlayer" parent="Pause/WaitingGui"]
-unique_name_in_owner = true
-stream = ExtResource("17_pi7ar")
-pitch_scale = 1.1
-bus = &"SFXBus"
 
 [node name="Interact_Screen" type="Control" parent="Pause"]
 layout_mode = 3
@@ -734,7 +1233,6 @@ vertical_alignment = 1
 
 [node name="HoldBar" type="ProgressBar" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -768,10 +1266,10 @@ script = ExtResource("7_pi7ar")
 [node name="ItemList" type="ItemList" parent="Pause/Interact_Screen"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 766.0
-offset_top = 12.0
-offset_right = 1147.0
-offset_bottom = 249.0
+offset_left = 726.0
+offset_top = 26.0
+offset_right = 1086.0
+offset_bottom = 263.0
 theme_override_colors/guide_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_constants/h_separation = 10
@@ -950,6 +1448,10 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_oypcv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sj0iv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kv2uy")
 text = "X"
+
+[node name="PCBuilderUI" parent="Pause" instance=ExtResource("24_rtsas")]
+visible = false
+mouse_filter = 1
 
 [node name="PauseGui" type="Control" parent="Pause"]
 unique_name_in_owner = true
@@ -1268,6 +1770,7 @@ layer = 10
 visible = false
 
 [node name="EndUi" type="Control" parent="EndLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1326,8 +1829,124 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 31
 text = "Back To menu"
 
-[connection signal="pressed" from="Pause/WaitingGui/EndRound/HBoxContainer/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="Pause/WaitingGui/EndRound/HBoxContainer/Next" to="." method="_on_next_pressed"]
+[node name="Waiting" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="WaitingGui" type="Control" parent="Waiting"]
+unique_name_in_owner = true
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Begin" type="Panel" parent="Waiting/WaitingGui"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_au0eo")
+
+[node name="Text_Begin" type="RichTextLabel" parent="Waiting/WaitingGui/Begin"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 281.0
+offset_top = 158.0
+offset_right = -281.0
+offset_bottom = -158.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 106
+bbcode_enabled = true
+text = "Day ..."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndRound" type="Panel" parent="Waiting/WaitingGui"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gw30y")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Waiting/WaitingGui/EndRound"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 120
+
+[node name="Text_End" type="RichTextLabel" parent="Waiting/WaitingGui/EndRound/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 106
+bbcode_enabled = true
+text = "
+Time Out!"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Waiting/WaitingGui/EndRound"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -550.0
+offset_top = 81.0
+offset_right = 551.0
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 475
+
+[node name="Back" type="Button" parent="Waiting/WaitingGui/EndRound/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "<Back to Menu"
+
+[node name="Next" type="Button" parent="Waiting/WaitingGui/EndRound/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "NextDay>"
+
+[node name="TypingSFX" type="AudioStreamPlayer" parent="Waiting/WaitingGui"]
+unique_name_in_owner = true
+stream = ExtResource("17_pi7ar")
+pitch_scale = 1.1
+bus = &"SFXBus"
+
 [connection signal="pressed" from="Pause/Interact_Screen/QuestPanel/Exit_btn" to="Pause" method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/ResumeButton" to="Pause" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Pause/PauseGui/ColorRect/CenterContainer/SaveGameButton" to="Pause" method="_on_save_game_button_pressed"]
@@ -1340,3 +1959,5 @@ text = "Back To menu"
 [connection signal="pressed" from="Pause/Question_ui/ColorRect/VBoxContainer/HBoxContainer/Submit" to="Pause" method="_on_submit_pressed"]
 [connection signal="pressed" from="Pause/Question_ui/ColorRect/VBoxContainer/HBoxContainer/Cancle" to="Pause" method="_on_cancle_pressed"]
 [connection signal="pressed" from="EndLayer/EndUi/ColorRect/VBoxContainer/BTMButton" to="Pause" method="_on_btm_button_pressed"]
+[connection signal="pressed" from="Waiting/WaitingGui/EndRound/HBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Waiting/WaitingGui/EndRound/HBoxContainer/Next" to="." method="_on_next_pressed"]

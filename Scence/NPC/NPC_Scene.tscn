@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://co7nieemwi3ku"]
+[gd_scene load_steps=16 format=3 uid="uid://co7nieemwi3ku"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_4hnuf"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_32ix6"]
@@ -29,28 +29,6 @@ content_margin_top = 25.0
 content_margin_right = 25.0
 content_margin_bottom = 25.0
 
-[sub_resource type="Resource" id="Resource_4don6"]
-script = ExtResource("5_dnxf6")
-quest_id = "quest_0011"
-quest_name = "ทดสอบ Quest ประกอบคอม"
-description = "ประกอบคอม"
-reward_money = 15000
-reward_items = Array[String]([])
-target_item_id = ""
-required_amount = 0
-current_amount = 0
-npc_type = 3
-give_quest_dialogue = Array[String](["ประกอบคอม"])
-inprocess_dialogue = Array[String](["ประกอบอยู่"])
-complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
-reward_dialogue = Array[String](["นี่คือรางวัล!"])
-answer_text = "คำตอบที่ถูกต้อง"
-questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
-question_text = "คำถามคืออะไร?"
-question_ask = "001 + 101 = ?"
-accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
-metadata/_custom_type_script = "uid://6oofvb1sj85k"
-
 [sub_resource type="Resource" id="Resource_fydxc"]
 script = ExtResource("5_dnxf6")
 quest_id = "quest_001"
@@ -62,6 +40,50 @@ target_item_id = ""
 required_amount = 0
 current_amount = 0
 npc_type = 0
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "คำตอบที่ถูกต้อง"
+questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
+question_text = "คำถามคืออะไร?"
+question_ask = "001 + 101 = ?"
+accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"
+
+[sub_resource type="Resource" id="Resource_4don6"]
+script = ExtResource("5_dnxf6")
+quest_id = "ฤฤฤ"
+quest_name = "ฆฆฆฆ"
+description = "คำบรรยายของ Quest"
+reward_money = 1000
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
+npc_type = 3
+give_quest_dialogue = Array[String](["(((((?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "คำตอบที่ถูกต้อง"
+questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
+question_text = "ฑฑฑฑฑ"
+question_ask = "001 + 101 = ?"
+accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"
+
+[sub_resource type="Resource" id="Resource_ywat0"]
+script = ExtResource("5_dnxf6")
+quest_id = "quest_001ฟฟ"
+quest_name = "ทดสอบ Questฟฟ"
+description = "คำบรรยายของ Quest"
+reward_money = 100
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
+npc_type = 3
 give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
 inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
 complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
@@ -187,10 +209,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -463.0
-offset_top = -251.0
-offset_right = 463.0
-offset_bottom = 251.0
+offset_left = -380.0
+offset_top = -206.0
+offset_right = 380.0
+offset_bottom = 206.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -200,7 +222,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_ra161")
 bbcode_enabled = true
 text = "จะรับภารกิจหรือไม่
 "
-fit_content = true
 autowrap_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -215,8 +236,7 @@ texture = ExtResource("3_32ix6")
 
 [node name="NPCQuestSystem" type="Node" parent="NPCStatic/NPCRigit"]
 script = ExtResource("4_j7mn5")
-npc_type = 3
-quest_list = Array[ExtResource("5_dnxf6")]([SubResource("Resource_4don6")])
-NonQuest_Dialogue = Array[String](["อะไร?"])
-quest_pool = Array[ExtResource("5_dnxf6")]([SubResource("Resource_fydxc"), ExtResource("6_f24wh"), ExtResource("7_u0u0m"), ExtResource("8_4don6")])
+NonQuest_Dialogue = Array[String](["อะไร?", "ทำไมต้องมาคุยกับฉันหละ?", "นายรู้หรือเปล่าว่าหน่วยข้อมูลที่เล็กที่สุดของคอมพิวเตอร์เรียกว่า Bit มีค่าเป็นเลขฐาน 2 โดยมีแค่ 0 กับ 1", "...."])
+enable_random_quests = true
+quest_pool = Array[ExtResource("5_dnxf6")]([SubResource("Resource_fydxc"), ExtResource("6_f24wh"), ExtResource("7_u0u0m"), ExtResource("8_4don6"), SubResource("Resource_4don6"), ExtResource("6_f24wh"), SubResource("Resource_ywat0")])
 metadata/_custom_type_script = "uid://cm5e18lq2aj0d"

@@ -66,6 +66,12 @@ func _input(event: InputEvent) -> void:
 			next_dialogue()
 			get_tree().root.set_input_as_handled()
 
+# ใน NPC_Scirpt.gd
+func open_pc_builder_logic():
+	var manager = get_tree().get_first_node_in_group("PCBuilderManager")
+	if manager:
+		manager.current_npc = self # 👈 บรรทัดนี้สำคัญที่สุด ถ้าไม่มี Manager จะเป็น null ทันที
+		manager.visible = true
 
 func set_question_buttons(accept_btn: Button, refuse_btn: Button) -> void:
 	question_accept_btn = accept_btn
@@ -116,7 +122,7 @@ func interacting():
 func show_dialogue():
 	"""แสดงบทสนทนาหรือจัดการปุ่ม"""
 	print("\n>>> NPC.show_dialogue() - State: ", NPCQuestSystem.NPC_STATE.keys()[current_npc_state])
-	
+	add_to_group("ActiveNPC")
 	# จัดการกล้อง
 	if not world_camera: 
 		world_camera = get_tree().get_first_node_in_group("WorldCamera")
@@ -306,96 +312,56 @@ func _on_question_accept_pressed() -> void:
 	if not is_question_phase: 
 		return
 	
-	if question_accept_btn:
-		question_accept_btn.visible = false
-	if question_refuse_btn:
-		question_refuse_btn.visible = false
+	# ปิดปุ่มทันที
+	if question_accept_btn: question_accept_btn.visible = false
+	if question_refuse_btn: question_refuse_btn.visible = false
 	
-	
-	print("✅ NPC: Player accepted")
-	
-	# ========================================
-	# START_QUEST: ผู้เล่นตกลงรับเควส
-	# ========================================
-	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUEST:
-		print("📋 QUEST_GIVER: Player accepted quest")
-		is_question_phase = false
-    
-		quest_system.perform_action(current_npc_state)
-		end_dialogue(true) 
-		return
-	
-	# ========================================
-	# START_QUESTION: ผู้เล่นตกลงตอบคำถาม
-	# ========================================
-	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUESTION:
-		print("❓ QUESTION: Player accepted to answer")
+	print("✅ NPC: Player accepted (State: %s)" % NPCQuestSystem.NPC_STATE.keys()[current_npc_state])
 
-		
-		# แสดง accept_question_dialogue
-		is_talking = true
+	# ========================================
+	# 1. กรณี START_QUEST (เหมือนเดิม)
+	# ========================================
+# ใน NPC_Scirpt.gd -> _on_question_accept_pressed()
+	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUESTION:
 		is_question_phase = false
-		
+	
+	# ✅ แยก Logic ตามประเภท NPC ภายในสถานะเดียวกัน
+	if quest_system.npc_type == NPCQuestSystem.NPC_TYPE.CUSTOMER:
+		print("🛠️ CUSTOMER MODE: PC Building...")
 		if quest_system.current_processing_quest:
 			current_dialogue_queue.assign(quest_system.current_processing_quest.accept_question_dialogue)
-		else:
-			current_dialogue_queue = ["ขอบคุณ"]
-		
-		current_line_index = 0
-		print("📢 Showing accept_question_dialogue before question_ui")
-		
-		show_dialogue()
-		
-		# รอ 1 วินาที แล้วแสดง question_ui
-		await get_tree().create_timer(1.0).timeout
-		
-		var pause_node = get_tree().root.find_child("Pause", true, false)
-		if pause_node and quest_system and quest_system.current_processing_quest:
-			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
-			print("📢 Showing question_ui for player to input answer")
-
-		return
-	
-	# ========================================
-	# ASK: ผู้เล่นกำลังตอบคำถาม
-	# ========================================
-	if current_npc_state == NPCQuestSystem.NPC_STATE.ASK:
-		print("❓ ASK: Player accepted - showing question_ui")
-		is_question_phase = false
-		
-		var pause_node = get_tree().root.find_child("Pause", true, false)
-		if pause_node and quest_system and quest_system.current_processing_quest:
-			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
-			print("📢 Showing question_ui")
-		
-		return
-	
-# ========================================
-	# ภาคแยกสำหรับ CUSTOMER (แก้ปัญหาที่ 1 และ 2)
-	# ========================================
-	if quest_system.npc_type == NPCQuestSystem.NPC_TYPE.CUSTOMER:
-		print("🛠️ CUSTOMER MODE: Processing PC Building...")
-		is_question_phase = false
-		
-		# 1. แสดงบทพูดสำหรับ Customer เท่านั้น (complete_quest_dialogue)
-		if quest_system.current_processing_quest:
-			current_dialogue_queue.assign(quest_system.current_processing_quest.complete_quest_dialogue)
 			current_line_index = 0
 			show_dialogue()
 		
-		# 2. รอ 1 วินาทีตามเงื่อนไข
 		await get_tree().create_timer(1.0).timeout
-		
-		# 3. จบการสนทนา (End Dialogue) ก่อนเข้า State ใหม่
 		end_dialogue(true)
-		
-		# 4. แสดงสถานะประกอบคอม (จะไม่ไปเรียก Question UI แน่นอน)
+		open_pc_builder_logic()
 		var pause_node = get_tree().root.find_child("Pause", true, false)
-		if pause_node and quest_system and quest_system.current_processing_quest:
-			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
-			print("PC Building State: ON")
+		if pause_node and quest_system.current_processing_quest:
+			pause_node.show_building_process()
+		return # จบการทำงานของ Customer
+
+	else: # กรณี NPC ประเภท QUESTION ปกติ
+		print("❓ QUESTION: Player accepted to answer")
+		is_talking = true
+		if quest_system.current_processing_quest:
+			current_dialogue_queue.assign(quest_system.current_processing_quest.accept_question_dialogue)
+		current_line_index = 0
+		show_dialogue()
 		
-		# **สำคัญ**: ต้อง return ตรงนี้เพื่อไม่ให้ Code ไหลไปทำงานส่วนล่าง
+		await get_tree().create_timer(1.0).timeout
+		var pause_node = get_tree().root.find_child("Pause", true, false)
+		if pause_node and quest_system.current_processing_quest:
+			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
+		return
+	# ========================================
+	# 3. กรณี ASK (เหมือนเดิม)
+	# ========================================
+	if current_npc_state == NPCQuestSystem.NPC_STATE.ASK:
+		is_question_phase = false
+		var pause_node = get_tree().root.find_child("Pause", true, false)
+		if pause_node and quest_system.current_processing_quest:
+			pause_node.show_question_ui_for_answer(quest_system.current_processing_quest.question_text)
 		return
 
 
@@ -437,15 +403,15 @@ func _on_question_refuse_pressed() -> void:
 
 func on_question_cancle() -> void:
 	if not is_talking: return
-    
+	
 	print("❌ NPC: Player cancelled.")
-    
-    # รีเซ็ตค่าในระบบเควสให้เป็น false
+	
+	# รีเซ็ตค่าในระบบเควสให้เป็น false
 	if quest_system:
 		quest_system.is_question_answered = false
-        # อัปเดตไปยัง Manager ทันทีเพื่อให้ JSON เปลี่ยนจาก true เป็น false
+		# อัปเดตไปยัง Manager ทันทีเพื่อให้ JSON เปลี่ยนจาก true เป็น false
 		quest_system._update_npc_action_state() 
-    
+	
 	current_npc_state = NPCQuestSystem.NPC_STATE.NONE
 	is_question_phase = false
 	end_dialogue(true)

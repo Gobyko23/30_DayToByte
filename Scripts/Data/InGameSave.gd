@@ -4,14 +4,14 @@ extends Node3D
 @onready var player_spawn: Marker3D = $PlayerSpawn
 @onready var end_gui: CanvasLayer = %EndLayer  # เชื่อมต่อกับ endGui ด้วย unique name
 @onready var time_node: Node = %TimeNode
-@onready var waiting_gui: Control = $Pause/WaitingGui
+@onready var waiting_gui: Control = %WaitingGui
 @onready var end_round: Panel = %EndRound
 @onready var begin: Panel = %Begin
-@onready var text_begin: RichTextLabel = $Pause/WaitingGui/Begin/Text_Begin
-@onready var text_end: RichTextLabel = $Pause/WaitingGui/EndRound/VBoxContainer/Text_End
+@onready var text_begin: RichTextLabel = %Text_Begin
+@onready var text_end: RichTextLabel = %Text_End
 @onready var typing_sfx: AudioStreamPlayer = %TypingSFX
 @onready var success_sfx: AudioStreamPlayer = $Pause/SuccessSFX
-
+@onready var npc_spawner = get_tree().get_first_node_in_group("NPC_Spawner_System")
 var last_visible_count: int = 0
 
 func _ready():
@@ -30,6 +30,7 @@ func _ready():
 		player.global_position = player_spawn.global_position
 		print("📍 Player position set to spawn point")
 
+	call_deferred("_spawn_npcs_on_start")
 	# 4. เชื่อมต่อ Signal ต่างๆ
 	SaveAndLoad.request_load.connect(_on_request_load)
 	SaveAndLoad.request_save.connect(_on_request_save)
@@ -59,6 +60,13 @@ func _ready():
 	else:
 		print("⚠️ No save slot specified") 
 	'''
+
+
+func _spawn_npcs_on_start():
+	var spawner = get_tree().get_first_node_in_group("NPC_Spawner_System")
+	if spawner:
+		print("🎯 Scene Load: สั่ง Spawner สร้าง NPC สำหรับวันที ", time_node.day)
+		spawner.spawn_random_npcs(time_node.day)
 
 func _on_countdown_finished() -> void:
 	"""เรียกเมื่อเวลานับถ่อยหลังเสร็จ"""
@@ -168,15 +176,18 @@ func _on_request_load(slot: int) -> void:
 
 func _on_back_pressed() -> void:
 	PlayerData.current_day = 0
+	InventorySystem.reset_inventory()
+	NPCManager.reset_all_npc_states()
+	QuestManager.reset_system()
 	SceneLoader.load_scene("res://Menu_scence/Menu3D.tscn")
 
 
 func _on_next_pressed() -> void:
 	"""เรียกเมื่อกดปุ่ม Next Day ใน endGui"""
 	print("➡️ Next Day button pressed.")
-	    
-    # 1. รีเซ็ตทุกระบบที่เป็น Autoload
-        
+		
+	# 1. รีเซ็ตทุกระบบที่เป็น Autoload
+		
 	if QuestManager.has_method("reset_system"):
 		QuestManager.reset_system()
 	
@@ -187,6 +198,13 @@ func _on_next_pressed() -> void:
 	if player and player_spawn:
 		player.global_position = player_spawn.global_position
 	
+	var spawner = get_tree().get_first_node_in_group("NPC_Spawner_System")
+	if spawner:
+		print("🎯 เจอ Spawner แล้ว กำลังสั่งให้สุ่ม...")
+		spawner.spawn_random_npcs(time_node.day)
+	else:
+		print("❌ หา Node ในกลุ่ม NPC_Spawner_System ไม่เจอเลย!")
+
 	# 2. บันทึกค่าวันที่ "ล่าสุด" ที่ TimeNode ถืออยู่ลงใน PlayerData
 	# (ปกติ TimeManager จะบวกวันเพิ่มให้แล้วเมื่อจบ Countdown)
 	PlayerData.current_day = time_node.day

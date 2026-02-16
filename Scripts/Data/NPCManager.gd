@@ -83,15 +83,17 @@ func set_npc_action_state(npc_name: String, action: int, quest_id: String = "", 
 
 
 # ฟังก์ชัน: ดึง pending action state ของ NPC
+# ใน NPCManager.gd
 func get_npc_action_state(npc_name: String) -> Dictionary:
 	if npc_states.has(npc_name):
 		var state = npc_states[npc_name]
 		return {
 			"action": state.get("pending_action", NEXT_ACTION.NONE),
 			"quest_id": state.get("current_quest_id", ""),
-			"current_processing_quest_id": state.get("current_processing_quest_id", "")
+			"current_processing_quest_id": state.get("current_processing_quest_id", ""),
+			"is_question_answered": state.get("is_question_answered", false) # ✅ เพิ่มบรรทัดนี้
 		}
-	return {"action": NEXT_ACTION.NONE, "quest_id": "", "current_processing_quest_id": ""}
+	return {"action": NEXT_ACTION.NONE, "quest_id": "", "current_processing_quest_id": "", "is_question_answered": false}
 
 
 # ฟังก์ชัน: ดึงสถานะ NPC
@@ -101,6 +103,8 @@ func get_npc_state(npc_name: String) -> Dictionary:
 		# เพิ่ม default value ถ้า key หายไป (backward compatibility)
 		if not state.has("current_processing_quest_id"):
 			state["current_processing_quest_id"] = ""
+		if not state.has("is_question_answered"):
+			state["is_question_answered"] = false
 		return state
 	return {}
 

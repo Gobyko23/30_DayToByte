@@ -1,0 +1,397 @@
+[gd_scene load_steps=23 format=3 uid="uid://cgcfslx0embdf"]
+
+[ext_resource type="Script" uid="uid://c5wsp8kg254p4" path="res://Scripts/PcSystem/PCBuiderManger.gd" id="1_l344w"]
+[ext_resource type="Texture2D" uid="uid://csw8t660dhlbl" path="res://Assets/Gui/Ingame/maxresdefault.jpg" id="2_0jh64"]
+[ext_resource type="Script" uid="uid://b3q6sbahtflx0" path="res://Scripts/PcSystem/SlotScript.gd" id="2_1sqv1"]
+[ext_resource type="Texture2D" uid="uid://bx5vriiwec523" path="res://Assets/Gui/Ingame/Tote.jpg" id="3_1wd6n"]
+[ext_resource type="Script" uid="uid://bqc2f22ibq2v1" path="res://Scripts/ItemSystem/item_list.gd" id="4_1sqv1"]
+[ext_resource type="AudioStream" uid="uid://bneclmpybgccy" path="res://Assets/SFX/Success.wav" id="5_1sqv1"]
+[ext_resource type="AudioStream" uid="uid://b3psnrnxybylf" path="res://Assets/SFX/pickupSFX_1.wav" id="6_l344w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yv34n"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 0.529412)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1wd6n"]
+expand_margin_left = 30.0
+expand_margin_top = 30.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1di1o"]
+bg_color = Color(9.3855e-07, 0.532419, 0.17529, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wd6n"]
+bg_color = Color(0, 0.723773, 0.250707, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1sqv1"]
+bg_color = Color(0.826391, 0, 0.109305, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l344w"]
+bg_color = Color(1, 0.222159, 0.231842, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l344w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jh64"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.6, 0.6, 0.6, 0.0941176)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.000113828, 0.000113828, 0.000113828, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.160784)
+shadow_size = 3
+shadow_offset = Vector2(0.335, 2.845)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xvo1n"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.922825, 0.000689617, 0.922818, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03pej"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_36qhy"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.8, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb1l8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1di1o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o7y2k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_phs2y"]
+
+[node name="PCBuilderUI" type="Control" groups=["PCBuilderManager"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_l344w")
+
+[node name="BgPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yv34n")
+
+[node name="CaseArea" type="Panel" parent="BgPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0208333
+anchor_top = 0.0401235
+anchor_right = 0.381944
+anchor_bottom = 0.682099
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1wd6n")
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot_Case" type="TextureRect" parent="BgPanel/CaseArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.00696325
+anchor_top = 0.0733568
+anchor_right = 0.953266
+anchor_bottom = 0.987872
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0jh64")
+expand_mode = 1
+script = ExtResource("2_1sqv1")
+accepted_category = "Case"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot_MainBoard" type="TextureRect" parent="BgPanel/CaseArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.109663
+anchor_top = 0.202954
+anchor_right = 0.645167
+anchor_bottom = 0.738459
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0jh64")
+expand_mode = 1
+script = ExtResource("2_1sqv1")
+accepted_category = "MainBoard"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot_CPU" type="TextureRect" parent="BgPanel/CaseArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.285719
+anchor_top = 0.286092
+anchor_right = 0.429988
+anchor_bottom = 0.43036
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0jh64")
+expand_mode = 1
+script = ExtResource("2_1sqv1")
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot_GPU" type="TextureRect" parent="BgPanel/CaseArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.156122
+anchor_top = 0.520833
+anchor_right = 0.427542
+anchor_bottom = 0.699335
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0jh64")
+expand_mode = 1
+script = ExtResource("2_1sqv1")
+accepted_category = "GPU"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot_RAM" type="TextureRect" parent="BgPanel/CaseArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.486228
+anchor_top = 0.303208
+anchor_right = 0.571811
+anchor_bottom = 0.48171
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0jh64")
+expand_mode = 1
+script = ExtResource("2_1sqv1")
+accepted_category = "RAM"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot_PSU" type="TextureRect" parent="BgPanel/CaseArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.481337
+anchor_top = 0.718897
+anchor_right = 0.779655
+anchor_bottom = 0.858275
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0jh64")
+expand_mode = 1
+script = ExtResource("2_1sqv1")
+accepted_category = "PowerSupply"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slot_Fan" type="TextureRect" parent="BgPanel/CaseArea"]
+unique_name_in_owner = true
+modulate = Color(0, 1, 1, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13167
+anchor_top = 0.234742
+anchor_right = 0.200136
+anchor_bottom = 0.447477
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0jh64")
+expand_mode = 1
+script = ExtResource("2_1sqv1")
+accepted_category = "Fan"
+metadata/_edit_use_anchors_ = true
+
+[node name="Accept_btn_PC" type="Button" parent="BgPanel"]
+unique_name_in_owner = true
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 69.0
+offset_top = -389.0
+offset_right = 230.0
+offset_bottom = -301.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 31
+theme_override_styles/hover = SubResource("StyleBoxFlat_1di1o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_1wd6n")
+text = "Succes"
+
+[node name="Cancle_btn_PC" type="Button" parent="BgPanel"]
+unique_name_in_owner = true
+visibility_layer = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 337.0
+offset_top = -389.0
+offset_right = 498.0
+offset_bottom = -301.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 31
+theme_override_styles/hover = SubResource("StyleBoxFlat_1sqv1")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l344w")
+text = "Cancle"
+
+[node name="ItemList" type="ItemList" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0373264
+anchor_top = 0.695988
+anchor_right = 0.948785
+anchor_bottom = 0.978395
+theme_override_colors/guide_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/h_separation = 10
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l344w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_0jh64")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_xvo1n")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_03pej")
+theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_36qhy")
+theme_override_styles/selected = SubResource("StyleBoxFlat_bb1l8")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_1di1o")
+theme_override_styles/cursor_unfocused = SubResource("StyleBoxEmpty_o7y2k")
+theme_override_styles/cursor = SubResource("StyleBoxEmpty_phs2y")
+allow_reselect = true
+auto_width = true
+auto_height = true
+text_overrun_behavior = 1
+item_count = 2
+max_columns = 8
+same_column_width = true
+icon_mode = 0
+icon_scale = 0.045
+item_0/icon = ExtResource("3_1wd6n")
+item_1/icon = ExtResource("3_1wd6n")
+script = ExtResource("4_1sqv1")
+metadata/_edit_use_anchors_ = true
+
+[node name="StatusLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.525174
+anchor_top = 0.174383
+anchor_right = 0.953125
+anchor_bottom = 0.317901
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Dadada"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CheckingLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.475694
+anchor_top = 0.554012
+anchor_right = 0.977431
+anchor_bottom = 0.697531
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 27
+bbcode_enabled = true
+text = "Dadada"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SuccessSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_1sqv1")
+volume_db = 1.16
+bus = &"SFXBus"
+
+[node name="DropSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_l344w")
+volume_db = -2.45
+bus = &"SFXBus"
+
+[connection signal="pressed" from="BgPanel/Accept_btn_PC" to="." method="_on_accept_btn_pc_pressed"]
+[connection signal="pressed" from="BgPanel/Cancle_btn_PC" to="." method="_on_cancle_btn_pc_pressed"]
