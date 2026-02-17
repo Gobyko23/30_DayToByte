@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://bvveb05r8hs26"]
+
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="1_m1xt7"]
+
+[resource]
+script = ExtResource("1_m1xt7")
+quest_id = "quest_PC001"
+quest_name = "ทดสอบ Quest PC Build"
+description = "ประกอบคอม"
+reward_money = 8000
+npc_type = 3
+give_quest_dialogue = Array[String](["ประกอบคอมให้หน่อยได้ไหม?"])
+question_ask = ""
+accept_question_dialogue = Array[String](["งั้นเริ่มกันเลยดีกว่า!"])
+metadata/_custom_type_script = "uid://6oofvb1sj85k"

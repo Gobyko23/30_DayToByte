@@ -1,4 +1,4 @@
-[gd_scene load_steps=178 format=4 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=179 format=4 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
 [ext_resource type="Texture2D" uid="uid://b2jxpeeahcg4v" path="res://Scence/BackGround/scence_bg_1.png" id="2_2t52r"]
@@ -35,6 +35,7 @@
 [ext_resource type="AudioStream" uid="uid://bvxccjvmy6gi2" path="res://Assets/SFX/ClockTick.wav" id="18_ijsrt"]
 [ext_resource type="AudioStream" uid="uid://d3of4uv7r427x" path="res://Assets/SFX/ClockTick_fast.wav" id="19_i5cv0"]
 [ext_resource type="Script" uid="uid://q4csc17lk5kw" path="res://Scripts/Data/TimeManager.gd" id="19_pi7ar"]
+[ext_resource type="PackedScene" uid="uid://d4ex8g0083c85" path="res://Scence/NPC/NPCBuilding.tscn" id="20_55plg"]
 [ext_resource type="AudioStream" uid="uid://bneclmpybgccy" path="res://Assets/SFX/Success.wav" id="24_oypcv"]
 [ext_resource type="PackedScene" uid="uid://cgcfslx0embdf" path="res://Scence/pc_builder_ui.tscn" id="24_rtsas"]
 [ext_resource type="Script" uid="uid://bf5epefq3jy3q" path="res://Scripts/Entity/CameraTrigger.gd" id="35_iqgxn"]
@@ -1121,8 +1122,6 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_au0eo"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d14tu"]
 content_margin_left = 5.0
 content_margin_right = 5.0
@@ -1139,6 +1138,8 @@ corner_radius_bottom_left = 10
 shadow_color = Color(0, 0, 0, 0.160784)
 shadow_size = 3
 shadow_offset = Vector2(0.335, 2.845)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_au0eo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ux8pb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -1191,18 +1192,6 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqgxn"]
-bg_color = Color(2.96004e-06, 0.59156, 0.0281598, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5cv0"]
 bg_color = Color(0, 0.997396, 0.0779215, 1)
 border_width_left = 5
@@ -1216,8 +1205,8 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8udgm"]
-bg_color = Color(0.619053, 0, 0.00132326, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqgxn"]
+bg_color = Color(2.96004e-06, 0.59156, 0.0281598, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -1240,13 +1229,25 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oypcv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8udgm"]
+bg_color = Color(0.619053, 0, 0.00132326, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv2uy"]
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sj0iv"]
 bg_color = Color(0.645551, 1.82897e-06, 3.36915e-07, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv2uy"]
-bg_color = Color(1, 0, 0, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oypcv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxhto"]
 bg_color = Color(0.163909, 0.396979, 0.801575, 1)
@@ -1316,8 +1317,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ijsrt"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i5cv0"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oypcv"]
 bg_color = Color(0.015625, 1, 0, 1)
 border_width_left = 5
@@ -1331,7 +1330,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kv2uy"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i5cv0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86f4d"]
 bg_color = Color(1, 0, 0, 1)
@@ -1345,6 +1344,8 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kv2uy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au0eo"]
 bg_color = Color(0, 0, 0, 1)
@@ -3061,12 +3062,12 @@ max_days = 1
 [node name="NpcSpawnNode" type="Node3D" parent="." groups=["NPC_Spawner_System"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.9146, 0, 0)
 script = ExtResource("9_kv2uy")
-npc_templates = Array[PackedScene]([ExtResource("13_rtsas")])
-max_npc_per_day = 6
-min_count = 5
+npc_templates = Array[PackedScene]([ExtResource("20_55plg"), ExtResource("13_rtsas")])
+max_npc_per_day = 8
+min_count = 6
 
 [node name="P1" type="Marker3D" parent="NpcSpawnNode"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.8342, 1.8449, -5.34384)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.8342, 1.8449, -6.548645)
 gizmo_extents = 0.75
 
 [node name="P2" type="Marker3D" parent="NpcSpawnNode"]
@@ -3075,105 +3076,133 @@ gizmo_extents = 2.55
 
 [node name="P3" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1925, 2.80593, -6.28305)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P4" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6004, 2.39541, -5.50505)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P5" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.274345, 2.7341, -8.25649)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P6" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.622, 1.5676, -28.2005)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P7" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6442, 1.25261, -20.1673)
-gizmo_extents = 1.15
+gizmo_extents = 0.55
 
 [node name="P8" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4861, 1.28975, -20.7269)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P9" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.36069, 1.95463, 16.8117)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P10" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.74686, 0.661618, 33.1069)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P11" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.73234, 2.91221, 43.4813)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P12" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.57959, 0.661618, 54.0103)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
 
 [node name="P13" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.7902, 2.02707, -5.08891)
-gizmo_extents = 2.55
+gizmo_extents = 0.55
+
+[node name="P14" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.649143, 2.02707, -5.08891)
+gizmo_extents = 0.55
+
+[node name="P15" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.649143, 2.02707, -5.08891)
+gizmo_extents = 0.55
+
+[node name="P16" type="Marker3D" parent="NpcSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5456, 2.02707, -5.08891)
+gizmo_extents = 0.55
 
 [node name="ItemSpawnNode" type="Node3D" parent="." groups=["Item_Spawner_System"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.6039, 4.53776, -29.4616)
 script = ExtResource("12_sj0iv")
 item_templates = Array[PackedScene]([ExtResource("3_51evp")])
-base_item_count = 7
+base_item_count = 10
 
-[node name="P1" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P1z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.437, -2.87571, 6.90843)
-gizmo_extents = 0.7
+gizmo_extents = 0.85
 
-[node name="P2" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P2z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.34535, -3.37476, -0.0286064)
-gizmo_extents = 0.95
+gizmo_extents = 0.85
 
-[node name="P3" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P3z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06789, -3.77635, 0.297583)
-gizmo_extents = 1.0
+gizmo_extents = 0.85
 
-[node name="P4" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P4z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4509, -3.93498, 7.24769)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P5" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P5z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94947, -1.49138, 22.3615)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P6" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P6z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.9747, 0.661618, 22.3555)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P7" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P7z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.0851, -5.72235, 46.3224)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P8" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P8z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4861, -1.68182, 51.4902)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P9" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P9z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.0401, -0.460488, 27.5037)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P10" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P10z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.4072, 0.655274, 6.77939)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P11" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P11z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.4038, 0.661618, 5.29639)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P12" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P12z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.7461, 0.661618, 5.04647)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
 
-[node name="P13" type="Marker3D" parent="ItemSpawnNode"]
+[node name="P13z" type="Marker3D" parent="ItemSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5878, 0.661618, 7.46042)
-gizmo_extents = 2.55
+gizmo_extents = 0.85
+
+[node name="P14z" type="Marker3D" parent="ItemSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.326714, -1.2694235, 23.341787)
+gizmo_extents = 0.85
+
+[node name="P15z" type="Marker3D" parent="ItemSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.111374, -1.2694235, 23.341787)
+gizmo_extents = 0.85
+
+[node name="P16z" type="Marker3D" parent="ItemSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.280827, -2.3104262, 23.341787)
+gizmo_extents = 0.85
+
+[node name="P17z" type="Marker3D" parent="ItemSpawnNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0428238, -2.3104262, 23.341787)
+gizmo_extents = 0.85
 
 [node name="Pause" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
@@ -3249,11 +3278,11 @@ offset_top = 26.0
 offset_right = 1086.0
 offset_bottom = 263.0
 theme_override_colors/guide_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
 theme_override_constants/h_separation = 10
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 12
-theme_override_styles/focus = SubResource("StyleBoxEmpty_au0eo")
 theme_override_styles/panel = SubResource("StyleBoxFlat_d14tu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_au0eo")
 theme_override_styles/hovered = SubResource("StyleBoxFlat_ux8pb")
 theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_djch6")
 theme_override_styles/hovered_selected_focus = SubResource("StyleBoxFlat_tlt1v")
@@ -3359,8 +3388,8 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 31
-theme_override_styles/hover = SubResource("StyleBoxFlat_iqgxn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_i5cv0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_iqgxn")
 text = "Accept"
 
 [node name="Refuse_btn" type="Button" parent="Pause/Interact_Screen"]
@@ -3380,8 +3409,8 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 31
-theme_override_styles/hover = SubResource("StyleBoxFlat_8udgm")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rtsas")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8udgm")
 text = "Refuse"
 
 [node name="QuestPanel" type="Panel" parent="Pause/Interact_Screen"]
@@ -3422,9 +3451,9 @@ offset_right = 9.0
 offset_bottom = 34.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 26
-theme_override_styles/focus = SubResource("StyleBoxEmpty_oypcv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_sj0iv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kv2uy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sj0iv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_oypcv")
 text = "X"
 
 [node name="PCBuilderUI" parent="Pause" instance=ExtResource("24_rtsas")]
@@ -3636,9 +3665,9 @@ theme_override_constants/separation = 215
 
 [node name="WindowCheck" type="CheckBox" parent="Pause/OptionGui/CenterContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/icon_hover_color = Color(0.606771, 0.606771, 0.606771, 1)
-theme_override_colors/icon_pressed_color = Color(1, 0.106771, 0.106771, 1)
 theme_override_colors/icon_focus_color = Color(0.565104, 0.565104, 0.565104, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0.106771, 0.106771, 1)
+theme_override_colors/icon_hover_color = Color(0.606771, 0.606771, 0.606771, 1)
 theme_override_constants/h_separation = 15
 theme_override_font_sizes/font_size = 31
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rtsas")
@@ -3722,8 +3751,8 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = SubResource("StyleBoxEmpty_i5cv0")
 theme_override_styles/normal = SubResource("StyleBoxFlat_oypcv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i5cv0")
 text = "Submit"
 
 [node name="Cancle" type="Button" parent="Pause/Question_ui/ColorRect/VBoxContainer/HBoxContainer"]
@@ -3733,8 +3762,8 @@ layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = SubResource("StyleBoxEmpty_kv2uy")
 theme_override_styles/normal = SubResource("StyleBoxFlat_86f4d")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kv2uy")
 text = "Cancle"
 
 [node name="SuccessSFX" type="AudioStreamPlayer" parent="Pause"]
@@ -3781,8 +3810,8 @@ theme_override_constants/separation = 50
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme_override_font_sizes/italics_font_size = 46
 theme_override_font_sizes/normal_font_size = 101
+theme_override_font_sizes/italics_font_size = 46
 bbcode_enabled = true
 text = "Game END
 [i][rainbow freq=1.0 sat=0.8 val=0.8 speed=0.1][wave amp=100.0 freq=5.0]------------------------------------------------------------------[/wave][/rainbow][/i]"

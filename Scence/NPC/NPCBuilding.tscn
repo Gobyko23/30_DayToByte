@@ -1,53 +1,54 @@
-[gd_scene load_steps=15 format=3 uid="uid://co7nieemwi3ku"]
+[gd_scene load_steps=16 format=3 uid="uid://d4ex8g0083c85"]
 
-[ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_4hnuf"]
-[ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_32ix6"]
-[ext_resource type="Texture2D" uid="uid://8jwbs5lp5nrv" path="res://Assets/Gui/Entity/NPC1.png" id="4_dnxf6"]
-[ext_resource type="Script" uid="uid://cm5e18lq2aj0d" path="res://Scripts/Entity/NPC_Quest_System.gd" id="4_j7mn5"]
-[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="5_dnxf6"]
-[ext_resource type="Resource" uid="uid://n7jjbc1n2o0t" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_1.tres" id="6_f24wh"]
-[ext_resource type="Resource" uid="uid://d0ned6m41wthc" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_2.tres" id="7_u0u0m"]
-[ext_resource type="Resource" uid="uid://yl2aqrfctwx5" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_3.tres" id="8_4don6"]
+[ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_gktby"]
+[ext_resource type="Texture2D" uid="uid://c1aynre1j0tf0" path="res://Assets/Gui/Entity/Cat_5-export-export.png" id="2_vjtbo"]
+[ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_tyxoo"]
+[ext_resource type="Script" uid="uid://cm5e18lq2aj0d" path="res://Scripts/Entity/NPC_Quest_System.gd" id="4_xq12w"]
+[ext_resource type="Script" uid="uid://6oofvb1sj85k" path="res://Scripts/Data/QuestData.gd" id="5_8og73"]
+[ext_resource type="Resource" uid="uid://n7jjbc1n2o0t" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_1.tres" id="6_6uut7"]
+[ext_resource type="Resource" uid="uid://bvveb05r8hs26" path="res://Dialogue_Info/ComputerQuest/Easy/PCBuiding.tres" id="6_vjtbo"]
+[ext_resource type="Resource" uid="uid://d0ned6m41wthc" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_2.tres" id="7_5hkb2"]
+[ext_resource type="Resource" uid="uid://yl2aqrfctwx5" path="res://Dialogue_Info/ComputerQuest/Easy/EasyQuest_3.tres" id="8_oq06g"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ra161"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ppw6c"]
 radius = 0.867945
 height = 3.04234
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_515dc"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_2mlef"]
 viewport_path = NodePath("NPCStatic/NPCRigit/NPC_Dialog/SubViewport")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i7o8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi25l"]
 bg_color = Color(0.789063, 0.789063, 0.789063, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ra161"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5f3y7"]
 content_margin_left = 25.0
 content_margin_top = 25.0
 content_margin_right = 25.0
 content_margin_bottom = 25.0
 
 [sub_resource type="Resource" id="Resource_fydxc"]
-script = ExtResource("5_dnxf6")
+script = ExtResource("5_8og73")
 npc_type = 0
 metadata/_custom_type_script = "uid://6oofvb1sj85k"
 
 [sub_resource type="Resource" id="Resource_ywat0"]
-script = ExtResource("5_dnxf6")
+script = ExtResource("5_8og73")
 quest_id = "quest_001ฟฟ"
 quest_name = "ทดสอบ Questฟฟ"
 npc_type = 3
 metadata/_custom_type_script = "uid://6oofvb1sj85k"
 
-[node name="Npc" type="Node3D" groups=["Npc"]]
+[node name="NpcBuilding" type="Node3D"]
 
 [node name="NPCStatic" type="Node3D" parent="."]
 
 [node name="NPCRigit" type="RigidBody3D" parent="NPCStatic" node_paths=PackedStringArray("quest_system") groups=["Npc"]]
 collision_layer = 3
-script = ExtResource("1_4hnuf")
+script = ExtResource("1_gktby")
 npc_visual_pool = {
 "res://Assets/Gui/Entity/Catking-export.png": {
 "name": "King of Cat",
@@ -99,7 +100,7 @@ quest_system = NodePath("NPCQuestSystem")
 
 [node name="NpcHitBox" type="CollisionShape3D" parent="NPCStatic/NPCRigit"]
 transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, 0.421628, 0)
-shape = SubResource("CapsuleShape3D_ra161")
+shape = SubResource("CapsuleShape3D_ppw6c")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="NPC_Sprite" type="Sprite3D" parent="NPCStatic/NPCRigit"]
@@ -108,7 +109,7 @@ transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, -0.0982563, 0.469
 pixel_size = 0.404
 billboard = 1
 texture_filter = 0
-texture = ExtResource("4_dnxf6")
+texture = ExtResource("2_vjtbo")
 
 [node name="NpcPivot" type="Marker3D" parent="NPCStatic/NPCRigit/NPC_Sprite"]
 transform = Transform3D(6.06061, 0, 0, 0, 6.06061, 0, 0, 0, 6.06061, 0.30665, 1.43483, 20.5381)
@@ -119,7 +120,7 @@ pixel_size = 0.0045
 billboard = 1
 double_sided = false
 texture_filter = 0
-texture = SubResource("ViewportTexture_515dc")
+texture = SubResource("ViewportTexture_2mlef")
 
 [node name="SubViewport" type="SubViewport" parent="NPCStatic/NPCRigit/NPC_Dialog"]
 transparent_bg = true
@@ -145,7 +146,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5i7o8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wi25l")
 
 [node name="ask_text" type="RichTextLabel" parent="NPCStatic/NPCRigit/NPC_Dialog/SubViewport/Control/Panel"]
 unique_name_in_owner = true
@@ -164,7 +165,7 @@ grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/normal_font_size = 55
-theme_override_styles/normal = SubResource("StyleBoxEmpty_ra161")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5f3y7")
 bbcode_enabled = true
 text = "จะรับภารกิจหรือไม่
 "
@@ -178,11 +179,12 @@ visible = false
 pixel_size = 0.0901
 billboard = 1
 texture_filter = 0
-texture = ExtResource("3_32ix6")
+texture = ExtResource("3_tyxoo")
 
 [node name="NPCQuestSystem" type="Node" parent="NPCStatic/NPCRigit"]
-script = ExtResource("4_j7mn5")
+script = ExtResource("4_xq12w")
+npc_type = 3
+quest_list = Array[ExtResource("5_8og73")]([ExtResource("6_vjtbo")])
 NonQuest_Dialogue = Array[String](["อะไร?", "ทำไมต้องมาคุยกับฉันหละ?", "นายรู้หรือเปล่าว่าหน่วยข้อมูลที่เล็กที่สุดของคอมพิวเตอร์เรียกว่า Bit มีค่าเป็นเลขฐาน 2 โดยมีแค่ 0 กับ 1", "...."])
-enable_random_quests = true
-quest_pool = Array[ExtResource("5_dnxf6")]([SubResource("Resource_fydxc"), ExtResource("6_f24wh"), ExtResource("7_u0u0m"), ExtResource("8_4don6"), ExtResource("6_f24wh"), SubResource("Resource_ywat0")])
+quest_pool = Array[ExtResource("5_8og73")]([SubResource("Resource_fydxc"), ExtResource("6_6uut7"), ExtResource("7_5hkb2"), ExtResource("8_oq06g"), ExtResource("6_6uut7"), SubResource("Resource_ywat0")])
 metadata/_custom_type_script = "uid://cm5e18lq2aj0d"
