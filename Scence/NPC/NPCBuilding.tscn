@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d4ex8g0083c85"]
+[gd_scene load_steps=18 format=3 uid="uid://d4ex8g0083c85"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_gktby"]
 [ext_resource type="Texture2D" uid="uid://c1aynre1j0tf0" path="res://Assets/Gui/Entity/Cat_5-export-export.png" id="2_vjtbo"]
@@ -32,15 +32,56 @@ content_margin_bottom = 25.0
 
 [sub_resource type="Resource" id="Resource_fydxc"]
 script = ExtResource("5_8og73")
+quest_id = "quest_001"
+quest_name = "ทดสอบ Quest"
+description = "คำบรรยายของ Quest"
+reward_money = 100
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
 npc_type = 0
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "คำตอบที่ถูกต้อง"
+questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
+question_text = "คำถามคืออะไร?"
+question_ask = "001 + 101 = ?"
+accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
 metadata/_custom_type_script = "uid://6oofvb1sj85k"
 
 [sub_resource type="Resource" id="Resource_ywat0"]
 script = ExtResource("5_8og73")
 quest_id = "quest_001ฟฟ"
 quest_name = "ทดสอบ Questฟฟ"
+description = "คำบรรยายของ Quest"
+reward_money = 100
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
 npc_type = 3
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "คำตอบที่ถูกต้อง"
+questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
+question_text = "คำถามคืออะไร?"
+question_ask = "001 + 101 = ?"
+accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
 metadata/_custom_type_script = "uid://6oofvb1sj85k"
+
+[sub_resource type="Gradient" id="Gradient_16m5h"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vjtbo"]
+gradient = SubResource("Gradient_16m5h")
+width = 512
+height = 512
 
 [node name="NpcBuilding" type="Node3D"]
 
@@ -105,8 +146,8 @@ debug_color = Color(1, 1, 1, 0.42)
 
 [node name="NPC_Sprite" type="Sprite3D" parent="NPCStatic/NPCRigit"]
 unique_name_in_owner = true
-transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, -0.0982563, 0.469038, -0.105687)
-pixel_size = 0.404
+transform = Transform3D(0.165, 0, 0, 0, 0.165, 0, 0, 0, 0.165, -0.0226089, 0.469038, -0.105687)
+pixel_size = 0.094
 billboard = 1
 texture_filter = 0
 texture = ExtResource("2_vjtbo")
@@ -188,3 +229,11 @@ quest_list = Array[ExtResource("5_8og73")]([ExtResource("6_vjtbo")])
 NonQuest_Dialogue = Array[String](["อะไร?", "ทำไมต้องมาคุยกับฉันหละ?", "นายรู้หรือเปล่าว่าหน่วยข้อมูลที่เล็กที่สุดของคอมพิวเตอร์เรียกว่า Bit มีค่าเป็นเลขฐาน 2 โดยมีแค่ 0 กับ 1", "...."])
 quest_pool = Array[ExtResource("5_8og73")]([SubResource("Resource_fydxc"), ExtResource("6_6uut7"), ExtResource("7_5hkb2"), ExtResource("8_oq06g"), ExtResource("6_6uut7"), SubResource("Resource_ywat0")])
 metadata/_custom_type_script = "uid://cm5e18lq2aj0d"
+
+[node name="MiniMapIcon" type="Sprite3D" parent="NPCStatic/NPCRigit"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 3.63091, 0)
+layers = 2
+pixel_size = 0.006
+axis = 0
+texture_filter = 0
+texture = SubResource("GradientTexture2D_vjtbo")

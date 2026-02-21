@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://co7nieemwi3ku"]
+[gd_scene load_steps=17 format=3 uid="uid://co7nieemwi3ku"]
 
 [ext_resource type="Script" uid="uid://ddmppp8t16nb6" path="res://Scripts/Entity/NPC_Scirpt.gd" id="1_4hnuf"]
 [ext_resource type="Texture2D" uid="uid://cyl88eognoo8w" path="res://Assets/Gui/Word_Gui/Annotation.png" id="3_32ix6"]
@@ -31,15 +31,56 @@ content_margin_bottom = 25.0
 
 [sub_resource type="Resource" id="Resource_fydxc"]
 script = ExtResource("5_dnxf6")
+quest_id = "quest_001"
+quest_name = "ทดสอบ Quest"
+description = "คำบรรยายของ Quest"
+reward_money = 100
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
 npc_type = 0
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "คำตอบที่ถูกต้อง"
+questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
+question_text = "คำถามคืออะไร?"
+question_ask = "001 + 101 = ?"
+accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
 metadata/_custom_type_script = "uid://6oofvb1sj85k"
 
 [sub_resource type="Resource" id="Resource_ywat0"]
 script = ExtResource("5_dnxf6")
 quest_id = "quest_001ฟฟ"
 quest_name = "ทดสอบ Questฟฟ"
+description = "คำบรรยายของ Quest"
+reward_money = 100
+reward_items = Array[String]([])
+target_item_id = ""
+required_amount = 0
+current_amount = 0
 npc_type = 3
+give_quest_dialogue = Array[String](["คุณต้องการเควสหรือไม่?"])
+inprocess_dialogue = Array[String](["คุณกำลังทำเควสนี้อยู่แล้ว"])
+complete_quest_dialogue = Array[String](["ขอบคุณที่ทำให้เสร็จ!"])
+reward_dialogue = Array[String](["นี่คือรางวัล!"])
+answer_text = "คำตอบที่ถูกต้อง"
+questions_dialogue = Array[String](["คุณพร้อมตอบคำถามหรือไม่?"])
+question_text = "คำถามคืออะไร?"
+question_ask = "001 + 101 = ?"
+accept_question_dialogue = Array[String](["ดีเลย! นี่คือคำถามของฉัน"])
 metadata/_custom_type_script = "uid://6oofvb1sj85k"
+
+[sub_resource type="Gradient" id="Gradient_16m5h"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4don6"]
+gradient = SubResource("Gradient_16m5h")
+width = 512
+height = 512
 
 [node name="Npc" type="Node3D" groups=["Npc"]]
 
@@ -186,3 +227,11 @@ NonQuest_Dialogue = Array[String](["อะไร?", "ทำไมต้องม
 enable_random_quests = true
 quest_pool = Array[ExtResource("5_dnxf6")]([SubResource("Resource_fydxc"), ExtResource("6_f24wh"), ExtResource("7_u0u0m"), ExtResource("8_4don6"), ExtResource("6_f24wh"), SubResource("Resource_ywat0")])
 metadata/_custom_type_script = "uid://cm5e18lq2aj0d"
+
+[node name="MiniMapIcon" type="Sprite3D" parent="NPCStatic/NPCRigit"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 3.63091, 0)
+layers = 2
+pixel_size = 0.006
+axis = 0
+texture_filter = 0
+texture = SubResource("GradientTexture2D_4don6")

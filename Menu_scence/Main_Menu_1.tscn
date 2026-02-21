@@ -288,6 +288,7 @@ offset_bottom = 522.0
 
 [node name="TutorialLabel" type="ColorRect" parent="CenterContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(750, 500)
 layout_mode = 2
 color = Color(0.127604, 0.127604, 0.127604, 1)

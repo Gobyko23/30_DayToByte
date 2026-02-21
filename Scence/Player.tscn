@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://o6ai16t3tw6e"]
+[gd_scene load_steps=16 format=3 uid="uid://o6ai16t3tw6e"]
 
 [ext_resource type="Script" uid="uid://b8dp8ua7vuhbj" path="res://Scripts/Entity/PlayerScript.gd" id="1_16m5h"]
 [ext_resource type="Texture2D" uid="uid://kjxa0juqo7dp" path="res://Assets/Gui/Entity/Player.png" id="2_2dldw"]
@@ -155,6 +155,16 @@ height = 1.58027
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_16m5h"]
 
+[sub_resource type="Gradient" id="Gradient_16m5h"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7iold"]
+gradient = SubResource("Gradient_16m5h")
+width = 512
+height = 512
+repeat = 1
+
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_16m5h")
 
@@ -230,6 +240,14 @@ collision_mask = 2
 transform = Transform3D(2.72, 0, 0, 0, 2.72, 0, 0, 0, 2.72, 0, 0.881047, 0)
 shape = SubResource("BoxShape3D_16m5h")
 debug_color = Color(0.7, 0.0984375, 0, 0.42)
+
+[node name="MiniMapIcon" type="Sprite3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 3.63091, 0)
+layers = 2
+pixel_size = 0.006
+axis = 0
+texture_filter = 0
+texture = SubResource("GradientTexture2D_7iold")
 
 [connection signal="body_entered" from="InteractArea" to="." method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
