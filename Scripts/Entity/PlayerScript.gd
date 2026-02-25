@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED :float= 3.5
+const SPEED :float= 6.5
 const JUMP_VELOCITY :float= 4.5
 @onready var SpritePlayer = $Player_Sprite
 @onready var PlayerAnimation = $Player_Sprite/PlayerAnimation
