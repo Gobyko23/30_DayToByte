@@ -1,4 +1,4 @@
-[gd_scene load_steps=195 format=4 uid="uid://blcwyvv6f1d8i"]
+[gd_scene load_steps=196 format=4 uid="uid://blcwyvv6f1d8i"]
 
 [ext_resource type="Script" uid="uid://cvdutoj132fod" path="res://Scripts/Data/InGameSave.gd" id="1_jysb6"]
 [ext_resource type="Texture2D" uid="uid://b2jxpeeahcg4v" path="res://Scence/BackGround/scence_bg_1.png" id="2_2t52r"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://dgi5vfju77i5v" path="res://Scripts/Entity/player_camera.gd" id="4_cpf1t"]
 [ext_resource type="Script" uid="uid://bn0eb8iokj3lw" path="res://Scripts/Blueprint/Gui_Script/SaveUi.gd" id="6_2hect"]
 [ext_resource type="Texture2D" uid="uid://dgk66jovbem2f" path="res://Scence/gltf/citybits_texture.png" id="6_8udgm"]
-[ext_resource type="Texture2D" uid="uid://sr2pk0h5x5a4" path="res://Pic/wall/wallll_0.png" id="6_86f4d"]
+[ext_resource type="Texture2D" uid="uid://csmamnibuccvt" path="res://Pic/wall/wallll_0.png" id="6_86f4d"]
 [ext_resource type="Texture2D" uid="uid://ucno4wihkfub" path="res://Assets/Models/Prop_1.png" id="7_d14tu"]
 [ext_resource type="Script" uid="uid://cdwt3v60femep" path="res://Scripts/Blueprint/Gui_Script/pause.gd" id="7_e6uwr"]
 [ext_resource type="Script" uid="uid://jiyhawyrhqd7" path="res://Scripts/ItemSystem/item_list_Inventory.gd" id="7_pi7ar"]
@@ -28,7 +28,7 @@
 [ext_resource type="Script" uid="uid://cga2k1c87b0f" path="res://Scripts/Blueprint/Gui_Script/time_panel.gd" id="13_2hect"]
 [ext_resource type="PackedScene" uid="uid://co7nieemwi3ku" path="res://Scence/NPC/NPC_Scene.tscn" id="13_rtsas"]
 [ext_resource type="Texture2D" uid="uid://desxk8ys1afej" path="res://Pic/Png-exe/o_pla_la.png" id="14_tviiy"]
-[ext_resource type="Texture2D" uid="uid://kld84ukx7k7u" path="res://Assets/Models/Trash_Image_0.png" id="15_55plg"]
+[ext_resource type="Texture2D" uid="uid://c3t2hp8qwarw" path="res://Assets/Models/Trash_Image_0.png" id="15_55plg"]
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="15_u0fgr"]
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="16_2hect"]
 [ext_resource type="Texture2D" uid="uid://4xnb55uj4b4n" path="res://Assets/Models/gltf/citybits_texture.png" id="16_6w27u"]
@@ -41,6 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://cgcfslx0embdf" path="res://Scence/pc_builder_ui.tscn" id="24_rtsas"]
 [ext_resource type="Script" uid="uid://bf5epefq3jy3q" path="res://Scripts/Entity/CameraTrigger.gd" id="35_iqgxn"]
 [ext_resource type="Script" uid="uid://etcab3pclpl5" path="res://Scripts/Blueprint/Gui_Script/MiniMapCam.gd" id="40_fthag"]
+[ext_resource type="FontFile" uid="uid://bdnbqickcc7dn" path="res://Assets/font/HomeVideo-BLG6G.ttf" id="41_23rxs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_btx0n"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -4426,6 +4427,7 @@ offset_right = 110.0
 offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("41_23rxs")
 theme_override_font_sizes/font_size = 46
 text = "E To Interact"
 label_settings = SubResource("LabelSettings_2plp7")
@@ -4510,6 +4512,7 @@ offset_top = -99.0
 offset_bottom = -18.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("41_23rxs")
 text = "Point"
 label_settings = SubResource("LabelSettings_tc4ov")
 vertical_alignment = 1
@@ -4533,6 +4536,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("41_23rxs")
+theme_override_fonts/bold_font = ExtResource("41_23rxs")
 theme_override_font_sizes/normal_font_size = 25
 theme_override_font_sizes/bold_font_size = 25
 bbcode_enabled = true
@@ -4549,6 +4554,7 @@ anchor_right = -0.027907
 anchor_bottom = 0.990909
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("41_23rxs")
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "Day"
@@ -4582,6 +4588,7 @@ offset_bottom = -157.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("41_23rxs")
 theme_override_font_sizes/font_size = 31
 theme_override_styles/hover = SubResource("StyleBoxFlat_iqgxn")
 theme_override_styles/normal = SubResource("StyleBoxFlat_i5cv0")
@@ -4603,6 +4610,7 @@ offset_bottom = -157.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("41_23rxs")
 theme_override_font_sizes/font_size = 31
 theme_override_styles/hover = SubResource("StyleBoxFlat_8udgm")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rtsas")
@@ -5005,6 +5013,7 @@ theme_override_constants/separation = 50
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("41_23rxs")
 theme_override_font_sizes/italics_font_size = 46
 theme_override_font_sizes/normal_font_size = 101
 bbcode_enabled = true
@@ -5018,6 +5027,7 @@ vertical_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("41_23rxs")
 theme_override_font_sizes/normal_font_size = 56
 theme_override_font_sizes/bold_font_size = 56
 bbcode_enabled = true
@@ -5070,6 +5080,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("41_23rxs")
 theme_override_font_sizes/normal_font_size = 106
 bbcode_enabled = true
 text = "Day ..."
@@ -5105,6 +5116,7 @@ theme_override_constants/separation = 120
 [node name="Text_End" type="RichTextLabel" parent="Waiting/WaitingGui/EndRound/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("41_23rxs")
 theme_override_font_sizes/normal_font_size = 106
 bbcode_enabled = true
 text = "

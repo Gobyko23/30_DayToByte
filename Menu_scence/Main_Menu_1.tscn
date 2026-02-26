@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://l27jg2e7gup2"]
+[gd_scene load_steps=24 format=3 uid="uid://l27jg2e7gup2"]
 
 [ext_resource type="Script" uid="uid://bnweykxf8dkud" path="res://Menu_scence/MainMenuUi.gd" id="1_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://dk782rlbhe8d8" path="res://Assets/Gui/Tutorial/img_2.png" id="2_3t4wu"]
@@ -6,13 +6,10 @@
 [ext_resource type="Script" uid="uid://nioeanljsq5e" path="res://Menu_scence/OptionScript.gd" id="3_jkqpj"]
 [ext_resource type="AudioStream" uid="uid://bsosw4q2b2yi6" path="res://Assets/SFX/BeepVolume.wav" id="4_3t4wu"]
 [ext_resource type="Texture2D" uid="uid://byix6eq5ajsq3" path="res://Assets/Gui/Tutorial/img_5.png" id="4_54cll"]
-[ext_resource type="Texture2D" uid="uid://bgmhiftfm33bh" path="res://Assets/Gui/Others/30Dtablet-export.png" id="4_jkqpj"]
 [ext_resource type="Texture2D" uid="uid://w6aq25fo6e0t" path="res://Assets/Gui/Tutorial/img_4.png" id="5_1bqi0"]
 [ext_resource type="Texture2D" uid="uid://86l261h5qtgc" path="res://Assets/Gui/Tutorial/img_6.png" id="6_1bqi0"]
-
-[sub_resource type="SystemFont" id="SystemFont_h2svc"]
-font_names = PackedStringArray("Fantasy")
-subpixel_positioning = 0
+[ext_resource type="FontFile" uid="uid://bdnbqickcc7dn" path="res://Assets/font/HomeVideo-BLG6G.ttf" id="7_qydqw"]
+[ext_resource type="FontFile" uid="uid://2s4r3up6d52x" path="res://Assets/font/HachicroUndertaleBattleFontRegular-L3zlg.ttf" id="8_cjnbx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jkqpj"]
 
@@ -20,18 +17,13 @@ subpixel_positioning = 0
 bg_color = Color(1, 1, 1, 1)
 border_blend = true
 
-[sub_resource type="SystemFont" id="SystemFont_jkqpj"]
-font_names = PackedStringArray("Fantasy")
-subpixel_positioning = 0
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3t4wu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4vtcr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_54cll"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4vtcr"]
-texture = ExtResource("4_jkqpj")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y52yg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54cll"]
 bg_color = Color(0.173462, 0.528646, 0, 1)
@@ -99,7 +91,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = SubResource("SystemFont_h2svc")
+theme_override_fonts/font = ExtResource("7_qydqw")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxEmpty_jkqpj")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h2svc")
@@ -112,7 +104,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = SubResource("SystemFont_jkqpj")
+theme_override_fonts/font = ExtResource("7_qydqw")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxEmpty_3t4wu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h2svc")
@@ -125,7 +117,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = SubResource("SystemFont_h2svc")
+theme_override_fonts/font = ExtResource("7_qydqw")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxEmpty_4vtcr")
 text = "Option"
@@ -137,7 +129,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 3
 theme_override_constants/outline_size = 20
-theme_override_fonts/font = SubResource("SystemFont_h2svc")
+theme_override_fonts/font = ExtResource("7_qydqw")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxEmpty_54cll")
 text = "Exit"
@@ -151,14 +143,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 123.0
-offset_top = -279.0
-offset_right = 544.0
-offset_bottom = -76.0
+offset_left = 32.0
+offset_top = -283.0
+offset_right = 533.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(157.635, 72.1331)
-theme_override_styles/panel = SubResource("StyleBoxTexture_4vtcr")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_y52yg")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 73.0
+offset_top = -17.0
+offset_right = -4.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("8_cjnbx")
+theme_override_font_sizes/normal_font_size = 86
+bbcode_enabled = true
+text = " [pulse freq=0.5 color=#00d46f]15D [/pulse][rainbow freq=0.5 speed=2]to [/rainbow][wave amp=100.0 freq=3.0][shake rate=10.0 level=5]byte[/shake][/wave]"
+fit_content = true
+horizontal_alignment = 2
 
 [node name="Option" type="CanvasLayer" parent="."]
 visible = false
@@ -281,10 +291,10 @@ bus = &"SFXBus"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
-offset_left = 373.0
-offset_top = 22.0
-offset_right = 1123.0
-offset_bottom = 522.0
+offset_left = 363.0
+offset_top = 34.0
+offset_right = 1113.0
+offset_bottom = 534.0
 
 [node name="TutorialLabel" type="ColorRect" parent="CenterContainer"]
 unique_name_in_owner = true
