@@ -325,6 +325,24 @@ func _on_question_accept_pressed() -> void:
 	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUESTION:
 		is_question_phase = false
 	
+# =============================================================
+    # 1. กรณี START_QUEST (สำหรับ QUEST_GIVER หรือรับงานครั้งแรก)
+    # =============================================================
+	if current_npc_state == NPCQuestSystem.NPC_STATE.START_QUEST:
+		if quest_system.npc_type == NPCQuestSystem.NPC_TYPE.QUEST_GIVER:
+			print("📋 QUEST_GIVER: Accepting new quest")
+            # แสดงบทสนทนาตอบตกลงรับเควส
+			if quest_system.current_processing_quest:
+				current_dialogue_queue.assign(quest_system.current_processing_quest.accept_question_dialogue)
+				current_line_index = 0
+				show_dialogue()
+			
+			quest_system.perform_action(NPCQuestSystem.NPC_STATE.START_QUEST)
+			await get_tree().create_timer(1.0).timeout
+            # end_dialogue(true) จะไปสั่ง quest_system.perform_action อัตโนมัติ
+			end_dialogue(true)
+			return
+
 	# ✅ แยก Logic ตามประเภท NPC ภายในสถานะเดียวกัน
 	if quest_system.npc_type == NPCQuestSystem.NPC_TYPE.CUSTOMER:
 		print("🛠️ CUSTOMER MODE: PC Building...")

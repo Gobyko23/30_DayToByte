@@ -4059,151 +4059,151 @@ script = ExtResource("19_pi7ar")
 autostart_countdown = false
 
 [node name="NpcSpawnNode" type="Node3D" parent="." groups=["NPC_Spawner_System"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.9146, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.9146, 1.23524, 0)
 script = ExtResource("9_kv2uy")
 npc_templates = Array[PackedScene]([ExtResource("20_55plg"), ExtResource("13_rtsas")])
-max_npc_per_day = 8
-min_count = 6
+max_npc_per_day = 35
+min_count = 20
 
 [node name="P1" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.8342, 1.8449, -6.54865)
-gizmo_extents = 0.75
+gizmo_extents = 0.15
 
 [node name="P2" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9565, 2.31935, -8.21168)
-gizmo_extents = 2.55
+gizmo_extents = 0.15
 
 [node name="P3" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1925, 2.80593, -6.28305)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P4" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.6004, 2.39541, -5.50505)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P5" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.274345, 2.7341, -8.25649)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P6" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.745, 1.5676, -26.59)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P7" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.6442, 1.25261, -20.1673)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P8" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.4861, 1.28975, -20.7269)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P9" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.36069, 1.95463, 16.8117)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P10" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.74686, 0.661618, 33.1069)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P11" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0545, 2.91221, 47.1898)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P12" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.57959, 0.661618, 54.0103)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P13" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.7902, 2.02707, -5.08891)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P14" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.6491, 2.02707, -5.08891)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P15" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.6491, 2.02707, -5.08891)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P16" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5456, 2.02707, -5.08891)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P17" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.559, 3.299, -6.24535)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P18" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.559, 2.78528, 21.7631)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P19" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 86.4079, 2.78528, 21.7631)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P20" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.4523, 2.78528, 21.7631)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P21" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.8626, 2.78528, 21.7631)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P22" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.4841, 2.78528, 42.5306)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P23" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.8626, 2.78528, 40.3552)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P24" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.3077, 2.78528, 37.248)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P25" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.798, 2.78528, 37.248)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P26" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.3321, 2.78528, 55.5345)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P27" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80.8224, 2.78528, 55.5345)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P28" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.6428, 2.78528, 67.4559)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P29" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.1331, 2.78528, 67.4559)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P32" type="Marker3D" parent="NpcSpawnNode"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.6428, 2.78528, -13.2776)
-gizmo_extents = 0.55
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.6428, 2.78528, -23.6381)
+gizmo_extents = 0.15
 
 [node name="P33" type="Marker3D" parent="NpcSpawnNode"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.1331, 2.78528, -13.2776)
-gizmo_extents = 0.55
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.1331, 2.78528, -23.6381)
+gizmo_extents = 0.15
 
 [node name="P34" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 73.4862, 2.78528, -25.5632)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P35" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.9765, 2.78528, -25.5632)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P30" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4739, 2.78528, 67.4559)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="P31" type="Marker3D" parent="NpcSpawnNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.9642, 2.78528, 67.4559)
-gizmo_extents = 0.55
+gizmo_extents = 0.15
 
 [node name="ItemSpawnNode" type="Node3D" parent="." groups=["Item_Spawner_System"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.6039, 4.53776, -29.4616)
